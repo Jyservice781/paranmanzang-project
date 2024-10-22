@@ -24,7 +24,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:8000/api/:path*',
+        destination: 'https://bca3-221-148-138-245.ngrok-free.app/api/:path*',
       },
     ];
   },
