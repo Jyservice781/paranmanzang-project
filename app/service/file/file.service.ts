@@ -7,11 +7,11 @@ import { AppDispatch } from '@/lib/store';
 const selectFileList = async (refIds: number[], type: FileType, dispatch: AppDispatch): Promise<void> => {
     try {
         dispatch(upLoading(true))
-        const response = await fileAPI.findAll(refIds, type);
+        const response = await fileAPI.findAll(refIds, type)
         dispatch(saveFiles(response.data))
     } catch (error) {
-        console.error('Error select files:', error);
-        throw new Error('이미지 조회 중 오류 발생');
+        console.error('Error select files:', error)
+        throw new Error('이미지 조회 중 오류 발생')
     }
 };
 
@@ -22,8 +22,8 @@ const uploadFile = async (file: any, type: FileType, refId: number, dispatch: Ap
         const response = await fileAPI.insert(file, type, refId)
         dispatch(addFile(response.data))
     } catch (error) {
-        console.error('Error load file:', error);
-        throw new Error('이미지 불러오기 중 오류 발생');
+        console.error('Error load file:', error)
+        throw new Error('이미지 불러오기 중 오류 발생')
     }
 };
 

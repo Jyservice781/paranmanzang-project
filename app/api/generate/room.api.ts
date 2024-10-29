@@ -15,7 +15,7 @@ export const roomAPI = {
     findEnable(page: number, size: number) { return api.get<Page<RoomModel>>(`${requests.fetchRooms}/enabled`, { params: { page, size } }) },
     findDisable(page: number, size: number) { return api.get<Page<RoomModel>>(`${requests.fetchRooms}/disabled`, { params: { page, size } }) },
 
-    findAllMap(){return api.get<RoomModel[]>(requests.fetchRooms)},
+    findAllMap(){return api.get<RoomModel[]>(requests.fetchRooms  + '/enabled-all')},
 
     findByEnabled(page: number, size: number) { return api.get<Page<RoomModel>>(requests.fetchRooms + '/enabled', { params: { page, size } }) },
 
