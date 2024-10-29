@@ -1,4 +1,3 @@
-/** @type {import('next').NextConfig} */
 import bundleAnalyzer from "@next/bundle-analyzer";
 
 const withBundleAnalyzer = bundleAnalyzer({
@@ -7,6 +6,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 const nextConfig = {
   reactStrictMode: false,
+  crossOrigin: 'anonymous',
   images: {
     remotePatterns: [
       {
@@ -18,16 +18,10 @@ const nextConfig = {
         hostname: "localhost",
       },
     ],
+
     // domains: ['localhost'],
   },
-  // async rewrites() {
-  //   return [
-  //     {
-  //       source: '/api/:path*',
-  //       destination: '/api/:path*'
-  //     },
-  //   ];
-  // },
+ 
 };
 
 export default withBundleAnalyzer(nextConfig);
