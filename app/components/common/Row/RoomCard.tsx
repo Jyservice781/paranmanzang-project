@@ -22,6 +22,7 @@ const RoomCard = ({ room, isActive, getRoomImage, onClickToDetail, onSelect }: R
         src={getRoomImage(room.id)}
         alt={`cover of ${room.title}`}
         priority
+        unoptimized
       />
       <div className="p-5">
         <h5

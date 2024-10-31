@@ -29,6 +29,7 @@ export default function Details() {
                         width={300}
                         height={450}
                         objectFit="contain"
+                        unoptimized
                     />
             </div>
                 <hr className="my-8" />

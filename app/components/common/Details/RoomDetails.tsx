@@ -23,6 +23,7 @@ export default function Details() {
           src={file.path === process.env.NEXT_PUBLIC_IMAGE_DEFAULT ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT : `http://api.paranmanzang.com/api/files?path=${file.path}`}
           alt={`cover of ${room?.title}`}
           priority
+          unoptimized
         />}
 
       </div>
