@@ -3,23 +3,21 @@ import api from "@/app/api/axios";
 import requests from "@/app/api/requests";
 import { setAccessToken, removeNickname, removeAuthorization } from "@/app/api/authUtils";
 import { AppDispatch } from "@/lib/store";
-import { getCurrentUser, saveNickname } from "@/lib/features/users/user.slice";
+import { saveCurrentUser, saveNickname } from "@/lib/features/users/user.slice";
 import { userService } from "./user.service";
 import { groupService } from "../group/group.service";
 import { likeBookService } from "../group/likeBook.service";
 import { likePostService } from "../group/likePost.service";
 import { roomService } from "../room/room.service";
-import { useSelector } from "react-redux";
 
 const login = async (username: string, password: string, dispatch: AppDispatch): Promise<any> => {
   try {
     const response = await api.post<UserModel>(requests.fetchLogin,
       { username, password }
     )
-
+    
     const token = response.headers['authorization'].replace("Bearer ", "")
-    //console.log("전체 응답 헤더:", response.headers);
-
+    
     if (token) {
       setAccessToken(token);
       dispatch(saveNickname(response.headers['nickname']))
@@ -70,7 +68,7 @@ const get = async (): Promise<UserModel> => {
       throw new Error('get 중 오류 발생');
     }
   }
-};
+}
 const oauth = async (): Promise<any> => {
   const oauthUrl = process.env.NEXT_PUBLIC_OAUTH_URL;
 
@@ -87,9 +85,11 @@ const oauth = async (): Promise<any> => {
 const getCookieValue = (name: string): string | null => {
   const value = `; ${document.cookie}`
   const parts = value.split(`; ${name}=`)
+  console.log("getCookie value", value)
+  console.log("getCookie parts", parts)
   if (parts.length === 2) return parts.pop()?.split(';').shift() || null
   return null
-};
+}
 const handleOAuthCallback = async (dispatch: AppDispatch): Promise<any> => {
   const nickname = getCookieValue("nickname")
   const token = getCookieValue("Authorization")
@@ -107,6 +107,7 @@ const handleOAuthCallback = async (dispatch: AppDispatch): Promise<any> => {
 const getToken = async (token: string, nickname: string, dispatch: AppDispatch) => {
   setAccessToken(token)
   dispatch(saveNickname(nickname))
+  dispatch(saveCurrentUser)
 
   // 사용자 정보를 가져오기 위한 요청을 Promise.all로 처리
   await Promise.all([
