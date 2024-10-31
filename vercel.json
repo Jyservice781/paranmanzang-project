@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://default-gateway-server-b66c0-100152789-6027f74bd2b1.kr.lb.naverncp.com:8000/api/:path*"
-    }
-  ]
-}
