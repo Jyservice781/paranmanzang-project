@@ -32,7 +32,7 @@ const BookCard = ({ book, active, file }: BookCardProps) => {
                     width={260}
                     height={210}
                     className="w-80 h-40 cursor-pointer rounded-t-lg object-cover"
-                    src={file.path === process.env.NEXT_PUBLIC_IMAGE_DEFAULT ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT : `http://localhost:8000/api/files?path=${file.path}`}
+                    src={file.path === process.env.NEXT_PUBLIC_IMAGE_DEFAULT ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT : `http://api.paranmanzang.com/api/files?path=${file.path}`}
                     alt={`cover of ${book.title}`}
                     priority
 

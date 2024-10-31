@@ -19,7 +19,7 @@ const OauthCallback = () => {
                 router.push("/"); // 성공 시 리디렉션할 경로
             } catch (error) {
                 console.error("OAuth 처리 중 오류:", error);
-                router.push("/login"); // 오류 발생 시 로그인 페이지로 이동
+                router.push("/users/login"); // 오류 발생 시 로그인 페이지로 이동
             }
         };
 
