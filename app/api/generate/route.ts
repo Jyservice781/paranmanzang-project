@@ -2,11 +2,10 @@ import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
-  apiKey: process.env.NEXT_PUBLIC_AI_KEY || "",
+  apiKey: process.env.NEXT_PUBLIC_AI_KEY || '',
 });
 
 export async function POST(req: Request) {
-  
   try {
     const { question } = await req.json();
     if (!question) throw new Error("Question is missing");
