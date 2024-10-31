@@ -84,71 +84,29 @@ const oauth = async (): Promise<any> => {
   console.log("loginservice 부분", window.location.href)
 };
 
-// const handleOAuthCallback = async (dispatch: AppDispatch): Promise<any> => {
-
-//   // 쿠키에서 값을 가져오는 함수
-//   const getCookieValue = (name: string): string | null => {
-//     const value = `; ${document.cookie}`;
-//     const parts = value.split(`; ${name}=`);
-//     if (parts.length === 2) return parts.pop()?.split(';').shift() || null; // undefined인 경우 null로 처리
-//     return null; // 값이 없으면 null 반환
-//   };
-//   //await ([
-//   // 쿠키에서 nickname과 Authorization 값 가져오기
-//   const nickname = getCookieValue("nickname");
-//   const token = getCookieValue("Authorization");
-//   console.log(nickname)
-//   console.log(token)
-//   if (!token || !nickname) {
-//     throw new Error('URL에서 액세스 토큰이나 닉네임을 찾을 수 없습니다.');
-//   }
-//   await getToken(token, nickname, dispatch);
-//   // 액세스 토큰 설정 및 닉네임 저장
-
-//   // ]);
-// };
-
-// const getToken = (token: string, nickname: string, dispatch: AppDispatch) => {
-//   setAccessToken(token); // 여기서 token을 사용
-
-//   //여기부터 처리 안됨1
-
-//   dispatch(saveNickname(nickname));
-//   removeNickname;
-//   removeAuthorization;
-//   //2번 로그인 두번 눌러야 이게 불려짐
-
-//   // 사용자 정보 요청
-
-//   userService.findUserDetail(nickname, dispatch),
-//     groupService.findByNickname(nickname, dispatch),
-//     likeBookService.findByNickname(nickname, dispatch),
-//     roomService.findAllLikedByNickname(nickname, dispatch),
-//     likePostService.findAllByUserNickname(nickname, dispatch)
-// }
 const getCookieValue = (name: string): string | null => {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
-  return null;
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop()?.split(';').shift() || null
+  return null
 };
 const handleOAuthCallback = async (dispatch: AppDispatch): Promise<any> => {
-  const nickname = getCookieValue("nickname");
-  const token = getCookieValue("Authorization");
+  const nickname = getCookieValue("nickname")
+  const token = getCookieValue("Authorization")
 
-  console.log('닉네임:', nickname);
-  console.log('토큰:', token);
+  console.log('닉네임:', nickname)
+  console.log('토큰:', token)
 
   if (!token || !nickname) {
-    throw new Error('액세스 토큰이나 닉네임이 없습니다.');
+    throw new Error('액세스 토큰이나 닉네임이 없습니다.')
   }
 
-  await getToken(token, nickname, dispatch);
-};
+  await getToken(token, nickname, dispatch)
+}
 
 const getToken = async (token: string, nickname: string, dispatch: AppDispatch) => {
-  setAccessToken(token);
-  dispatch(saveNickname(nickname));
+  setAccessToken(token)
+  dispatch(saveNickname(nickname))
 
   // 사용자 정보를 가져오기 위한 요청을 Promise.all로 처리
   await Promise.all([
