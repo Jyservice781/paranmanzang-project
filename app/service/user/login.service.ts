@@ -1,7 +1,7 @@
 import { UserModel } from "@/app/model/user/user.model";
 import api from "@/app/api/axios";
 import requests from "@/app/api/requests";
-import { setAccessToken, removeNickname, removeAuthorization } from "@/app/api/authUtils";
+import { setAccessToken, removeNickname, removeAuthorization, getAuthorization, getNickname } from "@/app/api/authUtils";
 import { AppDispatch } from "@/lib/store";
 import { saveCurrentUser, saveNickname } from "@/lib/features/users/user.slice";
 import { userService } from "./user.service";
@@ -90,19 +90,42 @@ const getCookieValue = (name: string): string | null => {
   if (parts.length === 2) return parts.pop()?.split(';').shift() || null
   return null
 }
-const handleOAuthCallback = async (dispatch: AppDispatch): Promise<any> => {
-  const nickname = getCookieValue("nickname")
-  const token = getCookieValue("Authorization")
+// const handleOAuthCallback = async (dispatch: AppDispatch): Promise<any> => {
+//   const nickname = getCookieValue("nickname")
+//   const token = getCookieValue("Authorization")
 
-  console.log('닉네임:', nickname)
-  console.log('토큰:', token)
+//   console.log('닉네임:', nickname)
+//   console.log('토큰:', token)
 
-  if (!token || !nickname) {
-    throw new Error('액세스 토큰이나 닉네임이 없습니다.')
+//   if (!token || !nickname) {
+//     throw new Error('액세스 토큰이나 닉네임이 없습니다.')
+//   }
+
+//   await getToken(token, nickname, dispatch)
+// }
+
+const handleOAuthCallback = (dispatch: AppDispatch): void => {
+  // 쿠키에서 'Authorization'과 'nickname' 값을 가져옵니다.
+  const authToken = getAuthorization()
+  const nickname = getNickname()
+
+  console.log('🔍 handleOAuthCallback 함수 시작');
+  console.log('👉 쿠키에서 가져온 닉네임:', nickname);
+  console.log('👉 쿠키에서 가져온 토큰:', authToken);
+
+  // 토큰이나 닉네임이 없으면 에러를 발생시킵니다.
+  if (!authToken || !nickname) {
+    console.error('🚨 에러 발생: 액세스 토큰이나 닉네임이 없습니다.');
+    throw new Error('액세스 토큰이나 닉네임이 없습니다.');
   }
 
-  await getToken(token, nickname, dispatch)
-}
+  // 토큰과 닉네임이 정상적으로 존재하면 getToken 호출
+  console.log('✅ 모든 값이 정상적으로 수신되었습니다. getToken 함수를 호출합니다.');
+  getToken(authToken, nickname, dispatch);
+  
+  console.log('🔍 handleOAuthCallback 함수 종료');
+};
+
 
 const getToken = async (token: string, nickname: string, dispatch: AppDispatch) => {
   setAccessToken(token)
