@@ -21,7 +21,7 @@ export default function GroupBoard() {
     const router = useRouter();
     const { groupPostsNotice, groupPostsGeneral } = useSelector(getGroupPosts);
     const group = useSelector(getCurrentGroup);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [size, setSize] = useState(10);
     const [activeTab, setActiveTab] = useState<TabType>('공지 사항');
     const tabs: TabType[] = ["공지 사항", "자유게시판", "스케쥴"];

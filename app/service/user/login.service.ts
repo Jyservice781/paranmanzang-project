@@ -3,12 +3,14 @@ import api from "@/app/api/axios";
 import requests from "@/app/api/requests";
 import { setAccessToken, removeNickname, removeAuthorization, getAuthorization, getNickname } from "@/app/api/authUtils";
 import { AppDispatch } from "@/lib/store";
-import { saveCurrentUser, saveNickname } from "@/lib/features/users/user.slice";
+import { getCurrentUser, saveCurrentUser, saveNickname } from "@/lib/features/users/user.slice";
 import { userService } from "./user.service";
 import { groupService } from "../group/group.service";
 import { likeBookService } from "../group/likeBook.service";
 import { likePostService } from "../group/likePost.service";
 import { roomService } from "../room/room.service";
+import { useSelector } from "react-redux";
+
 
 const login = async (username: string, password: string, dispatch: AppDispatch): Promise<any> => {
   try {
@@ -96,7 +98,7 @@ const handleOAuthCallback = (dispatch: AppDispatch): void => {
     }
 
     console.log('✅ 모든 값이 정상적으로 수신되었습니다. getToken 함수를 호출합니다.')
-    getToken(authToken, nickname, dispatch)
+    GetToken(authToken, nickname, dispatch)
     saveCurrentUser; // 현재 user 의 정보를 redux 에 저장
     console.log('🔍 handleOAuthCallback 함수 종료')
   } catch (error) {
@@ -105,24 +107,25 @@ const handleOAuthCallback = (dispatch: AppDispatch): void => {
   }
 }
 
-const getToken = async (token: string, nickname: string, dispatch: AppDispatch) => {
-  setAccessToken(token)
-  dispatch(saveNickname(nickname))
-  dispatch(saveCurrentUser)
-  
+const GetToken = async (token: string, nickname: string, dispatch: AppDispatch) => {
+  setAccessToken(token);
+  dispatch(saveNickname(nickname));
+  await userService.findUserDetail(nickname, dispatch);
+  const user = useSelector(getCurrentUser)
+
   // 사용자 정보를 가져오기 위한 요청을 Promise.all로 처리
-  await Promise.all([
-    userService.findUserDetail(nickname, dispatch),
-    groupService.findByNickname(nickname, dispatch),
-    likeBookService.findByNickname(nickname, dispatch),
-    roomService.findAllLikedByNickname(nickname, dispatch),
-    likePostService.findAllByUserNickname(nickname, dispatch)
-  ]);
+  if (user?.role === 'ROLE_USER') {
+    await Promise.all([
+      groupService.findByNickname(nickname, dispatch),
+      likeBookService.findByNickname(nickname, dispatch),
+      roomService.findAllLikedByNickname(nickname, dispatch),
+      likePostService.findAllByUserNickname(nickname, dispatch)
+    ]);
+  }
 
   removeNickname(); // 함수 호출
   removeAuthorization(); // 함수 호출
 };
-
 export const loginService = {
   login,
   get,
