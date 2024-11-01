@@ -21,7 +21,7 @@ export default function Details() {
           height={400}
           className="cursor-pointer rounded-lg bg-green-400"
           src={file.path === process.env.NEXT_PUBLIC_IMAGE_DEFAULT ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT : `http://api.paranmanzang.com/api/files?path=${file.path}`}
-          alt={`cover of ${room?.title}`}
+          alt={`cover of ${room?.name}`}
           priority
           unoptimized
         />}

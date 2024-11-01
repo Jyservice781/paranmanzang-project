@@ -20,7 +20,7 @@ const RoomCard = ({ room, isActive, getRoomImage, onClickToDetail, onSelect }: R
         height={380}
         className="w-80 h-40 cursor-pointer rounded-t-lg object-cover"
         src={getRoomImage(room.id)}
-        alt={`cover of ${room.title}`}
+        alt={`cover of ${room.name}`}
         priority
         unoptimized
       />

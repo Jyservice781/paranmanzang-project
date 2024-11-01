@@ -1,6 +1,5 @@
 // 모델 정의
 export interface RoomModel {
-    title: any;
     id?: number; // 공간 ID (선택적)
     name: string; // 공간 이름 (필수)
     maxPeople: number; // 최대 이용 정원 (필수, 양수)

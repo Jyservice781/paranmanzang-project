@@ -3,17 +3,17 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Alert from "../common/Alert";
 import { useAppDispatch } from "@/lib/store";
+import { roomService } from "@/app/service/room/room.service";
+import { RoomModel } from "@/app/model/room/room.model";
 
 export default function RoomAdd() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<RoomModel>({
     name: '',
-    maxPeople: '',
+    maxPeople: 0,
     opened: false,
-    startDate:'',
-    endDate: '',
     openTime: '00:00',
     closeTime: '24:00',
-    price: '',
+    price: 0,
     enabled: false,
     nickname: ''
   });
@@ -41,7 +41,7 @@ export default function RoomAdd() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(formData)
-    // roomService.save(formData, dispatch);
+    roomService.save(formData, dispatch);
   };
 
   const goBack = () => {
@@ -95,37 +95,6 @@ export default function RoomAdd() {
             <label htmlFor="aloneNo" className="ml-2 text-sm font-medium text-gray-900">아니오</label>
           </div>
         </div>
-
-        <div className="mb-4">
-          <label className="block mb-2 text-sm font-medium text-gray-900">이용 기간</label>
-          <div className="flex items-center space-x-4">
-            <div>
-              <label htmlFor="startDate" className="block mb-2 text-sm font-medium text-gray-900">시작 날짜</label>
-              <input
-                type="date"
-                id="startDate"
-                name="startDate"
-                value={formData.startDate}
-                onChange={handleChange}
-                className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-              />
-            </div>
-            <div>
-              <label htmlFor="endDate" className="block mb-2 text-sm font-medium text-gray-900">종료 날짜</label>
-              <input
-                type="date"
-                id="endDate"
-                name="endDate"
-                value={formData.endDate}
-                onChange={handleChange}
-                min={formData.startDate}
-                className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-              />
-            </div>
-          </div>
-        </div>
-
-
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-900">이용가능 시간</label>

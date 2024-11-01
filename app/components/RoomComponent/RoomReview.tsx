@@ -30,7 +30,6 @@ export default function RoomReview() {
   }, [room, dispatch])
   return (
     <div className="mx-auto my-8 max-w-lg rounded-lg bg-green-50 p-6">
-      {/* 예약일이 오늘 날보다 과거이면 리뷰쓰기 버튼 생성하기 */}
       <p className="text-lg">공간리뷰</p>
       <span className="text-sm"> 실제 사용자분들의 후기를 담고 있습니다.</span>
       <ul className="my-3 w-full">
