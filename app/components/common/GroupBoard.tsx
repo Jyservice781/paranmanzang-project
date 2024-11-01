@@ -31,7 +31,7 @@ export default function GroupBoard() {
 
     // 로컬 상태
     const [isEditorVisible, setIsEditorVisible] = useState<boolean>(false);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
     const [activeTab, setActiveTab] = useState<TabType>('공지 사항');
     const tabs: TabType[] = ["공지 사항", "자유게시판", "스케쥴"];
@@ -41,8 +41,8 @@ export default function GroupBoard() {
         if (!group) return;
 
         // 그룹 ID에 따라 게시글과 예약 정보를 가져옴
-        groupPostService.findByGroupId(group.id, page - 1, size, activeTab, dispatch);
-        bookingService.findByGroupId(group.id, page - 1, size, dispatch);
+        groupPostService.findByGroupId(group.id, page, size, activeTab, dispatch);
+        bookingService.findByGroupId(group.id, page, size, dispatch);
     }, [dispatch, group, activeTab, page, size]);
 
     useEffect(() => {
