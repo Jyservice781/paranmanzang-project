@@ -19,7 +19,7 @@ export default function OAuthSuccess() {
       }
     }
     routeBack()
-    window.location.href = "/"
+    // window.location.href = "/"
   })
   return (
     <>
