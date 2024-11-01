@@ -57,7 +57,7 @@ export const groupApi = {
     
     dropUser(nickname: string, groupId: number) {
         return api.delete<Boolean>(`${requests.fetchGroups}/groups/users/${groupId}`, {
-            data: { nickname }
+            params: { nickname }
         });
     },
     findEnableUser(groupId:number) {
