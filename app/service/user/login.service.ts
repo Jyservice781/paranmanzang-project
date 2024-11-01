@@ -90,6 +90,7 @@ const getCookieValue = (name: string): string | null => {
   if (parts.length === 2) return parts.pop()?.split(';').shift() || null
   return null
 }
+
 // const handleOAuthCallback = async (dispatch: AppDispatch): Promise<any> => {
 //   const nickname = getCookieValue("nickname")
 //   const token = getCookieValue("Authorization")
