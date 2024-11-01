@@ -107,7 +107,7 @@ export default function GroupsAdmin() {
         <button
           type="button"
           onClick={() => { router.back() }}
-          className="rounded-lg bg-green-300 px-4 py-2 my-4 text-sm font-medium hover:bg-green-400 transition duration-300 border border-green-400 text-white"
+          className="rounded-lg bg-green-400 px-4 py-2 my-4 text-sm font-medium hover:bg-green-500 transition duration-300 border border-green-400 text-white"
         >
           뒤로가기
         </button>
