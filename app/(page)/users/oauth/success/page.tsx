@@ -19,6 +19,7 @@ export default function OAuthSuccess() {
       }
     }
     routeBack()
+    route.push("/")
   })
   return (
     <>

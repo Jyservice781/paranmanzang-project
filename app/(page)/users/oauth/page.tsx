@@ -16,7 +16,6 @@ const OauthCallback = () => {
             try {
                 console.log("OAuth 콜백 실행 중...")
                 router.push("/users/oauth/success")
-               
             } catch (error) {
                 console.error("OAuth 처리 중 오류:", error)
                 router.push("/users/login") // 오류 발생 시 로그인 페이지로 이동
