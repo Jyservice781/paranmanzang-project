@@ -20,7 +20,7 @@ export default function Details() {
           width={600}
           height={400}
           className="cursor-pointer rounded-lg bg-green-400"
-          src={file.path === "none" 
+          src={file.path === undefined
             ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT || ""
             : `https://api.paranmanzang.com/api/files?path=${file.path}`
           }
