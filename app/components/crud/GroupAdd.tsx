@@ -25,9 +25,9 @@ export default function GroupAdd() {
 
     const createGroup = () => {
         {
-            !nickname && (
-                <Alert message="로그인 후 재접속 바랍니다" isOpen={isOpen} onClose={() => { }} />
-            )
+          !nickname && (
+            <Alert message="로그인 후 재접속 바랍니다" isOpen={isOpen} onClose={() => { }} />
+          )
         }
         if (nickname) {
             const groupModel: GroupModel = {

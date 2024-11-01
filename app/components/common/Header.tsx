@@ -42,17 +42,15 @@ function LoginHeader() {
 
 function UserHeader() {
   const [isHidden, setIsHidden] = useState(true)
-  const [user, setUser] = useState({} as any)
-  const getUser = useSelector(getCurrentUser);
-  const router = useRouter()
-  console.log(getUser);
+  const getUser = useSelector(getCurrentUser)
+  console.log(getUser)
   const popupOpen = () => {
-    setIsHidden((prevState) => !prevState);
-  };
+    setIsHidden((prevState) => !prevState)
+  }
 
   const onLogout = () => {
     logout().then(() => {
-      window.location.replace('/');
+      window.location.replace('/')
       console.log("로그아웃됨")
     })
   }
