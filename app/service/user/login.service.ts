@@ -91,19 +91,6 @@ const getCookieValue = (name: string): string | null => {
   return null
 }
 
-// const handleOAuthCallback = async (dispatch: AppDispatch): Promise<any> => {
-//   const nickname = getCookieValue("nickname")
-//   const token = getCookieValue("Authorization")
-
-//   console.log('닉네임:', nickname)
-//   console.log('토큰:', token)
-
-//   if (!token || !nickname) {
-//     throw new Error('액세스 토큰이나 닉네임이 없습니다.')
-//   }
-
-//   await getToken(token, nickname, dispatch)
-// }
 const handleOAuthCallback = (dispatch: AppDispatch): void => {
   try {
     const authToken = getAuthorization()
@@ -119,6 +106,7 @@ const handleOAuthCallback = (dispatch: AppDispatch): void => {
     }
 
     console.log('✅ 모든 값이 정상적으로 수신되었습니다. getToken 함수를 호출합니다.')
+    window.location.href = "/"
     getToken(authToken, nickname, dispatch)
     console.log('🔍 handleOAuthCallback 함수 종료')
   } catch (error) {
@@ -126,7 +114,6 @@ const handleOAuthCallback = (dispatch: AppDispatch): void => {
     throw error  // 상위에서 처리할 수 있도록 에러를 다시 throw
   }
 }
-
 
 const getToken = async (token: string, nickname: string, dispatch: AppDispatch) => {
   setAccessToken(token)
