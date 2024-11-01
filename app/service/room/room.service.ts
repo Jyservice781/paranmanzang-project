@@ -163,10 +163,11 @@ const findByEnabled = async (page: number, size: number, dispatch: AppDispatch):
     try {
         dispatch(saveLoading(true))
         const response = await roomAPI.findEnable(page, size)
-
-        //console.log("findByEnabled - service await 부분임",response.data.content)
+        console.log("findByEnabled - service await 부분임",response.data.content)
+        
         dispatch(saveRooms(response.data.content))
         fileService.selectFileList(
+            
             response.data.content.map((room: RoomModel) => room.id)
                 .filter((id): id is number => id !== undefined),
             FileType.ROOM, dispatch)

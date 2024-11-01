@@ -26,7 +26,7 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
   const user = useSelector(getCurrentUser)
 
   // const [items, setItems] = useState<RoomModel[]>([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
   const totalItems = 10;
 
