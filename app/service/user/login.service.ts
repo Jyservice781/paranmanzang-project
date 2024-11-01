@@ -108,6 +108,8 @@ const getToken = async (token: string, nickname: string, dispatch: AppDispatch) 
   setAccessToken(token)
   dispatch(saveNickname(nickname))
   dispatch(saveCurrentUser)
+  removeNickname(); // 함수 호출
+  removeAuthorization(); // 함수 호출
 
   // 사용자 정보를 가져오기 위한 요청을 Promise.all로 처리
   await Promise.all([
@@ -117,9 +119,6 @@ const getToken = async (token: string, nickname: string, dispatch: AppDispatch) 
     roomService.findAllLikedByNickname(nickname, dispatch),
     likePostService.findAllByUserNickname(nickname, dispatch)
   ]);
-
-  removeNickname(); // 함수 호출
-  removeAuthorization(); // 함수 호출
 };
 
 export const loginService = {

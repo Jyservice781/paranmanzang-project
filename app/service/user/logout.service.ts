@@ -7,6 +7,7 @@ export const logout = async (): Promise<any> => {
   try {
     await api.post<UserModel>(requests.fetchLogout)
     removeAccessToken()
+    
     window.location.reload()
   } catch (error: any) {
     if (error.response) {
