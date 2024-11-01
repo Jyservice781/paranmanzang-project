@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { useAppDispatch } from "@/lib/store"
 import { BookingModel } from "@/app/model/room/bookings.model"
 
-import { getBookings, getEnabledBooking, getNotEnabledBooking, getSeperatedBookings, getTotalPageDisabledBooking, getTotalPageEnabledBooking } from "@/lib/features/room/booking.slice"
+import { getBookings, getEnabledBooking, getNotEnabledBooking, getTotalPageDisabledBooking, getTotalPageEnabledBooking } from "@/lib/features/room/booking.slice"
 import { useSelector } from "react-redux"
 import { bookingService } from "@/app/service/room/booking.service"
 import { getLeaderGroups } from "@/lib/features/group/group.slice"
@@ -23,42 +23,49 @@ export default function BookingList({ bookingId }: BookingListProps) {
   const router = useRouter()
   const [selectedBookings, setSelectedBookings] = useState<string[]>([])
   const dispatch = useAppDispatch();
-  const leaderGorup = useSelector(getLeaderGroups)
+
+  // Redux 상태를 최상위 레벨에서 가져오기
+  const leaderGroups = useSelector(getLeaderGroups);
+  const enabledBookings = useSelector(getEnabledBooking);
+  const notEnabledBookings = useSelector(getNotEnabledBooking);
+  const totalPageEnabled = useSelector(getTotalPageEnabledBooking);
+  const totalPageDisabled = useSelector(getTotalPageDisabledBooking);
+
+  // 로컬 상태 정의
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const [activeTab, setActiveTab] = useState<TabType>('예약 확정');
   const tabs: TabType[] = ["예약 확정", "예약 대기"];
-
-  const enabledBookings = useSelector(getEnabledBooking)
-  const notabledBookings = useSelector(getNotEnabledBooking)
-
-  const [totalPages, setTotalPages] = useState(0)
-
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    bookingService.findEnabledByGroups(leaderGorup.map(group => group.id), page, size, dispatch)
-    bookingService.findDisabledByGroups(leaderGorup.map(group => group.id), page, size, dispatch)
+    // 그룹 ID를 통해 예약 데이터를 가져옴
+    bookingService.findEnabledByGroups(leaderGroups.map(group => group.id), page, size, dispatch);
+    bookingService.findDisabledByGroups(leaderGroups.map(group => group.id), page, size, dispatch);
+
+    // activeTab에 따라 totalPages 설정
     switch (activeTab) {
       case "예약 확정":
-        setTotalPages(useSelector(getTotalPageEnabledBooking));
+        setTotalPages(totalPageEnabled);
         break;
       case "예약 대기":
-        setTotalPages(useSelector(getTotalPageDisabledBooking));
+        setTotalPages(totalPageDisabled);
         break;
     }
-  }, [dispatch, leaderGorup, page, size, activeTab])
+  }, [dispatch, leaderGroups, page, size, activeTab, totalPageEnabled, totalPageDisabled]);
 
   const getPaginatedData = (data: any[]) => {
     const startIndex = (page - 1) * size;
     const endIndex = startIndex + size;
     return data.slice(startIndex, endIndex);
   };
+
   const renderTabContent = () => {
     switch (activeTab) {
       case "예약 확정":
         return renderBookingList(getPaginatedData(enabledBookings));
       case "예약 대기":
-        return renderBookingList(getPaginatedData(notabledBookings));
+        return renderBookingList(getPaginatedData(notEnabledBookings));
       default:
         return null;
     }
@@ -76,7 +83,7 @@ export default function BookingList({ bookingId }: BookingListProps) {
               <div className="border-b border-gray-100 p-6">
                 <Link href={`/books/${booking.id}`} passHref>
                   <h5 className="mb-2 text-lg font-semibold tracking-tight text-gray-800 cursor-pointer hover:text-green-600 transition-colors">
-                    예약 방 번호: {booking?.roomId}
+                    예약 방 번호: {booking.roomId}
                   </h5>
                 </Link>
                 <p className="mb-3 text-sm font-medium text-gray-700">
@@ -124,13 +131,10 @@ export default function BookingList({ bookingId }: BookingListProps) {
     </ul>
   );
 
-
-
   const handleDelete = (id: number) => {
     console.log('삭제하기:', id);
     bookingService.drop(id, dispatch);
   };
-
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -143,7 +147,6 @@ export default function BookingList({ bookingId }: BookingListProps) {
 
   return (
     <div className="max-w-4xl mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
-
       <div className="my-6 space-y-6">
         <div className="flex justify-center space-x-4 mb-8">
           {tabs.map((tab) => (

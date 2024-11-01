@@ -17,42 +17,48 @@ type TabType = "공지 사항" | "자유게시판" | "스케쥴";
 
 export default function GroupBoard() {
     const dispatch = useAppDispatch();
-    const [isEditorVisible, setIsEditorVisible] = useState<boolean>(false);
     const router = useRouter();
+
+    // Redux 상태를 최상위 레벨에서 가져옴
     const { groupPostsNotice, groupPostsGeneral } = useSelector(getGroupPosts);
     const group = useSelector(getCurrentGroup);
-    const [page, setPage] = useState(1);
-    const [size, setSize] = useState(10);
-    const [activeTab, setActiveTab] = useState<TabType>('공지 사항');
-    const tabs: TabType[] = ["공지 사항", "자유게시판", "스케쥴"];
-
+    const totalPageNotice = useSelector(getTotalPageNoticeGroupPost);
+    const totalPageGeneral = useSelector(getTotalPageGeneralGroupPost);
+    const totalPageBooking = useSelector(getTotalPageGroupBooking);
     const bookings = useSelector(getBookings);
     const enableRooms = useSelector(getRoomsMap);
     const addresses = useSelector(getAddresses);
 
-    const [totalPages , setTotalPages] = useState(0)
+    // 로컬 상태
+    const [isEditorVisible, setIsEditorVisible] = useState<boolean>(false);
+    const [page, setPage] = useState(1);
+    const [size, setSize] = useState(10);
+    const [activeTab, setActiveTab] = useState<TabType>('공지 사항');
+    const tabs: TabType[] = ["공지 사항", "자유게시판", "스케쥴"];
+    const [totalPages, setTotalPages] = useState(0);
 
     useEffect(() => {
-        if (!group) {
-            return;
-        }
+        if (!group) return;
+
+        // 그룹 ID에 따라 게시글과 예약 정보를 가져옴
         groupPostService.findByGroupId(group.id, page - 1, size, activeTab, dispatch);
         bookingService.findByGroupId(group.id, page - 1, size, dispatch);
     }, [dispatch, group, activeTab, page, size]);
 
     useEffect(() => {
+        // activeTab에 따라 totalPages 설정
         switch (activeTab) {
             case "공지 사항":
-                setTotalPages(useSelector(getTotalPageNoticeGroupPost));
+                setTotalPages(totalPageNotice);
                 break;
             case "자유게시판":
-                setTotalPages(useSelector(getTotalPageGeneralGroupPost));
+                setTotalPages(totalPageGeneral);
                 break;
             case "스케쥴":
-                setTotalPages(useSelector(getTotalPageGroupBooking));
+                setTotalPages(totalPageBooking);
                 break;
         }
-    }, [activeTab, groupPostsNotice, groupPostsGeneral, bookings]);
+    }, [activeTab, totalPageNotice, totalPageGeneral, totalPageBooking]);
 
     const onClickToDetail = (post: GroupPostResponseModel) => {
         if (post) {
