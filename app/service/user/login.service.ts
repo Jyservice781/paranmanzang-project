@@ -79,7 +79,7 @@ const oauth = async (): Promise<any> => {
   // 첫 번째 단계: OAuth URL로 리디렉션
   console.log("Redirecting to OAuth URL:", oauthUrl);
   window.location.href = oauthUrl;
-  console.log("loginservice 부분", window.location.href)
+  console.log("loginService 부분", window.location.href)
 };
 
 const getCookieValue = (name: string): string | null => {
@@ -104,27 +104,28 @@ const getCookieValue = (name: string): string | null => {
 
 //   await getToken(token, nickname, dispatch)
 // }
+const handleOAuthCallback = (dispatch: AppDispatch): void => {
+  try {
+    const authToken = getAuthorization()
+    const nickname = getNickname()
 
-const handleOAuthCallback = async (dispatch: AppDispatch): Promise<void> => {
-  // 쿠키에서 'Authorization'과 'nickname' 값을 가져옵니다.
-  const authToken = getAuthorization()
-  const nickname = getNickname()
+    console.log('🔍 handleOAuthCallback 함수 시작')
+    console.log('👉 쿠키에서 가져온 닉네임:', nickname)
+    console.log('👉 쿠키에서 가져온 토큰:', authToken)
 
-  console.log('🔍 handleOAuthCallback 함수 시작');
-  console.log('👉 쿠키에서 가져온 닉네임:', nickname);
-  console.log('👉 쿠키에서 가져온 토큰:', authToken);
+    if (!authToken || !nickname) {
+      console.error('🚨 에러 발생: 액세스 토큰이나 닉네임이 없습니다.')
+      throw new Error('액세스 토큰이나 닉네임이 없습니다.')
+    }
 
-  // 토큰이나 닉네임이 없으면 에러를 발생시킵니다.
-  if (!authToken || !nickname) {
-    console.error('🚨 에러 발생: 액세스 토큰이나 닉네임이 없습니다.');
-    throw new Error('액세스 토큰이나 닉네임이 없습니다.');
+    console.log('✅ 모든 값이 정상적으로 수신되었습니다. getToken 함수를 호출합니다.')
+    getToken(authToken, nickname, dispatch)
+    console.log('🔍 handleOAuthCallback 함수 종료')
+  } catch (error) {
+    console.error('OAuth 처리 중 오류:', error)
+    throw error  // 상위에서 처리할 수 있도록 에러를 다시 throw
   }
-
-  // 토큰과 닉네임이 정상적으로 존재하면 getToken 호출
-  console.log('✅ 모든 값이 정상적으로 수신되었습니다. getToken 함수를 호출합니다.');
-  console.log('🔍 handleOAuthCallback 함수 종료');
-  await getToken(authToken, nickname, dispatch);
-};
+}
 
 
 const getToken = async (token: string, nickname: string, dispatch: AppDispatch) => {
