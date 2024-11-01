@@ -9,12 +9,16 @@ export default function OAuthSuccess() {
   const route = useRouter()
   const dispatch = useAppDispatch()
   useEffect(() => {
-   try{
-    loginService.handleOAuthCallback(dispatch)  // OAuth 콜백 처리
-    route.push("/")
-   }catch(error){
-    console.error("OAuth 처리 중 오류:", error)
-   }
+    const routeBack = () => {
+      try{
+       loginService.handleOAuthCallback(dispatch)  // OAuth 콜백 처리
+         console.log("oauth success 도착 완료")
+         route.push("/")
+      }catch(error){
+       console.error("OAuth 처리 중 오류:", error)
+      }
+    }
+    routeBack()
   })
   return (
     <>
