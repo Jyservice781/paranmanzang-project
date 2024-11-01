@@ -18,7 +18,7 @@ export default function SellerBooking() {
     const rooms = useSelector(getEnabledRoomByNickname)
     const { enabledBookings, notEnabledBookings } = useSelector(getSeperatedBookings)
     const route = useRouter()
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [size, setSize] = useState(9);
     const totalPageEnabledBoking = useSelector(getTotalPageEnabledRoomBoking)
     const totalPageDisabledBoking = useSelector(getTotalPageDisabledRoomBoking)
@@ -29,24 +29,20 @@ export default function SellerBooking() {
         setPage(1); // 페이지네이션 리셋 하는 부분 
     };
 
-    const getPaginatedData = (data: BookingModel[]) => {
-        const startIndex = (page - 1) * size;
-        const endIndex = startIndex + size;
-        return data.slice(startIndex, endIndex);
-    };
-
-    const showList: BookingModel[] = getPaginatedData(
+    const showList: BookingModel[] = (
         selectedCategory === '확정' ? enabledBookings : notEnabledBookings
     );
 
     useEffect(() => {
         if (nickname) {
-            bookingService.findEnabledByRoom(nickname, page - 1, size, dispatch)
-            bookingService.findDisabledByRoom(nickname, page - 1, size, dispatch)
-            roomService.findEnableByNickname(page - 1, size, nickname, dispatch)
+            bookingService.findEnabledByRoom(nickname, page, size, dispatch)
+            bookingService.findDisabledByRoom(nickname, page, size, dispatch)
+            roomService.findEnableByNickname(page, size, nickname, dispatch)
         }
     }, [nickname, page, size, dispatch, selectedCategory])
 
+    console.log("seller bookings",enabledBookings)
+    console.log("seller bookings",notEnabledBookings)
     const onDelete = (id: string) => {
         console.log(`Deleting id: ${id}`)
         bookingService.drop(Number(id), dispatch)
