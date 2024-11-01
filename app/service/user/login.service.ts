@@ -15,8 +15,10 @@ const login = async (username: string, password: string, dispatch: AppDispatch):
     const response = await api.post<UserModel>(requests.fetchLogin,
       { username, password }
     )
+    console.log("response 에러 확인", response)
     const token = response.headers['Authorization'].replace("Bearer ", "")
-    
+
+    console.log("token 확인 ", token)
     if (token) {
       setAccessToken(token);
       dispatch(saveNickname(response.headers['nickname']))
@@ -42,7 +44,6 @@ const login = async (username: string, password: string, dispatch: AppDispatch):
     } else {
       console.error('Error:', error.message);
       throw new Error('비밀번호가 다릅니다 발생');
-      
     }
   }
 };
