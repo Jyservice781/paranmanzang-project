@@ -5,8 +5,11 @@ import Alert from "../common/Alert";
 import { useAppDispatch } from "@/lib/store";
 import { roomService } from "@/app/service/room/room.service";
 import { RoomModel } from "@/app/model/room/room.model";
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "@/lib/features/users/user.slice";
 
 export default function RoomAdd() {
+  const user = useSelector(getCurrentUser)
   const [formData, setFormData] = useState<RoomModel>({
     name: '',
     maxPeople: 0,
@@ -15,7 +18,7 @@ export default function RoomAdd() {
     closeTime: '24:00',
     price: 0,
     enabled: false,
-    nickname: ''
+    nickname: user?.nickname as string
   });
 
   const router = useRouter();
@@ -98,7 +101,7 @@ export default function RoomAdd() {
 
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-900">이용가능 시간</label>
-          <span className="text-sm my-2 text-blue-600">00 시는 오전 12시입니다 이용에 착오없으시길 바랍니다</span>
+          <span className="text-xs my-2 text-blue-600">00 시는 오전 12시입니다 이용에 착오없으시길 바랍니다</span>
           <div className="flex items-center space-x-4">
             <TimeSelector label="시작 시간" timeType="openTime" />
             <TimeSelector label="종료 시간" timeType="closeTime" />
