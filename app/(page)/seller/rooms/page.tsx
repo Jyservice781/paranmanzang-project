@@ -97,6 +97,12 @@ export default function SellerRoom() {
         >
           승인 대기
         </button>
+        <button
+          className={`px-4 py-2 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+          onClick={() => {route.push('/rooms/add')}}
+        >
+          등록하기
+        </button>
       </div>
 
       {showList.length > 0 ? (

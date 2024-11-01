@@ -109,6 +109,11 @@ export default function UserProfile({ getUser }: UserProfileProps) {
                     label="내정보수정" 
                 />
                 <ActionButton 
+                    onClick={() => router.push('/groups/add')} 
+                    icon={<FaUserFriends />} 
+                    label="모임 개설" 
+                />
+                <ActionButton 
                     onClick={() => router.back()} 
                     icon={<FaArrowLeft />} 
                     label="뒤로가기" 

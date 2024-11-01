@@ -4,10 +4,11 @@ import Link from "next/link"
 import { useSelector } from "react-redux"
 import { getReviews } from "@/lib/features/room/review.slice"
 import { getNickname } from "@/lib/features/users/user.slice"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { reviewService } from "@/app/service/room/review.service"
 import { getCurrentRoom } from "@/lib/features/room/room.slice"
 import { useAppDispatch } from "@/lib/store"
+import Pagination from "../common/Row/pagination/Pagination"
 
 export default function RoomReview() {
   const route = useRouter()
@@ -18,6 +19,10 @@ export default function RoomReview() {
   const goBack = () => {
     route.back()
   }
+  const [page, setPage] = useState(1)
+  const [pageSize, setPageSize] = useState(9)
+  const totalItems = 10
+
   useEffect(() => {
     if (room?.id) {
       reviewService.findByRoom(room.id, 1, 10, dispatch)
@@ -38,7 +43,13 @@ export default function RoomReview() {
           </li>
         ))}
       </ul>
-      <h1>pagination구현할곳</h1>
+      <Pagination
+        currentPage={page}
+        pageSize={pageSize}
+        totalItems={totalItems}
+        onPageChange={setPage}
+        onPageSizeChange={setPageSize}
+      />
       <button type="button" className="rounded-lg border-white bg-green-100 p-2" onClick={goBack}>뒤로가기</button>
     </div>
   )
