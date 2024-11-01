@@ -1,7 +1,7 @@
 import { AccountCancelModel, AccountModel, AccountResultModel } from '@/app/model/room/account.model';
 import { AppDispatch } from '@/lib/store';
 import { ANONYMOUS, TossPaymentsPayment } from '@tosspayments/tosspayments-sdk';
-import { saveLoading } from '@/lib/features/room/account.slice';
+import { saveLoading, saveTotalPageGroupAccount, saveTotalPageRoomAccount } from '@/lib/features/room/account.slice';
 import { accountAPI } from '@/app/api/generate/account.api';
 
 const load = async (dispath: AppDispatch): Promise<TossPaymentsPayment> => {
@@ -107,8 +107,9 @@ const findByBooking = async (bookingId: number, dispath: AppDispatch): Promise<A
 const findByGroup = async (groupId: number, page: number, size: number, dispath: AppDispatch): Promise<AccountModel[]> => {
   try {
     dispath(saveLoading(true))
-    const response = await accountAPI.findByGroup(groupId, page, size);
+    const response = await accountAPI.findByGroup(groupId, page, size);    
     console.log('findByGroup: ' + response.data);
+    dispath(saveTotalPageGroupAccount(response.data.totalPages))
     return response.data.content;
   } catch (error: any) {
     if (error.response) {
@@ -128,6 +129,7 @@ const findByRoom = async (roomId: number, page: number, size: number, dispath: A
   try {
     dispath(saveLoading(true))
     const response = await accountAPI.findByRoom(roomId, page, size)
+    dispath(saveTotalPageRoomAccount(response.data.totalPages))
     return response.data.content;
   } catch (error: any) {
     if (error.response) {

@@ -108,7 +108,19 @@ export const roomSlice = createSlice({
         },
         removeLikedRoom: (state, action: PayloadAction<number>) => {
             state.roomsLiked.filter(room => room.id !== action.payload)
-        }
+        },
+        saveTotalPageSellerEnabledRoom: (state, action: PayloadAction<number>) => {
+            state.totalPageSellerEnabledRoom = action.payload;
+        },
+        saveTotalPageSellerDisabledRoom: (state, action: PayloadAction<number>) => {
+            state.totalPageSellerDisabledRoom = action.payload;
+        },
+        saveTotalPageEnabledRoom: (state, action: PayloadAction<number>) => {
+            state.totalPageEnabledRoom = action.payload;
+        },
+        saveTotalPageDisabledRoom: (state, action: PayloadAction<number>) => {
+            state.totalPageDisabledRoom = action.payload;
+        },
     },
 });
 
@@ -130,6 +142,10 @@ export const getLikedRooms = (state: RootState) => state.room.roomsLiked;
 export const getCurrentRoom = (state: RootState) => state.room.currentRoom;
 export const getIsLoading = (state: RootState) => state.room.isLoading;
 export const getError = (state: RootState) => state.room.error;
+export const getTotalPageSellerEnabledRoom = (state: RootState) => state.room.totalPageSellerEnabledRoom;
+export const getTotalPageSellerDisabledRoom = (state: RootState) => state.room.totalPageSellerDisabledRoom;
+export const getTotalPageEnabledRoom = (state: RootState) => state.room.totalPageEnabledRoom;
+export const getTotalPageDisabledRoom = (state: RootState) => state.room.totalPageDisabledRoom;
 
 // 액션 생성자들을 export
 export const {
@@ -161,6 +177,10 @@ export const {
     removeDisabledRoomByNickname,
     removeEnabledRoomByNickname,
     removeNotEnabledRoom,
+    saveTotalPageSellerEnabledRoom,
+    saveTotalPageSellerDisabledRoom,
+    saveTotalPageEnabledRoom,
+    saveTotalPageDisabledRoom,
 } = roomSlice.actions;
 
 // 리듀서를 export

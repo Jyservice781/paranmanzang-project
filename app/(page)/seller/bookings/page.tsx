@@ -3,7 +3,7 @@ import Pagination from "@/app/components/common/Row/pagination/Pagination"
 import { BookingModel } from "@/app/model/room/bookings.model"
 import { bookingService } from "@/app/service/room/booking.service"
 import { roomService } from "@/app/service/room/room.service"
-import { getSeperatedBookings } from "@/lib/features/room/booking.slice"
+import { getSeperatedBookings, getTotalPageDisabledRoomBoking, getTotalPageEnabledRoomBoking } from "@/lib/features/room/booking.slice"
 import { getEnabledRoomByNickname } from "@/lib/features/room/room.slice"
 import { getCurrentUser } from "@/lib/features/users/user.slice"
 import { useAppDispatch } from "@/lib/store"
@@ -20,7 +20,8 @@ export default function SellerBooking() {
     const route = useRouter()
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(9);
-    const [totalItems, setTotalItems] = useState(0)
+    const totalPageEnabledBoking = useSelector(getTotalPageEnabledRoomBoking)
+    const totalPageDisabledBoking = useSelector(getTotalPageDisabledRoomBoking)
     const [selectedCategory, setSelectedCategory] = useState<'확정' | '승인 대기'>('확정');
 
     const handleTabClick = (category: '확정' | '승인 대기') => {
@@ -40,14 +41,11 @@ export default function SellerBooking() {
 
     useEffect(() => {
         if (nickname) {
-            bookingService.findByRoomIds(nickname, page - 1, size, dispatch)
+            bookingService.findEnabledByRoom(nickname, page - 1, size, dispatch)
+            bookingService.findDisabledByRoom(nickname, page - 1, size, dispatch)
             roomService.findEnableByNickname(page - 1, size, nickname, dispatch)
         }
-    }, [nickname, page, size, dispatch])
-
-    useEffect(() => {
-        setTotalItems(selectedCategory === '확정' ? enabledBookings.length : notEnabledBookings.length);
-    }, [selectedCategory, enabledBookings, notEnabledBookings]);
+    }, [nickname, page, size, dispatch, selectedCategory])
 
     const onDelete = (id: string) => {
         console.log(`Deleting id: ${id}`)
@@ -114,7 +112,7 @@ export default function SellerBooking() {
             <Pagination
                 currentPage={page}
                 pageSize={size}
-                totalItems={totalItems}
+                totalPages={selectedCategory === '확정' ? totalPageEnabledBoking : totalPageDisabledBoking}
                 onPageChange={handlePageChange}
                 onPageSizeChange={handlePageSizeChange}
             />

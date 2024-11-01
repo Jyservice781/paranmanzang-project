@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useSelector } from "react-redux"
-import { getReviews } from "@/lib/features/room/review.slice"
+import { getReviews, getTotalPageRoomReview } from "@/lib/features/room/review.slice"
 import { getNickname } from "@/lib/features/users/user.slice"
 import { useEffect, useState } from "react"
 import { reviewService } from "@/app/service/room/review.service"
@@ -21,7 +21,7 @@ export default function RoomReview() {
   }
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(9)
-  const totalItems = 10
+  const totalPages = useSelector(getTotalPageRoomReview)
 
   useEffect(() => {
     if (room?.id) {
@@ -45,7 +45,7 @@ export default function RoomReview() {
       <Pagination
         currentPage={page}
         pageSize={pageSize}
-        totalItems={totalItems}
+        totalPages={totalPages}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />

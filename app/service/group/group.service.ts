@@ -18,6 +18,8 @@ import {
     addEnableGroup,
     deleteEnableGroup,
     saveEnableGroups,
+    saveTotalPageAbleGroup,
+    saveTotalPageEnableGroup,
 } from "@/lib/features/group/group.slice";
 import { AppDispatch } from "@/lib/store";
 import { chatRoomService } from '../chat/chatRoom.service';
@@ -46,6 +48,7 @@ const findList = async (page: number, size: number, dispatch: AppDispatch): Prom
         try {
             const response = await groupApi.findList(page, size);
             dispatch(saveGroups(response.data.content));
+            dispatch(saveTotalPageAbleGroup(response.data.totalPages))
         } catch (error: any) {
             handleApiError(error, dispatch, "소모임 조회 중 오류 발생했습니다.");
         }
@@ -182,6 +185,7 @@ const enableList = async (page: number, size: number, dispatch: AppDispatch): Pr
         try {
             const response = await groupApi.enableList(page, size);
             dispatch(saveEnableGroups(response.data.content))
+            dispatch(saveTotalPageEnableGroup(response.data.totalPages))
         } catch (error: any) {
             handleApiError(error, dispatch, "승인해야하는 소모임 찾는 중 오류 발생했습니다.");
         }

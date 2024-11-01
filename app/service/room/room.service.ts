@@ -1,7 +1,7 @@
 
 import { RoomModel, RoomUpdateModel } from '../../model/room/room.model';
 import { AppDispatch } from '@/lib/store';
-import { saveLoading, addRoom, updateRoom, saveRooms, removeRoom, saveError, saveLikedRooms, saveEnabledRoomByNickanme, saveDisableRoomByNickname, saveDisableRooms, updateEnableRoomByNickname, addEnabledRoomByNickname, addDisabledRoomByNickname, addDisabledRoom, removeDisabledRoom, removeEnabledRoomByNickname, removeDisabledRoomByNickname, addRoomMap, updateRoomMap, saveRoomsMap, removeRoomMap } from '@/lib/features/room/room.slice';
+import { saveLoading, addRoom, updateRoom, saveRooms, removeRoom, saveError, saveLikedRooms, saveEnabledRoomByNickanme, saveDisableRoomByNickname, saveDisableRooms, updateEnableRoomByNickname, addEnabledRoomByNickname, addDisabledRoomByNickname, addDisabledRoom, removeDisabledRoom, removeEnabledRoomByNickname, removeDisabledRoomByNickname, addRoomMap, updateRoomMap, saveRoomsMap, removeRoomMap, saveTotalPageEnabledRoom, saveTotalPageDisabledRoom, getTotalPageSellerEnabledRoom, saveTotalPageSellerEnabledRoom, saveTotalPageSellerDisabledRoom } from '@/lib/features/room/room.slice';
 import { roomAPI } from '@/app/api/generate/room.api';
 import { FileType } from '@/app/model/file/file.model';
 import { fileService } from '../file/file.service';
@@ -102,6 +102,7 @@ const findEnableByNickname = async (page: number, size: number, nickname: string
         const response = await roomAPI.findEnableByNickname(page, size, nickname)
         console.log("findAll - service await 부분임", response.data.content)
         dispatch(saveEnabledRoomByNickanme(response.data.content))
+        dispatch(saveTotalPageSellerEnabledRoom(response.data.totalPages))
     } catch (error: any) {
         if (error.response) {
             console.error('Server Error:', error.response.data);
@@ -123,6 +124,7 @@ const findDisableByNickname = async (page: number, size: number, nickname: strin
         const response = await roomAPI.findDisableByNickname(page, size, nickname)
         console.log("findAll - service await 부분임", response.data.content)
         dispatch(saveDisableRoomByNickname(response.data.content))
+        dispatch(saveTotalPageSellerDisabledRoom(response.data.totalPages))
     } catch (error: any) {
         if (error.response) {
             console.error('Server Error:', error.response.data);
@@ -144,6 +146,7 @@ const findDisable = async (page: number, size: number, dispatch: AppDispatch): P
         const response = await roomAPI.findDisable(page, size)
         console.log("findAll - service await 부분임", response.data.content)
         dispatch(saveDisableRooms(response.data.content))
+        dispatch(saveTotalPageDisabledRoom(response.data.totalPages))
     } catch (error: any) {
         if (error.response) {
             console.error('Server Error:', error.response.data);
@@ -164,7 +167,7 @@ const findByEnabled = async (page: number, size: number, dispatch: AppDispatch):
         dispatch(saveLoading(true))
         const response = await roomAPI.findEnable(page, size)
         console.log("findByEnabled - service await 부분임",response.data.content)
-        
+        dispatch(saveTotalPageEnabledRoom(response.data.totalPages))
         dispatch(saveRooms(response.data.content))
         fileService.selectFileList(
             

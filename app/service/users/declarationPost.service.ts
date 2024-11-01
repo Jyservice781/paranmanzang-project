@@ -2,7 +2,7 @@ import { DeclarationPostModel } from "@/app/model/user/users.model";
 import { AppDispatch } from "@/lib/store";
 import { saveError, saveLoading } from "@/lib/features/users/user.slice";
 import { declarationPostAPI } from "@/app/api/generate/declarationPost.api";
-import { addDeclarationPost, addDeclarationPostByNickname, deleteDeclarationPost, deleteDeclarationPostByNickname, saveDeclarationPosts, saveDeclarationPostsByNickname } from "@/lib/features/users/declarationPost.slice";
+import { addDeclarationPost, addDeclarationPostByNickname, deleteDeclarationPost, deleteDeclarationPostByNickname, saveDeclarationPosts, saveDeclarationPostsByNickname, saveTotalPageDeclarationPost, saveTotalPageDeclarationPostByAdimin } from "@/lib/features/users/declarationPost.slice";
 
 
 
@@ -51,6 +51,7 @@ const findAll = async (page: number, size: number, dispatch: AppDispatch): Promi
         const response = await declarationPostAPI.findAll(page, size)
         console.log(response.data.content)
         dispatch(saveDeclarationPosts(response.data.content))
+        dispatch(saveTotalPageDeclarationPostByAdimin(response.data.totalPages))
     } catch (error: any) {
         dispatch(saveError("게시물 목록 조회 중 오류 발생했습니다."));
         console.error('Error fetching Aposts :', error.response?.data || error.message);
@@ -66,6 +67,7 @@ const findByNickname = async (page: number, size: number, nickname: string, disp
         const response = await declarationPostAPI.findByNickname(page, size, nickname)
         console.log("response 신고 게시판 리스트 띄움 ", response)
         dispatch(saveDeclarationPostsByNickname(response.data.content))
+        dispatch(saveTotalPageDeclarationPost(response.data.totalPages))
     } catch (error: any) {
         dispatch(saveError("게시물 목록 조회 중 오류 발생했습니다."));
         console.error('Error fetching Dposts by nickname:', error.response?.data || error.message);

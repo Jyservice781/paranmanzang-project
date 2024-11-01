@@ -185,7 +185,7 @@ export default function UserList() {
       <Pagination
         currentPage={page}
         pageSize={totalPages}
-        totalItems={allUsers.length}
+        totalPages={allUsers.length}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
       />

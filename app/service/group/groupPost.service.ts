@@ -6,10 +6,11 @@ import {
     saveError,
     saveGroupPosts,
     saveLoading,
+    saveTotalPageGeneralGroupPost,
+    saveTotalPageNoticeGroupPost,
     updateGroupPost
 } from "@/lib/features/group/group.slice";
 import { groupPostAPI } from '@/app/api/generate/groupPost.api';
-import { Retryer } from 'react-query/types/core/retryer';
 
 // 공통 에러 처리 함수
 const handleApiError = (error: any, dispatch: AppDispatch, message: string) => {
@@ -89,6 +90,11 @@ const findByGroupId = async (groupId: number, page: number, size: number, postCa
         try {
             const response = await groupPostAPI.findByGroupId(groupId, page, size, postCategory);
             dispatch(saveGroupPosts(response.data.content));
+            if(postCategory === '공지 사항'){
+                dispatch(saveTotalPageNoticeGroupPost(response.data.totalPages))
+            } else {
+                dispatch(saveTotalPageGeneralGroupPost(response.data.totalPages))
+            }
             console.log(response.data)
         } catch (error: any) {
             handleApiError(error, dispatch, "게시물 목록 조회 중 오류 발생했습니다.");

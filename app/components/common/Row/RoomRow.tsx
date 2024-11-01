@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { getRooms, saveCurrentRoom } from "@/lib/features/room/room.slice";
+import { getRooms, getTotalPageEnabledRoom, saveCurrentRoom } from "@/lib/features/room/room.slice";
 import { useAppDispatch } from "@/lib/store";
 import { useSelector } from "react-redux";
 import { roomService } from "@/app/service/room/room.service";
@@ -28,7 +28,7 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
   // const [items, setItems] = useState<RoomModel[]>([]);
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
-  const totalItems = 10;
+  const totalPages = useSelector(getTotalPageEnabledRoom)
 
   useEffect(() => {
     roomService.findByEnabled(page, pageSize, dispatch);
@@ -73,7 +73,7 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
       <Pagination
         currentPage={page}
         pageSize={pageSize}
-        totalItems={totalItems}
+        totalPages={totalPages}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />

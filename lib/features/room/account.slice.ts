@@ -27,6 +27,12 @@ const accountSlice = createSlice({
     saveError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
+    saveTotalPageGroupAccount: (state, action: PayloadAction<number>) => {
+      state.totalPagesGroupAccount = action.payload
+    },
+    saveTotalPageRoomAccount: (state, action: PayloadAction<number>) => {
+      state.totalPagesRoomAccount = action.payload
+    }
   },
 });
 
@@ -35,6 +41,8 @@ export const getAccounts = (state: RootState) => state.account.accounts;
 export const getCurrentAccount = (state: RootState) => state.account.currentAccount;
 export const getIsLoading = (state: RootState) => state.account.isLoading;
 export const getError = (state: RootState) => state.account.error;
+export const getTotalPageGroupAccount = (state: RootState) => state.account.totalPagesGroupAccount
+export const getTotalPageRoomAccount = (state: RootState) => state.account.totalPagesRoomAccount
 
 // 액션 생성자들을 export
 export const {
@@ -44,6 +52,8 @@ export const {
   saveCurrentAccount,
   saveLoading,
   saveError,
+  saveTotalPageGroupAccount,
+  saveTotalPageRoomAccount
 } = accountSlice.actions;
 
 // 리듀서를 export

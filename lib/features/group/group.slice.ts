@@ -7,6 +7,7 @@ import {
 } from '@/app/model/group/group.model';
 import { RootState } from '@/lib/store';
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { saveTotalPage } from './book.slice';
 
 const groupSlice = createSlice({
   name: 'group',
@@ -147,6 +148,18 @@ const groupSlice = createSlice({
     saveError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
+    saveTotalPageAbleGroup: (state, action: PayloadAction<number>)=>{
+      state.totalPageAbleGroup = action.payload;
+    },
+    saveTotalPageEnableGroup: (state, action: PayloadAction<number>)=>{
+      state.totalPageEnableGroup = action.payload;
+    },
+    saveTotalPageNoticeGroupPost: (state, action: PayloadAction<number>)=>{
+      state.totalPageNoticeGroupPost = action.payload;
+    },
+    saveTotalPageGeneralGroupPost: (state, action: PayloadAction<number>)=>{
+      state.totalPageGeneralGroupPost = action.payload;
+    }
   },
 });
 export const getGroupPosts = createSelector(
@@ -168,6 +181,10 @@ export const getCurrentGroupPost = (state: RootState) => state.group.currentGrou
 export const getLeaderGroups = (state: RootState) => state.group.leadergroups;
 export const getIsLoading = (state: RootState) => state.group.isLoading;
 export const getError = (state: RootState) => state.group.error
+export const getTotalPageAbleGroup = (state: RootState) => state.group.totalPageAbleGroup
+export const getTotalPageEableGroup = (state: RootState) => state.group.totalPageEnableGroup
+export const getTotalPageNoticeGroupPost = (state: RootState) => state.group.totalPageNoticeGroupPost
+export const getTotalPageGeneralGroupPost = (state: RootState) => state.group.totalPageGeneralGroupPost
 
 export const {
   saveGroups,
@@ -196,6 +213,10 @@ export const {
   addLikedPost,
   saveLoading,
   saveError,
+  saveTotalPageAbleGroup,
+  saveTotalPageEnableGroup,
+  saveTotalPageNoticeGroupPost,
+  saveTotalPageGeneralGroupPost
 } = groupSlice.actions;
 
 export default groupSlice.reducer;

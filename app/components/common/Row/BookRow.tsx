@@ -25,8 +25,7 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
   
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(9);
-  const totalItems = 10 // 임의값임 바꿔야함.
-
+  const totalPages = useSelector(getTotalPage)
   useEffect(() => {
     bookService.findList(page, pageSize, dispatch)
   }, [page, pageSize, dispatch])
@@ -58,7 +57,7 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
       <Pagination
         currentPage={page}
         pageSize={pageSize}
-        totalItems={totalItems}
+        totalPages={totalPages}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
       />
