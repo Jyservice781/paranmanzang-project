@@ -96,7 +96,6 @@ const handleOAuthCallback = (dispatch: AppDispatch): void => {
     }
 
     console.log('✅ 모든 값이 정상적으로 수신되었습니다. getToken 함수를 호출합니다.')
-    window.location.href = "/"
     getToken(authToken, nickname, dispatch)
     console.log('🔍 handleOAuthCallback 함수 종료')
   } catch (error) {
