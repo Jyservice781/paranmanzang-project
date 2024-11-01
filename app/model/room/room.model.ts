@@ -13,7 +13,7 @@ export interface RoomModel {
 }
 
 export interface RoomUpdateModel {
-    id: number; // 공간 ID (필수)
+    id?: number; // 공간 ID (필수)
     name: string; // 공간 이름 (필수)
     maxPeople: number; // 최대 이용 정원 (필수, 양수)
     price: number; // 이용 금액 (필수, 양수, 1시간당 금액)
