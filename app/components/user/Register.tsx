@@ -114,6 +114,7 @@ export default function Register() {
             name="nickname"
             id="nickname" onChange={handleChange}
             className="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-green-400 focus:outline-none focus:ring-0 "
+            placeholder="닉네임은 영어로 지어주셔야 합니다!"
             required
           />
           <label
