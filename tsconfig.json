@@ -22,6 +22,6 @@
       }
     ],
   },
-  "include": ["src/next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/generate/books.api.ts"],
+  "include": ["src/next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/api/generate/books.api.ts", "app/(page)/users/oauth/\bsuccess"],
   "exclude": ["node_modules"],
 }
