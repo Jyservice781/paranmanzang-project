@@ -13,13 +13,13 @@ export default function OAuthSuccess() {
       try{
        loginService.handleOAuthCallback(dispatch)  // OAuth 콜백 처리
          console.log("oauth success 도착 완료")
-         route.push("/")
+         window.location.href = "/"
       }catch(error){
        console.error("OAuth 처리 중 오류:", error)
       }
     }
     routeBack()
-    route.push("/")
+    window.location.href = "/"
   })
   return (
     <>
