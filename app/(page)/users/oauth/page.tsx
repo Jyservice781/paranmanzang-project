@@ -15,7 +15,7 @@ const OauthCallback = () => {
         const executeOAuthCallback = () => {
             try {
                 console.log("OAuth 콜백 실행 중...")
-                loginService.handleOAuthCallback(dispatch) // OAuth 콜백 처리
+                
                 router.push("/oauth/success")
                
             } catch (error) {
