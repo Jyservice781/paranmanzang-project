@@ -16,7 +16,7 @@ const fileSlice = createSlice({
             state.bookFiles = action.payload.filter(file => file.type === FileType.BOOK);
         },
         // 현재 파일을 저장
-        saveCurrentFile: (state, action: PayloadAction<FileModel | null>) => {
+        saveCurrentFile: (state, action: PayloadAction<FileModel>) => {
             state.currentFile = action.payload;
         },
         // 삭제할 파일을 저장

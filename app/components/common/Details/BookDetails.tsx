@@ -5,14 +5,10 @@ import { getCurrentBook } from "@/lib/features/group/book.slice";
 import Image from "next/image";
 import { getCurrentFile } from "@/lib/features/file/file.slice";
 import LoadingSpinner from "../status/LoadingSpinner";
-import { FileType } from "@/app/model/file/file.model";
-import api from "@/app/api/axios";
-import requests from "@/app/api/requests";
 
 export default function Details() {
     const book = useSelector(getCurrentBook);
     const file = useSelector(getCurrentFile);
-
 
     // 로딩 중일 때
     if (book == null) {
@@ -22,18 +18,18 @@ export default function Details() {
     return (
         <div className="w-[45rem] mx-auto my-10">
             <div className="h-auto mx-auto w-1/2 justify-center content-center items-center bg-green-200 relative mb-8">
-                    <Image
-                        src={file === null ? `${api + requests.fetchFiles}/${book.id}?type=${FileType.BOOK}` : `${api + requests.fetchFiles} + ?path=${file.path}`}
-                        alt={book.title}
-                        layout="responsive"
-                        width={300}
-                        height={450}
-                        objectFit="contain"
-                        priority
-                        unoptimized
-                    />
+                <Image
+                    src={file.path === process.env.NEXT_PUBLIC_IMAGE_DEFAULT ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT : `http://api.paranmanzang.com/api/files?path=${file.path}`}
+                    alt={book.title}
+                    layout="responsive"
+                    width={300}
+                    height={450}
+                    objectFit="contain"
+                    priority
+                    unoptimized
+                />
             </div>
-                <hr className="my-8" />
+            <hr className="my-8" />
             <div className="max-w-sm mb-20">
                 <p className="my-2 font-medium text-lg">제목 | {book.title}</p>
                 <p className="my-2 font-base text-lg">저자 | {book.author}</p>
@@ -41,7 +37,7 @@ export default function Details() {
                 <p className="my-2 font-base text-lg">좋아요 수 | {book.likeBookCount}</p>
             </div>
             <div className="mx-auto max-w-sm">
-                <DetailButton thisPage={'/books'} displayBoard="none" displayReview="none" displayReservation="none" displayComment="none"/>
+                <DetailButton thisPage={'/books'} displayBoard="none" displayReview="none" displayReservation="none" displayComment="none" />
             </div>
         </div>
     );

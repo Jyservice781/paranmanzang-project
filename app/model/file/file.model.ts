@@ -32,7 +32,7 @@ export interface FileState {
     aboardFiles: FileModel[];
     groupPostFiles: FileModel[];
     bookFiles: FileModel[];
-    currentFile: FileModel | null;
+    currentFile: FileModel;
     fileToDelete: FileDeleteModel | null;
     isLoading: boolean;
     error: string | null;
@@ -44,7 +44,7 @@ export const initialFileState: FileState = {
     aboardFiles: [],
     groupPostFiles: [],
     bookFiles: [],
-    currentFile: null,
+    currentFile: {} as FileModel,
     fileToDelete: null,
     isLoading: false,
     error: null
