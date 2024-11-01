@@ -39,6 +39,8 @@ interface AccountState {
   currentAccount: AccountModel | null;
   isLoading: boolean;
   error: string | null;
+  totalPagesGroupAccount: number;
+  totalPagesRoomAccount: number;
 }
 
 // 초기 상태
@@ -46,5 +48,7 @@ export const initialAccountState: AccountState = {
   accounts: [],
   currentAccount: null,
   isLoading: false,
-  error: null
+  error: null,
+  totalPagesGroupAccount: 0,
+  totalPagesRoomAccount: 0,
 };

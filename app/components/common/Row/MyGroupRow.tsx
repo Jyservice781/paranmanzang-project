@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getGroups, getIsLoading, getError, getUserGroups } from '@/lib/features/group/group.slice';
+import { getIsLoading, getError, getUserGroups } from '@/lib/features/group/group.slice';
 import GroupCard from './GroupCard';
 import LoadingSpinner from '../status/LoadingSpinner';
 import ErrorMessage from '../status/ErrorMessage';
@@ -21,7 +21,6 @@ const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
 
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(9);
-    const totalItems = groups;
 
     useEffect(() => {
         groupService.findList(page, pageSize, dispatch);
@@ -30,17 +29,19 @@ const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
     if (loading) return <LoadingSpinner />;
     if (error) return <ErrorMessage message={error} />;
 
+    const myGroup = groups.filter((group)=>group.enabled===true)
+
     return (
         <>
             <div className="w-[92%] mb-4 ml-4 grid grid-cols-4 gap-6 md:grid-cols-3">
-                {groups.map((group, index) => (
+                {myGroup.map((group, index) => (
                     <GroupCard key={index} group={group} active={active} onSelect={onSelect} />
                 ))}
             </div>
             <Pagination
                 currentPage={page}
                 pageSize={pageSize}
-                totalItems={totalItems}
+                totalPages={groups.length}
                 onPageChange={setPage}
                 onPageSizeChange={setPageSize}
             />

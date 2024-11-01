@@ -2,7 +2,7 @@
 import Pagination from "@/app/components/common/Row/pagination/Pagination";
 import { RoomModel } from "@/app/model/room/room.model";
 import { roomService } from "@/app/service/room/room.service";
-import { getDisabledRooms, getRooms, getSeperatedRooms, saveCurrentRoom } from "@/lib/features/room/room.slice";
+import { getDisabledRooms, getRooms, getTotalPageDisabledRoom, getTotalPageEnabledRoom, saveCurrentRoom } from "@/lib/features/room/room.slice";
 import { useAppDispatch } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 export default function RoomAdmin() {
   const rooms = useSelector(getRooms);
   const dispatch = useAppDispatch();
-  
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString('ko-KR', {
@@ -31,15 +31,17 @@ export default function RoomAdmin() {
   const [관리Page, set관리Page] = useState(1);
   const [승인대기Page, set승인대기Page] = useState(1);
   const [pageSize, setPageSize] = useState(5);
-  
+
   const enabledRooms = useSelector(getRooms)
   const disabledRooms = useSelector(getDisabledRooms)
   const [selectedCategory, setSelectedCategory] = useState<'관리' | '승인 대기'>('관리');
 
-  
+
   const showList: RoomModel[] = selectedCategory === '관리' ? enabledRooms : disabledRooms;
   const currentPage = selectedCategory === '관리' ? 관리Page : 승인대기Page;
 
+  const totalPageEnabledRoom = useSelector(getTotalPageEnabledRoom)
+  const totalPageDisableRoom = useSelector(getTotalPageDisabledRoom)
   useEffect(() => {
     if (selectedCategory === '관리') {
       roomService.findByEnabled(관리Page, pageSize, dispatch);
@@ -82,7 +84,7 @@ export default function RoomAdmin() {
   return (
     <div className="mx-auto mt-8 max-w-[80%]">
       <button onClick={() => route.back()} className="mx-2 rounded-lg bg-green-400 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-500">뒤로가기</button>
-      
+
       <ul className="mx-auto my-8 rounded-lg bg-green-100 p-6 shadow-md">
         <li className="flex space-x-4 my-4">
           <button
@@ -131,7 +133,7 @@ export default function RoomAdmin() {
       <Pagination
         currentPage={currentPage}
         pageSize={pageSize}
-        totalItems={showList.length}
+        totalPages={selectedCategory === '관리' ? totalPageEnabledRoom : totalPageDisableRoom}
         onPageChange={handlePageChange}
         onPageSizeChange={setPageSize}
       />

@@ -11,6 +11,7 @@ interface UserState {
   users: UserModel[];
   isLoading: boolean;
   error: string | null;
+
 }
 
 // 초기 상태

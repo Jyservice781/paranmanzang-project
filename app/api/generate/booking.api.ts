@@ -12,12 +12,13 @@ export const bookingAPI = {
 
     findByGroup(groupId: number, page: number, size: number) { return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/group/${groupId}`, { params: { page, size } }); },
 
-    findByGroups(groupIds: number[], page: number, size: number) { return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/group`, { params: { groupIds, page, size }, paramsSerializer: (params: any) => qs.stringify(params, { arrayFormat: 'repeat' }) }); },
+    findEnabledByGroups(groupIds: number[], page: number, size: number) { return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/group/enabled`, { params: { groupIds, page, size }, paramsSerializer: (params: any) => qs.stringify(params, { arrayFormat: 'repeat' }) }); },
+    findDisabledByGroups(groupIds: number[], page: number, size: number) { return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/group/disabled`, { params: { groupIds, page, size }, paramsSerializer: (params: any) => qs.stringify(params, { arrayFormat: 'repeat' }) }); },
 
-    findByRoom(roomId: number, page: number, size: number) {
-        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/${roomId}`, { params: { page, size } });
+    findEnabledByRoom(nickname:string, page: number, size: number) {
+        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/enabled`, { params: { nickname, page, size } });
     },
-    findByRooms(nickname: string, page: number, size: number) {
-        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room`, { params: { nickname, page, size }, paramsSerializer: (params: any) => qs.stringify(params, { arrayFormat: 'repeat' }) });
+    findDisabledByRoom(nickname: string, page: number, size: number) {
+        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/disabled`, { params: { nickname, page, size } });
     },
 }

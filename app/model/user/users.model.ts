@@ -14,6 +14,8 @@ interface UserState {
   checkedNames: CheckedNamesModel[];
   isLoading: boolean;
   error: string | null;
+  totalPageDeclarationPostByAdimin: number
+  totalPageDeclarationPost: number
 }
 
 // 초기 상태
@@ -31,7 +33,9 @@ export const initialUserState: UserState = {
   declarationPostsByNickname: [],
   checkedNames: [],
   isLoading: false,
-  error: null
+  error: null,
+  totalPageDeclarationPostByAdimin: 0,
+  totalPageDeclarationPost: 0
 };
 
 export enum CheckType {

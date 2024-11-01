@@ -32,6 +32,12 @@ const reviewSlice = createSlice({
         saveError: (state, action: PayloadAction<string | null>) => {
             state.error = action.payload;
         },
+        saveTotalPageRoomReview: (state, action: PayloadAction<number>) => {
+            state.totalPageRoomReview = action.payload;
+        },
+        saveTotalPageNicknameReview: (state, action: PayloadAction<number>) => {
+            state.totalPageNicknameReview = action.payload;
+        },
     },
 });
 
@@ -40,7 +46,8 @@ export const getReviews = (state: RootState) => state.review.reviews;
 export const getCurrentReview = (state: RootState) => state.review.currentReview;
 export const getIsLoading = (state: RootState) => state.review.isLoading;
 export const getError = (state: RootState) => state.review.error;
-
+export const getTotalPageRoomReview = (state: RootState) => state.review.totalPageRoomReview;
+export const getTotalPageNicknameReview = (state: RootState) => state.review.totalPageNicknameReview;
 
 // 액션 생성자들을 export
 export const {
@@ -51,6 +58,8 @@ export const {
     saveCurrentReview,
     saveLoading,
     saveError,
+    saveTotalPageRoomReview,
+    saveTotalPageNicknameReview
 } = reviewSlice.actions;
 
 // 리듀서를 export

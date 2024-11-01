@@ -13,6 +13,10 @@ export interface GroupState {
     currentGroupPost: GroupPostResponseModel | null
     isLoading: boolean
     error: string | null
+    totalPageAbleGroup: number
+    totalPageEnableGroup: number
+    totalPageNoticeGroupPost: number
+    totalPageGeneralGroupPost: number
 }
 
 // 초기 상태
@@ -30,6 +34,10 @@ export const initialGroupState: GroupState = {
     currentGroupPost: null,
     isLoading: false,
     error: null,
+    totalPageAbleGroup: 0,
+    totalPageEnableGroup: 0,
+    totalPageNoticeGroupPost: 0,
+    totalPageGeneralGroupPost: 0
 };
 
 export interface GroupModel {

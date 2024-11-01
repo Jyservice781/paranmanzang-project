@@ -1,6 +1,6 @@
 import { ReviewModel, ReviewUpdateModel } from '@/app/model/room/review.model';
 import { AppDispatch } from '@/lib/store';
-import { addReview, deleteReview, saveLoading, saveReviews, updateReview } from '@/lib/features/room/review.slice';
+import { addReview, deleteReview, saveLoading, saveReviews, saveTotalPageRoomReview, updateReview } from '@/lib/features/room/review.slice';
 import { reviewAPI } from '@/app/api/generate/review.api';
 
 // 리뷰 등록
@@ -71,6 +71,7 @@ const findAll = async (page: number, size: number, dispatch: AppDispatch): Promi
     dispatch(saveLoading(true))
     const response = await reviewAPI.findAll(page, size)
     dispatch(saveReviews(response.data.content))
+    dispatch(saveTotalPageRoomReview(response.data.totalPages))
   } catch (error: any) {
     if (error.response) {
       console.error('Server Error:', error.response.data);

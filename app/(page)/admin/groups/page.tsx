@@ -1,10 +1,8 @@
 "use client"
 import Pagination from "@/app/components/common/Row/pagination/Pagination";
-import ErrorMessage from "@/app/components/common/status/ErrorMessage";
-import LoadingSpinner from "@/app/components/common/status/LoadingSpinner";
 import { GroupResponseModel } from "@/app/model/group/group.model";
 import { groupService } from "@/app/service/group/group.service";
-import { getEnableGroups, getGroups, saveCurrentGroup } from "@/lib/features/group/group.slice";
+import { getEnableGroups, getGroups, getTotalPageAbleGroup, getTotalPageEableGroup, saveCurrentGroup } from "@/lib/features/group/group.slice";
 import { getError, getIsLoading } from "@/lib/features/room/room.slice";
 import { useAppDispatch } from "@/lib/store";
 import { useRouter } from "next/navigation";
@@ -15,7 +13,8 @@ export default function GroupsAdmin() {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(9);
-  const totalItems = 10
+  const totalPageEnabledGroup = useSelector(getTotalPageEableGroup)
+  const totalPageAbledGroup = useSelector(getTotalPageAbleGroup)
 
   useEffect(() => {
     groupService.findList(page, pageSize, dispatch)
@@ -139,7 +138,7 @@ export default function GroupsAdmin() {
       <Pagination
         currentPage={page}
         pageSize={pageSize}
-        totalItems={activeTab === "승인 완료" ? groups.length : enableGroups.length}
+        totalPages={activeTab === "승인 완료" ? totalPageAbledGroup : totalPageEnabledGroup}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />

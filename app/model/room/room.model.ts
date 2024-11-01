@@ -55,6 +55,10 @@ interface RoomState {
     currentRoom: RoomModel | null;
     isLoading: boolean;
     error: string | null;
+    totalPageSellerEnabledRoom: number
+    totalPageSellerDisabledRoom: number
+    totalPageEnabledRoom: number
+    totalPageDisabledRoom: number
 }
 
 // 초기 상태
@@ -69,5 +73,9 @@ export const initialRoomState: RoomState = {
     notEnabledrooms: [],
     currentRoom: null,
     isLoading: false,
-    error: null
+    error: null,
+    totalPageSellerEnabledRoom: 0,
+    totalPageSellerDisabledRoom: 0,
+    totalPageEnabledRoom: 0,
+    totalPageDisabledRoom: 0
 };

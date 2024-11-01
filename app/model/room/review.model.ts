@@ -20,6 +20,8 @@ export interface ReviewState {
   currentReview: ReviewModel | null;
   isLoading: boolean;
   error: string | null;
+  totalPageRoomReview: number;
+  totalPageNicknameReview: number;
 }
 
 // 초기 상태
@@ -27,5 +29,7 @@ export const initialReviewState: ReviewState = {
   reviews: [],
   currentReview: null,
   isLoading: false,
-  error: null
+  error: null,
+  totalPageRoomReview: 0,
+  totalPageNicknameReview: 0
 };

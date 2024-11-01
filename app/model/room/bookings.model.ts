@@ -13,9 +13,16 @@ export interface BookingState {
   bookings: BookingModel[];
   enabledBookings: BookingModel[];
   notEnabledBookings: BookingModel[];
+  enabledRoomBookings: BookingModel[];
+  notEnabledRoomBookings: BookingModel[];
   currentBooking: BookingModel | null;
   isLoading: boolean;
   error: string | null;
+  totalPageEnabledBooking: number
+  totalPageDisabledBooking: number
+  totalPageGroupBooking: number
+  totalPageEnabledRoomBoking: number
+  totalPageDisabledRoomBoking: number
 }
 
 // 초기 상태
@@ -23,7 +30,14 @@ export const initialBookingState: BookingState = {
   bookings: [],
   enabledBookings: [],
   notEnabledBookings: [],
+  enabledRoomBookings: [],
+  notEnabledRoomBookings: [],
   currentBooking: null,
   isLoading: false,
-  error: null
+  error: null,
+  totalPageEnabledBooking: 0,
+  totalPageDisabledBooking: 0,
+  totalPageGroupBooking: 0,
+  totalPageEnabledRoomBoking: 0,
+  totalPageDisabledRoomBoking: 0
 };

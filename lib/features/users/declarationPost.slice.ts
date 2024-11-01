@@ -27,6 +27,12 @@ export const declarationPostSlice = createSlice({
         deleteDeclarationPostByNickname: (state, action: PayloadAction<number>) => {
             state.declarationPostsByNickname = state.declarationPosts.filter(declarationPost => declarationPost.id !== action.payload);
         },
+        saveTotalPageDeclarationPostByAdimin: (state, action: PayloadAction<number>) => {
+            state.totalPageDeclarationPostByAdimin = action.payload;
+        },
+        saveTotalPageDeclarationPost: (state, action: PayloadAction<number>) => {
+            state.totalPageDeclarationPost = action.payload;
+        },
     }
 });
 
@@ -34,6 +40,8 @@ export const declarationPostSlice = createSlice({
 export const getDeclarationPosts = (state: RootState) => state.declarationPost.declarationPosts;
 export const getDeclarationPostsByNickname = (state: RootState) => state.declarationPost.declarationPostsByNickname;
 export const getCurrentDeclarationPost = (state: RootState) => state.declarationPost.currentDeclarationPost;
+export const getTotalPageDeclarationPostByAdimin = (state: RootState) => state.declarationPost.totalPageDeclarationPostByAdimin;
+export const getTotalPageDeclarationPost = (state: RootState) => state.declarationPost.totalPageDeclarationPost;
 
 export const {
     saveDeclarationPosts,
@@ -42,7 +50,9 @@ export const {
     addDeclarationPost,
     addDeclarationPostByNickname,
     deleteDeclarationPost,
-    deleteDeclarationPostByNickname
+    deleteDeclarationPostByNickname,
+    saveTotalPageDeclarationPostByAdimin,
+    saveTotalPageDeclarationPost,
 } = declarationPostSlice.actions;
 
 export default declarationPostSlice.reducer;

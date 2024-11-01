@@ -1,17 +1,17 @@
 "use client"
 import { useEffect, useState } from "react";
-import { getCurrentGroup, getGroupPosts, saveCurrentGroupPost } from "@/lib/features/group/group.slice";
+import { getCurrentGroup, getGroupPosts, getTotalPageGeneralGroupPost, getTotalPageNoticeGroupPost, saveCurrentGroupPost } from "@/lib/features/group/group.slice";
 import { useAppDispatch } from "@/lib/store";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { groupPostService } from "@/app/service/group/groupPost.service";
-import { getBookings } from "@/lib/features/room/booking.slice";
 import { bookingService } from "@/app/service/room/booking.service";
 import { getRoomsMap, saveCurrentRoom } from "@/lib/features/room/room.slice";
 import { getAddresses, saveCurrentAddress } from "@/lib/features/room/address.slice";
 import { GroupPostResponseModel } from "@/app/model/group/group.model";
 import PostEditor from "../crud/PostEditor";
 import Pagination from "@/app/components/common/Row/pagination/Pagination";
+import { getBookings, getTotalPageGroupBooking } from "@/lib/features/room/booking.slice";
 
 type TabType = "공지 사항" | "자유게시판" | "스케쥴";
 
@@ -30,7 +30,7 @@ export default function GroupBoard() {
     const enableRooms = useSelector(getRoomsMap);
     const addresses = useSelector(getAddresses);
 
-    const [totalItems, setTotalItems] = useState(0);
+    const [totalPages , setTotalPages] = useState(0)
 
     useEffect(() => {
         if (!group) {
@@ -43,13 +43,13 @@ export default function GroupBoard() {
     useEffect(() => {
         switch (activeTab) {
             case "공지 사항":
-                setTotalItems(groupPostsNotice.length);
+                setTotalPages(useSelector(getTotalPageNoticeGroupPost));
                 break;
             case "자유게시판":
-                setTotalItems(groupPostsGeneral.length);
+                setTotalPages(useSelector(getTotalPageGeneralGroupPost));
                 break;
             case "스케쥴":
-                setTotalItems(bookings.length);
+                setTotalPages(useSelector(getTotalPageGroupBooking));
                 break;
         }
     }, [activeTab, groupPostsNotice, groupPostsGeneral, bookings]);
@@ -214,7 +214,7 @@ export default function GroupBoard() {
                 <Pagination
                     currentPage={page}
                     pageSize={size}
-                    totalItems={totalItems}
+                    totalPages={totalPages}
                     onPageChange={handlePageChange}
                     onPageSizeChange={handlePageSizeChange}
                 />

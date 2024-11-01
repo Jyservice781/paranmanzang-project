@@ -3,7 +3,7 @@ import React from 'react';
 interface PaginationProps {
   currentPage: number;
   pageSize: number;
-  totalItems: number | any[];
+  totalPages: number;
   onPageChange: (page: number) => void;
   onPageSizeChange: (size: number) => void;
 }
@@ -11,12 +11,9 @@ interface PaginationProps {
 function Pagination({
   currentPage,
   pageSize,
-  totalItems,
+  totalPages,
   onPageChange,
 }: PaginationProps) {
-
-  const totalItemsCount = Array.isArray(totalItems) ? totalItems.length : totalItems;
-  const totalPages = Math.ceil(totalItemsCount / pageSize);
 
   const handlePageChange = (page: number) => {
     if (page >= 0 && page < totalPages) {
