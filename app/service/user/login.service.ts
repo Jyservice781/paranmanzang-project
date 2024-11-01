@@ -70,27 +70,17 @@ const get = async (): Promise<UserModel> => {
   }
 }
 const oauth = async (): Promise<any> => {
-  const oauthUrl = process.env.NEXT_PUBLIC_OAUTH_URL;
+  const oauthUrl = process.env.NEXT_PUBLIC_OAUTH_URL
 
   if (!oauthUrl) {
-    throw new Error('OAuth URL이 정의되지 않았습니다.');
+    throw new Error('OAuth URL이 정의되지 않았습니다.')
   }
 
   // 첫 번째 단계: OAuth URL로 리디렉션
-  console.log("Redirecting to OAuth URL:", oauthUrl);
-  window.location.href = oauthUrl;
+  console.log("Redirecting to OAuth URL:", oauthUrl)
+  window.location.href = oauthUrl
   console.log("loginService 부분", window.location.href)
-};
-
-const getCookieValue = (name: string): string | null => {
-  const value = `; ${document.cookie}`
-  const parts = value.split(`; ${name}=`)
-  console.log("getCookie value", value)
-  console.log("getCookie parts", parts)
-  if (parts.length === 2) return parts.pop()?.split(';').shift() || null
-  return null
 }
-
 const handleOAuthCallback = (dispatch: AppDispatch): void => {
   try {
     const authToken = getAuthorization()
