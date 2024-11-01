@@ -104,7 +104,7 @@ const getCookieValue = (name: string): string | null => {
 //   await getToken(token, nickname, dispatch)
 // }
 
-const handleOAuthCallback = (dispatch: AppDispatch): void => {
+const handleOAuthCallback = async (dispatch: AppDispatch): Promise<void> => {
   // 쿠키에서 'Authorization'과 'nickname' 값을 가져옵니다.
   const authToken = getAuthorization()
   const nickname = getNickname()
@@ -121,9 +121,8 @@ const handleOAuthCallback = (dispatch: AppDispatch): void => {
 
   // 토큰과 닉네임이 정상적으로 존재하면 getToken 호출
   console.log('✅ 모든 값이 정상적으로 수신되었습니다. getToken 함수를 호출합니다.');
-  getToken(authToken, nickname, dispatch);
-  
   console.log('🔍 handleOAuthCallback 함수 종료');
+  await getToken(authToken, nickname, dispatch);
 };
 
 
