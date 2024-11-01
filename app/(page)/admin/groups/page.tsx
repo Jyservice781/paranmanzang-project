@@ -36,7 +36,7 @@ export default function GroupsAdmin() {
   const error = useSelector(getError)
 
   const ableGroup = (group: GroupResponseModel) => {
-    groupService.able(group.id, dispatch)
+    groupService.able(group, dispatch)
   }
 
   const enableGroup = (group: GroupResponseModel) => {

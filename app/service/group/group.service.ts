@@ -1,4 +1,4 @@
-import { GroupModel, JoiningModel } from '@/app/model/group/group.model';
+import { GroupModel, GroupResponseModel, JoiningModel } from '@/app/model/group/group.model';
 import { groupApi } from "@/app/api/generate/group.api";
 import {
     addGroupMember,
@@ -78,10 +78,11 @@ const insert = async (groupModel: GroupModel, dispatch: AppDispatch): Promise<vo
 };
 
 // 소모임 승인 요청
-const able = async (groupId: number, dispatch: AppDispatch): Promise<void> => {
+const able = async (group: GroupResponseModel, dispatch: AppDispatch): Promise<void> => {
     await handleLoading(dispatch, async () => {
         try {
-            const response = await groupApi.able(groupId);
+            const response = await groupApi.able(group.id);
+            chatRoomService.insert({ roomName: group.name, nickname: group.nickname, dispatch: dispatch })
             dispatch(addGroup(response.data))
             dispatch(deleteEnableGroup(response.data.id))
         } catch (error: any) {

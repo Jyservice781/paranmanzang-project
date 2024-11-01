@@ -15,8 +15,7 @@ const login = async (username: string, password: string, dispatch: AppDispatch):
     const response = await api.post<UserModel>(requests.fetchLogin,
       { username, password }
     )
-    
-    const token = response.headers['authorization'].replace("Bearer ", "")
+    const token = response.headers['Authorization'].replace("Bearer ", "")
     
     if (token) {
       setAccessToken(token);

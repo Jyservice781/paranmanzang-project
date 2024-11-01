@@ -2,7 +2,6 @@ import api from "@/app/api/axios";
 import requests from "@/app/api/requests";
 import { UserModel } from "@/app/model/user.model";
 import { removeAccessToken } from "@/app/api/authUtils";
-import { saveCurrentUser } from "@/lib/features/users/user.slice";
 
 export const logout = async (): Promise<any> => {
   try {
