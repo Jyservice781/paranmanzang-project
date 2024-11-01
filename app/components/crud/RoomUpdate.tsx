@@ -2,24 +2,29 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Alert from "../common/Alert";
+import { RoomUpdateModel } from "@/app/model/room/room.model";
+import { useSelector } from "react-redux";
+import { roomService } from "@/app/service/room/room.service";
+import { useAppDispatch } from "@/lib/store";
+import { getCurrentRoom } from "@/lib/features/room/room.slice";
 
 export default function RoomUpdate() {
-  const [formData, setFormData] = useState({
-    place: '',
-    people: '',
-    alone: false,
-    startDate:'',
-    endDate: '',
-    startTime: '00:00',
-    endTime: '00:00',
-    account: ''
+  const room = useSelector(getCurrentRoom)
+  const [formData, setFormData] = useState<RoomUpdateModel>({
+    id: room?.id,
+    name: '',
+    maxPeople: 0,
+    opened: false,
+    openTime: '00:00',
+    closeTime: '24:00',
+    price: 0,
   });
 
   const route = useRouter();
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
-  
-  const handleChange = (event:any) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = event.target;
     setFormData(prevState => ({
       ...prevState,
@@ -27,18 +32,46 @@ export default function RoomUpdate() {
     }));
   };
 
-  const handleSubmit = (event:any) => {
-    event.preventDefault();
-    console.log(formData);
-    // 데이터 보내기 함수 적으면 됨.
+  const handleTimeChange = (timeType: 'openTime' | 'closeTime', part: 'hour' | 'minute', value: string) => {
+    setFormData(prevState => {
+      const [hour, minute] = prevState[timeType].split(':');
+      const newTime = part === 'hour' ? `${value}:${minute}` : `${hour}:${value}`;
+      return { ...prevState, [timeType]: newTime };
+    });
   };
 
-  const goBack = () => {
-    route.back()
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(formData)
+    roomService.modify(formData, dispatch);
   }
 
   const onCreate = () => {
     setIsOpen(true);
+  }
+
+  const hours = Array.from({ length: 24 }, (_, i) => i.toString().padStart(2, '0'));
+
+
+  const TimeSelector = ({ label, timeType }: { label: string, timeType: 'openTime' | 'closeTime' }) => (
+    <div>
+      <label className="block mb-2 text-sm font-medium text-gray-900">{label}</label>
+      <div className="flex space-x-2">
+        <select
+          value={formData[timeType].split(':')[0]}
+          onChange={(e) => handleTimeChange(timeType, 'hour', e.target.value)}
+          className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 px-6 py-3"
+        >
+          {hours.map(hour => (
+            <option key={hour} value={hour}>{hour} : 00</option>
+          ))}
+        </select>
+      </div>
+    </div>
+  );
+  
+  const goBack = () => {
+    route.back()
   }
 
   return (
@@ -46,57 +79,38 @@ export default function RoomUpdate() {
         <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="place" className="block mb-2 text-sm font-medium text-gray-900">공간 이름</label>
-          <input type="text" id="place" name="place" value={formData.place} onChange={handleChange} placeholder="공간의 이름을 적어주세요" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
+          <input type="text" id="place" name="place" value={formData.name} onChange={handleChange} placeholder="공간의 이름을 적어주세요" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
         </div>
 
         <div className="mb-4">
           <label htmlFor="people" className="block mb-2 text-sm font-medium text-gray-900 ">정원 수</label>
-          <input type="number" id="people" name="people" value={formData.people} onChange={handleChange} className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
+          <input type="number" id="people" name="people" value={formData.maxPeople} onChange={handleChange} className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
         </div>
 
         <div className="mb-4">
           <label className="block mb-2 text-sm font-medium text-gray-900">공유 오피스인가요?</label>
           <div className="flex items-center mb-2">
-            <input type="radio" id="aloneYes" name="alone" value="true" checked={formData.alone === true} onChange={handleChange} className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500  focus:ring-2" />
+            <input type="radio" id="aloneYes" name="alone" value="true" checked={formData.opened === true} onChange={handleChange} className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500  focus:ring-2" />
             <label htmlFor="aloneYes" className="ml-2 text-sm font-medium text-gray-900 ">네</label>
           </div>
           <div className="flex items-center">
-            <input type="radio" id="aloneNo" name="alone" value="false" checked={formData.alone === false} onChange={handleChange} className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 focus:ring-2 " />
+            <input type="radio" id="aloneNo" name="alone" value="false" checked={formData.opened === false} onChange={handleChange} className="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 focus:ring-2 " />
             <label htmlFor="aloneNo" className="ml-2 text-sm font-medium text-gray-900">아니오</label>
           </div>
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2 text-sm font-medium text-gray-900">이용가능 시간</label>
+          <label className="block text-sm font-medium text-gray-900">이용가능 시간</label>
+          <span className="text-xs my-2 text-blue-600">00 시는 오전 12시입니다 이용에 착오없으시길 바랍니다</span>
           <div className="flex items-center space-x-4">
-            <div>
-              <label htmlFor="startTime" className="block mb-2 text-sm font-medium text-gray-900 ">시작 시간</label>
-              <input
-                type="time"
-                id="startTime"
-                name="startTime"
-                value={formData.startTime}
-                onChange={handleChange}
-                className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-              />
-            </div>
-            <div>
-              <label htmlFor="endTime" className="block mb-2 text-sm font-medium text-gray-900 ">종료 시간</label>
-              <input
-                type="time"
-                id="endTime"
-                name="endTime"
-                value={formData.endTime}
-                onChange={handleChange}
-                className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
-              />
-            </div>
+            <TimeSelector label="시작 시간" timeType="openTime" />
+            <TimeSelector label="종료 시간" timeType="closeTime" />
           </div>
         </div>
 
         <div className="mb-4">
           <label htmlFor="account" className="block mb-2 text-sm font-medium text-gray-900 ">이용 금액</label>
-          <input type="text" id="account" name="account" value={formData.account} onChange={handleChange} placeholder="이용금액을 적어주세요" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
+          <input type="text" id="account" name="account" value={formData.price} onChange={handleChange} placeholder="이용금액을 적어주세요" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
         </div>
 
         <button type="submit" onClick={onCreate} className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">수정하기</button>
