@@ -95,23 +95,18 @@ export default function GroupBoard() {
 
     const handlePageSizeChange = (newPageSize: number) => {
         setSize(newPageSize);
-        setPage(1);
+        setPage(0);
     };
 
-    const getPaginatedData = (data: any[]) => {
-        const startIndex = (page - 1) * size;
-        const endIndex = startIndex + size;
-        return data.slice(startIndex, endIndex);
-    };
 
     const renderTabContent = () => {
         switch (activeTab) {
             case "공지 사항":
-                return renderPostList(getPaginatedData(groupPostsNotice));
+                return renderPostList(groupPostsNotice);
             case "자유게시판":
-                return renderPostList(getPaginatedData(groupPostsGeneral));
+                return renderPostList(groupPostsGeneral);
             case "스케쥴":
-                return renderScheduleList(getPaginatedData(bookings));
+                return renderScheduleList(bookings);
             default:
                 return null;
         }

@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 export default function GroupsAdmin() {
   const router = useRouter();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(9);
   const totalPageEnabledGroup = useSelector(getTotalPageEableGroup)
   const totalPageAbledGroup = useSelector(getTotalPageAbleGroup)

@@ -15,7 +15,7 @@ export default function SellerRoom() {
   const enabledRooms = useSelector(getEnabledRoomByNickname)
   const disabledRooms = useSelector(getDisabledRoomByNickname)
   const route = useRouter()
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const totalPageEnabledRoom = useSelector(getTotalPageSellerEnabledRoom)
   const totalPageDisabledRoom = useSelector(getTotalPageSellerDisabledRoom)
@@ -38,13 +38,7 @@ export default function SellerRoom() {
     setPage(1); // 토글 탭 움직일때 페이징 넘버 1로 이동 
   };
 
-  const getPaginatedData = (data: RoomModel[]) => {
-    const startIndex = (page - 1) * size;
-    const endIndex = startIndex + size;
-    return data.slice(startIndex, endIndex);
-  };
-
-  const showList: RoomModel[] = getPaginatedData(
+  const showList: RoomModel[] = (
     selectedCategory === '관리' ? enabledRooms : disabledRooms
   );
 

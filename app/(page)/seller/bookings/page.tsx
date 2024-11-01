@@ -19,7 +19,7 @@ export default function SellerBooking() {
     const { enabledBookings, notEnabledBookings } = useSelector(getSeperatedBookings)
     const route = useRouter()
     const [page, setPage] = useState(0);
-    const [size, setSize] = useState(9);
+    const [size, setSize] = useState(10);
     const totalPageEnabledBoking = useSelector(getTotalPageEnabledRoomBoking)
     const totalPageDisabledBoking = useSelector(getTotalPageDisabledRoomBoking)
     const [selectedCategory, setSelectedCategory] = useState<'확정' | '승인 대기'>('확정');
@@ -60,7 +60,7 @@ export default function SellerBooking() {
 
     const handlePageSizeChange = (newPageSize: number) => {
         setSize(newPageSize);
-        setPage(1);
+        setPage(0);
     }
 
     return (

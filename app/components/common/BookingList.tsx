@@ -54,18 +54,13 @@ export default function BookingList({ bookingId }: BookingListProps) {
     }
   }, [dispatch, leaderGroups, page, size, activeTab, totalPageEnabled, totalPageDisabled]);
 
-  const getPaginatedData = (data: any[]) => {
-    const startIndex = (page - 1) * size;
-    const endIndex = startIndex + size;
-    return data.slice(startIndex, endIndex);
-  };
 
   const renderTabContent = () => {
     switch (activeTab) {
       case "예약 확정":
-        return renderBookingList(getPaginatedData(enabledBookings));
+        return renderBookingList(enabledBookings);
       case "예약 대기":
-        return renderBookingList(getPaginatedData(notEnabledBookings));
+        return renderBookingList(notEnabledBookings);
       default:
         return null;
     }

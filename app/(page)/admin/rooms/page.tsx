@@ -28,8 +28,8 @@ export default function RoomAdmin() {
   console.log("rooms 목록 불러오기 ", rooms);
   const route = useRouter();
 
-  const [관리Page, set관리Page] = useState(1);
-  const [승인대기Page, set승인대기Page] = useState(1);
+  const [관리Page, set관리Page] = useState(0);
+  const [승인대기Page, set승인대기Page] = useState(0);
   const [pageSize, setPageSize] = useState(5);
 
   const enabledRooms = useSelector(getRooms)

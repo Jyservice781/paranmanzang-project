@@ -19,15 +19,15 @@ export default function RoomReview() {
   const goBack = () => {
     route.back()
   }
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(9)
   const totalPages = useSelector(getTotalPageRoomReview)
 
   useEffect(() => {
     if (room?.id) {
-      reviewService.findByRoom(room.id, 1, 10, dispatch)
+      reviewService.findByRoom(room.id, page, pageSize, dispatch)
     }
-  }, [room, dispatch])
+  }, [room, dispatch,page,pageSize])
   return (
     <div className="mx-auto my-8 max-w-lg rounded-lg bg-green-50 p-6">
       <p className="text-lg">공간리뷰</p>

@@ -19,7 +19,7 @@ const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
     const loading = useSelector(getIsLoading);
     const error = useSelector(getError);
 
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(9);
 
     useEffect(() => {
