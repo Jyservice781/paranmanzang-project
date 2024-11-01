@@ -16,7 +16,7 @@ const login = async (username: string, password: string, dispatch: AppDispatch):
       { username, password }
     )
     console.log("response 에러 확인", response)
-    const token = response.headers['Authorization'].replace("Bearer ", "")
+    const token = response.headers['authorization'].replace("Bearer ", "")
 
     console.log("token 확인 ", token)
     if (token) {
