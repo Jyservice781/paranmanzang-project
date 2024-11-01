@@ -31,7 +31,7 @@ const ChatRow = ({ active, onSelect }: ChatRowProps) => {
     };
 
     fetchChatRooms();
-  }, [nickname, dispatch, myGroups]);
+  }, [nickname, dispatch]);
 
   return (
     <>

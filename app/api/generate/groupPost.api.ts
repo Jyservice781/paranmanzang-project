@@ -20,7 +20,7 @@ export const groupPostAPI = {
     },
     findByGroupId(groupId: number, page: number, size: number, postCategory: string){
         return api.get<Page<GroupPostResponseModel>>(requests.fetchGroups + `/posts/${groupId}`, {
-            params: {page, size, postCategory}
+            params: {page, size, postCategory: encodeURIComponent(postCategory)}
         });
     },
     modifyViewCount(postId: number){
