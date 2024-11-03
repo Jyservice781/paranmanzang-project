@@ -54,9 +54,9 @@ export default function GroupPostDetails() {
                     <h3 className="m-4 font-medium text-sm">게시판 분류: {post?.postCategory}</h3>
                 </div>
                 <div className="border-t-2 border-dotted border-green-500 py-6">
-                     <h3 className="m-4 font-medium text-base">내용:</h3>
+                    <h3 className="m-4 font-medium text-base">내용:</h3>
                     {imageUrl && imageUrl.length > 0 && (<img src={imageUrl} alt="포스트 이미지" className="rounded-lg shadow-md" />)}
-                    
+
                     {post?.bookId && (
                         <div className="mb-4">
                             <p className="text-base">책 제목: {post?.bookTitle}</p>

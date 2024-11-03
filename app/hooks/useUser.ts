@@ -1,14 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useDispatch } from 'react-redux';
-import { userService} from '@/app/service/user/user.service';
+import { userService } from '@/app/service/user/user.service';
 import { UserModel } from '@/app/model/user/user.model';
-import { AppDispatch } from "@/lib/store"; 
+import { AppDispatch } from "@/lib/store";
 
 export const useUser = (nickname: string) => {
     const queryClient = useQueryClient();
     const dispatch: AppDispatch = useDispatch();
 
-    const { data: user, isLoading, error} = useQuery<UserModel, Error>(
+    const { data: user, isLoading, error } = useQuery<UserModel, Error>(
         ['user', nickname],
         () => userService.findUserDetail(nickname, dispatch),
         {

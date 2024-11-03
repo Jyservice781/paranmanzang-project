@@ -48,7 +48,7 @@ export default function ChatRoomList({ chatRooms, currentChatRoomId }: ChatRoomL
                 id="popup-button"
                 type="button"
                 className="relative mb-3 me-4 w-full rounded-lg bg-green-700 px-5 py-2.5 text-center text-lg font-bold text-gray-100 hover:bg-green-600"
-                onClick={()=> setIsPopoverVisible((prev) => !prev)}
+                onClick={() => setIsPopoverVisible((prev) => !prev)}
             >
                 디른 대화방 {"^"}
             </button>

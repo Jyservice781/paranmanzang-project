@@ -70,11 +70,11 @@ const userSlice = createSlice({
 });
 
 export const getCurrentUser = (state: RootState) => state.user.currentUser
-export const getUsers = (state:  RootState) => state.user.users
+export const getUsers = (state: RootState) => state.user.users
 export const getNickname = (state: RootState) => state.user.nickname
 export const getIsLoading = (state: RootState) => state.user.isLoading
-export const getUserList = (state: RootState) => state.user.users 
-export const getError = (state:  RootState) => state.user.error
+export const getUserList = (state: RootState) => state.user.users
+export const getError = (state: RootState) => state.user.error
 
 // 액션 생성자들을 export
 export const {

@@ -116,7 +116,7 @@ const findUserDetail = async (nickname: string, dispatch: AppDispatch): Promise<
         dispatch(saveCurrentUser(response.data));
     } catch (error) {
         console.error("Error fetching user detail:", error);
-        throw error; 
+        throw error;
     }
 }
 

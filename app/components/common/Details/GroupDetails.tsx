@@ -192,16 +192,16 @@ export default function GroupDetails() {
                     </div>
                 )}
 
-               {group && group.nickname === nickname && enableUsers[group.id]?.length > 0 && (
-                <div>
-                    <button
-                        type="button"
-                        className="p-2 border bg-green-400 text-white rounded-lg hover:bg-green-500"
-                        onClick={openModal}
-                    >
-                        참여 신청자 보기
-                    </button>
-                </div>
+                {group && group.nickname === nickname && enableUsers[group.id]?.length > 0 && (
+                    <div>
+                        <button
+                            type="button"
+                            className="p-2 border bg-green-400 text-white rounded-lg hover:bg-green-500"
+                            onClick={openModal}
+                        >
+                            참여 신청자 보기
+                        </button>
+                    </div>
                 )}
 
                 {isModalOpen && group && (

@@ -33,7 +33,7 @@ export default function ComplainList() {
             className="p-6 bg-white rounded-lg shadow-md hover:bg-gray-50 transition-all duration-300 my-4"
             key={index}
           >
-            <div className="flex items-center justify-between mb-4" onClick={()=>moveToDetail(complain)}>
+            <div className="flex items-center justify-between mb-4" onClick={() => moveToDetail(complain)}>
               <h3 className="text-lg font-semibold text-gray-800">{complain.title}</h3>
               <span className="text-sm text-gray-500">{`신고자: ${complain.declarer}`}</span>
             </div>

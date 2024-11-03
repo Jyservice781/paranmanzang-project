@@ -1,7 +1,7 @@
 import api from '../axios';
 import requests from "@/app/api/requests";
-import {ExceptionResponseModel} from "@/app/model/error.model";
-import {CommentRequestModel, CommentResponseModel} from "@/app/model/comment/comment.model";
+import { ExceptionResponseModel } from "@/app/model/error.model";
+import { CommentRequestModel, CommentResponseModel } from "@/app/model/comment/comment.model";
 
 export const commentAPI = {
     insert(model: CommentRequestModel, nickname: string) {
@@ -15,7 +15,7 @@ export const commentAPI = {
         return api.delete<boolean>(`${requests.fetchComments}/${commentId}`);
     },
     modify(commentId: number, content: string, nickname: string) {
-        return api.put<boolean>(`${requests.fetchComments}/${commentId}`, {content}, {
+        return api.put<boolean>(`${requests.fetchComments}/${commentId}`, { content }, {
             headers: {
                 nickname,
             },

@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { ChatRoomModel } from "@/app/model/chat/chat.model";
 import { useAppDispatch } from "@/lib/store";
 import { saveCurrentChatRoom } from "@/lib/features/chat/chat.slice";

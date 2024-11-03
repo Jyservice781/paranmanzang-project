@@ -56,7 +56,7 @@ const findByNickname = async (nickname: string, dispatch: AppDispatch): Promise<
         try {
             const response = await likeBookAPI.findByNickname(nickname);
             console.log(response.data)
-            if(response.data !== null){
+            if (response.data !== null) {
                 dispatch(saveLikedBooks(response.data));
             }
         } catch (error: any) {

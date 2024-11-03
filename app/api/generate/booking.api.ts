@@ -15,7 +15,7 @@ export const bookingAPI = {
     findEnabledByGroups(groupIds: number[], page: number, size: number) { return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/group/enabled`, { params: { groupIds, page, size }, paramsSerializer: (params: any) => qs.stringify(params, { arrayFormat: 'repeat' }) }); },
     findDisabledByGroups(groupIds: number[], page: number, size: number) { return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/group/disabled`, { params: { groupIds, page, size }, paramsSerializer: (params: any) => qs.stringify(params, { arrayFormat: 'repeat' }) }); },
 
-    findEnabledByRoom(nickname:string, page: number, size: number) {
+    findEnabledByRoom(nickname: string, page: number, size: number) {
         return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/enabled`, { params: { nickname, page, size } });
     },
     findDisabledByRoom(nickname: string, page: number, size: number) {

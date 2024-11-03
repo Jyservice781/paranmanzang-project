@@ -148,16 +148,16 @@ const groupSlice = createSlice({
     saveError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
-    saveTotalPageAbleGroup: (state, action: PayloadAction<number>)=>{
+    saveTotalPageAbleGroup: (state, action: PayloadAction<number>) => {
       state.totalPageAbleGroup = action.payload;
     },
-    saveTotalPageEnableGroup: (state, action: PayloadAction<number>)=>{
+    saveTotalPageEnableGroup: (state, action: PayloadAction<number>) => {
       state.totalPageEnableGroup = action.payload;
     },
-    saveTotalPageNoticeGroupPost: (state, action: PayloadAction<number>)=>{
+    saveTotalPageNoticeGroupPost: (state, action: PayloadAction<number>) => {
       state.totalPageNoticeGroupPost = action.payload;
     },
-    saveTotalPageGeneralGroupPost: (state, action: PayloadAction<number>)=>{
+    saveTotalPageGeneralGroupPost: (state, action: PayloadAction<number>) => {
       state.totalPageGeneralGroupPost = action.payload;
     }
   },

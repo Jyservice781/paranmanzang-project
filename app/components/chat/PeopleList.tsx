@@ -1,8 +1,7 @@
 import { ChatUserModel } from "@/app/model/chat/chat.model";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import ModalFriend from "./ModalFriend";
-import styles from './PeopleList.module.css';
 
 interface PeopleListProps {
   chatUser: ChatUserModel;
@@ -46,7 +45,7 @@ export default function PeopleList({ chatUser }: PeopleListProps) {
 
           {/* 모달 */}
           <div
-            className={`${onToggle ? "visible" : "invisible" 
+            className={`${onToggle ? "visible" : "invisible"
               } absolute top-8 left-[-3rem] z-50`}
           >
             <ModalFriend name={chatUser.nickname} />

@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { removeAccessToken, setAccessToken } from "@/app/api/authUtils";
-import { userService } from "../../../service/user/user.service";
-import { groupService } from "../../../service/group/group.service";
-import { likeBookService } from "../../../service/group/likeBook.service";
-import { likePostService } from "../../../service/group/likePost.service";
-import { roomService } from "../../../service/room/room.service";
+import { userService } from "../../../../app/service/user/user.service";
+import { groupService } from "../../../../app/service/group/group.service";
+import { likeBookService } from "../../../../app/service/group/likeBook.service";
+import { likePostService } from "../../../../app/service/group/likePost.service";
+import { roomService } from "../../../../app/service/room/room.service";
 import { saveNickname } from "@/lib/features/users/user.slice";
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from "@/lib/store";
@@ -46,12 +46,12 @@ const TimerButton = ({ onRefresh }: TimerButtonProps) => {
       removeAccessToken();
       window.location.replace('/');
       console.log("시간 초과로 자동 로그아웃되었습니다.");
-    } 
+    }
     catch (error) {
       console.error('로그아웃 중 오류 발생:', error);
     }
   };
-  
+
 
   const handleRefresh = async () => {
     console.log("Refresh 버튼을 눌렀습니다.");
@@ -66,7 +66,7 @@ const TimerButton = ({ onRefresh }: TimerButtonProps) => {
         setAccessToken(token);
         dispatch(saveNickname(response.headers['nickname']));
         const nickname = response.headers['nickname'];
-        
+
         await userService.findUserDetail(nickname, dispatch);
         await groupService.findByNickname(nickname, dispatch);
         await likeBookService.findByNickname(nickname, dispatch);

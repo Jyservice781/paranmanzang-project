@@ -85,7 +85,7 @@ export const getSeparatedBookings = createSelector(
     })
 )
 
-export const getBookings = (state:RootState) => state.bookings.bookings
+export const getBookings = (state: RootState) => state.bookings.bookings
 export const getCurrentBooking = (state: RootState) => state.bookings.currentBooking;
 export const getIsLoading = (state: RootState) => state.bookings.isLoading;
 export const getError = (state: RootState) => state.bookings.error;

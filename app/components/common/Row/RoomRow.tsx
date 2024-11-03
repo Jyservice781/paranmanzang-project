@@ -8,7 +8,6 @@ import { getFiles, saveCurrentFile } from "@/lib/features/file/file.slice";
 import Pagination from "./pagination/Pagination";
 import RoomCard from "./RoomCard";
 import { useRouter } from "next/navigation";
-import { getCurrentUser } from "@/lib/features/users/user.slice";
 import { getAddresses, saveCurrentAddress } from "@/lib/features/room/address.slice";
 import { FileModel } from "@/app/model/file/file.model";
 
@@ -47,7 +46,7 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
       const currentRoom = rooms.find(({ id }) => id === currentId);
       if (currentRoom) {
         dispatch(saveCurrentRoom(currentRoom));
-        dispatch(saveCurrentFile(files.roomFiles.find(({ refId }) => refId === currentId) ?? {} as FileModel ));
+        dispatch(saveCurrentFile(files.roomFiles.find(({ refId }) => refId === currentId) ?? {} as FileModel));
         dispatch(saveCurrentAddress(addresses.find(({ roomId }) => roomId === currentId) ?? null))
         router.push(`/rooms/${currentId}`);
       }

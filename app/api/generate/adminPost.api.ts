@@ -1,6 +1,6 @@
 import api from '../axios';
 import requests from "@/app/api/requests";
-import {AdminPostModel} from "@/app/model/user/users.model";
+import { AdminPostModel } from "@/app/model/user/users.model";
 
 export const adminPostAPI = {
     findAdminPost: (page: number, size: number) => {
@@ -19,19 +19,19 @@ export const adminPostAPI = {
             }
         });
     },
-    findAdminPostDetail:(id:number)=>{
+    findAdminPostDetail: (id: number) => {
         return api.get<AdminPostModel[]>(requests.fetchUsers + `/aboard/list/${id}`);
     },
     insert: (adminPostModel: AdminPostModel) => {
         return api.post<AdminPostModel>(requests.fetchUsers + '/aboard', adminPostModel);
     },
-    modify: (id:number, adminPostModel: AdminPostModel) => {
+    modify: (id: number, adminPostModel: AdminPostModel) => {
         return api.put<AdminPostModel>(requests.fetchUsers + `/aboard/${id}`, adminPostModel);
     },
     drop: (id: number) => {
         return api.delete<Boolean>(`${requests.fetchUsers}/aboard/${id}`);
     },
-    findAdminPostViewCount:(id:number) => {
+    findAdminPostViewCount: (id: number) => {
         return api.get<number>(requests.fetchUsers + `aboard/viewcount/${id}`);
     }
 }

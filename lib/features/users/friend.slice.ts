@@ -1,4 +1,4 @@
-import { initialUserState,FriendModel} from '@/app/model/user/users.model';
+import { initialUserState, FriendModel } from '@/app/model/user/users.model';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 
@@ -7,7 +7,7 @@ export const friendSlice = createSlice({
     initialState: initialUserState,
     reducers: {
         saveFriends: (state, action: PayloadAction<FriendModel[]>) => {
-            state.friends =action.payload;
+            state.friends = action.payload;
         },
         saveAlreadyFriends: (state, action: PayloadAction<FriendModel[]>) => {
             state.alreadyFriends = action.payload;
@@ -17,10 +17,10 @@ export const friendSlice = createSlice({
         },
         saveRequestFriends: (state, action: PayloadAction<FriendModel[]>) => {
             state.requestFriends = action.payload;
-        },  
+        },
         saveResponseFriends: (state, action: PayloadAction<FriendModel[]>) => {
             state.responseFriends = action.payload;
-        },  
+        },
         addFriend: (state, action: PayloadAction<FriendModel>) => {
             state.friends.push(action.payload);
         },

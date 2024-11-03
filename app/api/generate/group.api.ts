@@ -1,4 +1,4 @@
-import {ExceptionResponseModel} from "@/app/model/error.model";
+import { ExceptionResponseModel } from "@/app/model/error.model";
 import requests from "@/app/api/requests";
 import api from "@/app/api/axios";
 
@@ -10,7 +10,7 @@ import {
 
 export const groupApi = {
     findList(page: number, size: number) {
-        return api.get<Page<GroupResponseModel>>(requests.fetchGroups + '/groups', {params: {page, size}});
+        return api.get<Page<GroupResponseModel>>(requests.fetchGroups + '/groups', { params: { page, size } });
     },
     findByNickname(nickname: string) {
         return api.get<GroupResponseModel[]>(requests.fetchGroups + '/groups/my-groups', {
@@ -35,7 +35,7 @@ export const groupApi = {
         return api.get<JoiningModel[]>(requests.fetchGroups + `/groups/users/${groupId}`);
     },
     modifyChatRoomId(roomId: number, groupId: number) {
-        return api.put<GroupResponseModel | ExceptionResponseModel>(requests.fetchGroups + `/groups/chat-room/${groupId}`, {roomId});
+        return api.put<GroupResponseModel | ExceptionResponseModel>(requests.fetchGroups + `/groups/chat-room/${groupId}`, { roomId });
     },
     insertUser(joiningModel: JoiningModel) {
         return api.post<JoiningModel | ExceptionResponseModel>(requests.fetchGroups + '/groups/user', joiningModel);
@@ -54,13 +54,13 @@ export const groupApi = {
             }
         });
     },
-    
+
     dropUser(nickname: string, groupId: number) {
         return api.delete<Boolean>(`${requests.fetchGroups}/groups/users/${groupId}`, {
             params: { nickname }
         });
     },
-    findEnableUser(groupId:number) {
+    findEnableUser(groupId: number) {
         return api.get<JoiningModel[]>(`${requests.fetchGroups}/groups/users/enable/${groupId}`);
     }
 

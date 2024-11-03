@@ -39,7 +39,7 @@ export default function PostEditor() {
 
 
   const onSubmit = async (e: FormEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     if (!title || !content) {
       alert('제목과 내용을 입력해주세요.');
@@ -131,7 +131,7 @@ export default function PostEditor() {
       </div>
 
       <button
-        onClick={onSubmit} 
+        onClick={onSubmit}
         className="w-full py-3 px-4 text-white bg-green-500 rounded-md shadow-md hover:bg-green-600 transition-colors duration-300"
       >
         글 작성

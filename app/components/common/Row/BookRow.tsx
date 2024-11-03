@@ -22,7 +22,7 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
   const files = useSelector(getFiles);
   const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
-  
+
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(9);
   const totalPages = useSelector(getTotalPage)
@@ -30,7 +30,7 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
     bookService.findList(page, pageSize, dispatch)
   }, [page, pageSize, dispatch])
 
-   const handlePageChange = (page: number) => {
+  const handlePageChange = (page: number) => {
     setPage(page);
   };
 

@@ -5,7 +5,7 @@ import Alert from "../common/Alert";
 import { useState } from "react";
 import { useAppDispatch } from "@/lib/store";
 import { groupService } from "@/app/service/group/group.service";
-import { getCurrentUser, getNickname } from "@/lib/features/users/user.slice";
+import { getNickname } from "@/lib/features/users/user.slice";
 import { useSelector } from "react-redux";
 import { GroupModel } from "@/app/model/group/group.model";
 
@@ -25,9 +25,9 @@ export default function GroupAdd() {
 
     const createGroup = () => {
         {
-          !nickname && (
-            <Alert message="로그인 후 재접속 바랍니다" isOpen={isOpen} onClose={() => { }} />
-          )
+            !nickname && (
+                <Alert message="로그인 후 재접속 바랍니다" isOpen={isOpen} onClose={() => { }} />
+            )
         }
         if (nickname) {
             const groupModel: GroupModel = {

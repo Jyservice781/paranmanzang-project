@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { useAppDispatch } from "@/lib/store"
 import { BookingModel } from "@/app/model/room/bookings.model"
 
-import { getBookings, getEnabledBooking, getNotEnabledBooking, getTotalPageDisabledBooking, getTotalPageEnabledBooking } from "@/lib/features/room/booking.slice"
+import { getEnabledBooking, getNotEnabledBooking, getTotalPageDisabledBooking, getTotalPageEnabledBooking } from "@/lib/features/room/booking.slice"
 import { useSelector } from "react-redux"
 import { bookingService } from "@/app/service/room/booking.service"
 import { getLeaderGroups } from "@/lib/features/group/group.slice"

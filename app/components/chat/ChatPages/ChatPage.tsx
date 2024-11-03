@@ -1,10 +1,10 @@
 "use client"
-import React, {useCallback, useRef, useState} from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import InputField from "../InputField/InputField";
 import MessageContainer from '../MessageContainer/MessageContainer';
-import {chatMessageService} from '@/app/service/chat/chatMessage.service';
-import {ChatMessageModel} from '@/app/model/chat/chat.model';
-import {useDispatch, useSelector} from "react-redux";
+import { chatMessageService } from '@/app/service/chat/chatMessage.service';
+import { ChatMessageModel } from '@/app/model/chat/chat.model';
+import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from '@/lib/features/users/user.slice';
 
 interface ChatPageProps {
@@ -12,7 +12,7 @@ interface ChatPageProps {
     roomId: string;
 }
 
-const ChatPage = ({messages, roomId}: ChatPageProps) => {
+const ChatPage = ({ messages, roomId }: ChatPageProps) => {
     const dispatch = useDispatch()
     const [message, setMessage] = useState("")
     const isSuccessRef = useRef<boolean | null>(null)
@@ -20,7 +20,7 @@ const ChatPage = ({messages, roomId}: ChatPageProps) => {
     const nickname = user?.nickname ?? ''
 
     const sendMessage = useCallback(() => {
-        chatMessageService.insert({nickname, roomId, message, dispatch})
+        chatMessageService.insert({ nickname, roomId, message, dispatch })
             .then((isSuccess) => {
                 if (isSuccess) {
                     setMessage(''); // 메시지 전송 성공 후 입력창 초기화
@@ -36,7 +36,7 @@ const ChatPage = ({messages, roomId}: ChatPageProps) => {
     return (
         <div>
             <div id="ChatPage">
-                <MessageContainer messages={messages} currentUserNickname={nickname}/>
+                <MessageContainer messages={messages} currentUserNickname={nickname} />
                 <InputField
                     message={message}
                     setMessage={setMessage}

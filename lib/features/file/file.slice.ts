@@ -108,13 +108,13 @@ const selectFileState = (state: RootState) => state.file;
 export const getFiles = createSelector(
     [selectFileState],
     (fileState) => ({
-      userFiles: fileState.userFiles,
-      roomFiles: fileState.roomFiles,
-      aboardFiles: fileState.aboardFiles,
-      groupPostFiles: fileState.groupPostFiles,
-      bookFiles: fileState.bookFiles,
+        userFiles: fileState.userFiles,
+        roomFiles: fileState.roomFiles,
+        aboardFiles: fileState.aboardFiles,
+        groupPostFiles: fileState.groupPostFiles,
+        bookFiles: fileState.bookFiles,
     })
-  );
+);
 export const getCurrentFile = (state: RootState) => state.file.currentFile;
 export const getFileToDelete = (state: RootState) => state.file.fileToDelete;
 export const getLoading = (state: RootState) => state.file.isLoading;

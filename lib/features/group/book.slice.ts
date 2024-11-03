@@ -1,6 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/lib/store';
-import { BookResponseModel, initialBookState} from '@/app/model/group/book.model';
+import { BookResponseModel, initialBookState } from '@/app/model/group/book.model';
 
 export const bookSlice = createSlice({
   name: 'book',
@@ -30,7 +30,7 @@ export const bookSlice = createSlice({
     saveError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     }
-   
+
   }
 });
 

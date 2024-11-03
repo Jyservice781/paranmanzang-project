@@ -90,7 +90,7 @@ const findByGroupId = async (groupId: number, page: number, size: number, postCa
         try {
             const response = await groupPostAPI.findByGroupId(groupId, page, size, postCategory);
             dispatch(saveGroupPosts(response.data.content));
-            if(postCategory === '공지 사항'){
+            if (postCategory === '공지 사항') {
                 dispatch(saveTotalPageNoticeGroupPost(response.data.totalPages))
             } else {
                 dispatch(saveTotalPageGeneralGroupPost(response.data.totalPages))

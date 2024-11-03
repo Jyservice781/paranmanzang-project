@@ -9,5 +9,5 @@ export const likeRoomAPI = {
     drop: (likeRoomModel: LikeRoomModel) => {
         return api.delete<boolean>(requests.fetchRooms + '/likerooms', likeRoomModel);
     },
-   
+
 }

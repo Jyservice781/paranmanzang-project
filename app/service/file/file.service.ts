@@ -51,5 +51,5 @@ const findByRefId = async (refId: number, type: FileType): Promise<Blob> => {
 }
 
 export const fileService = {
-    selectFileList, uploadFile, deleteFile,findByRefId
+    selectFileList, uploadFile, deleteFile, findByRefId
 }

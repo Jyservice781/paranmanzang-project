@@ -1,5 +1,5 @@
 
-import { RoomModel, RoomUpdateModel } from '../../model/room/room.model';
+import { RoomModel, RoomUpdateModel } from '@/app/model/room/room.model'
 import { AppDispatch } from '@/lib/store';
 import { saveLoading, addRoom, updateRoom, saveRooms, removeRoom, saveError, saveLikedRooms, saveEnabledRoomByNickanme, saveDisableRoomByNickname, saveDisableRooms, updateEnableRoomByNickname, addEnabledRoomByNickname, addDisabledRoomByNickname, addDisabledRoom, removeDisabledRoom, removeEnabledRoomByNickname, removeDisabledRoomByNickname, addRoomMap, updateRoomMap, saveRoomsMap, removeRoomMap, saveTotalPageEnabledRoom, saveTotalPageDisabledRoom, getTotalPageSellerEnabledRoom, saveTotalPageSellerEnabledRoom, saveTotalPageSellerDisabledRoom } from '@/lib/features/room/room.slice';
 import { roomAPI } from '@/app/api/generate/room.api';
@@ -166,11 +166,11 @@ const findByEnabled = async (page: number, size: number, dispatch: AppDispatch):
     try {
         dispatch(saveLoading(true))
         const response = await roomAPI.findEnable(page, size)
-        console.log("findByEnabled - service await 부분임",response.data.content)
+        console.log("findByEnabled - service await 부분임", response.data.content)
         dispatch(saveTotalPageEnabledRoom(response.data.totalPages))
         dispatch(saveRooms(response.data.content))
         fileService.selectFileList(
-            
+
             response.data.content.map((room: RoomModel) => room.id)
                 .filter((id): id is number => id !== undefined),
             FileType.ROOM, dispatch)

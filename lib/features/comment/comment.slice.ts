@@ -3,7 +3,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { CommentResponseModel, initialCommentState } from '@/app/model/comment/comment.model';
-  
+
 
 const commentSlice = createSlice({
     name: 'comment',

@@ -107,7 +107,7 @@ const findByBooking = async (bookingId: number, dispath: AppDispatch): Promise<A
 const findByGroup = async (groupId: number, page: number, size: number, dispath: AppDispatch): Promise<AccountModel[]> => {
   try {
     dispath(saveLoading(true))
-    const response = await accountAPI.findByGroup(groupId, page, size);    
+    const response = await accountAPI.findByGroup(groupId, page, size);
     console.log('findByGroup: ' + response.data);
     dispath(saveTotalPageGroupAccount(response.data.totalPages))
     return response.data.content;

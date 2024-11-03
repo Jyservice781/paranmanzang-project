@@ -1,4 +1,4 @@
-import {ExceptionResponseModel} from "@/app/model/error.model";
+import { ExceptionResponseModel } from "@/app/model/error.model";
 import requests from "@/app/api/requests";
 import api from "@/app/api/axios";
 
@@ -9,21 +9,21 @@ import {
 
 
 export const groupPostAPI = {
-    insert(groupPostModel: GroupPostModel){
+    insert(groupPostModel: GroupPostModel) {
         return api.post<GroupPostResponseModel>(requests.fetchGroups + '/posts', groupPostModel);
     },
-    modify(groupPostModel: GroupPostModel){
+    modify(groupPostModel: GroupPostModel) {
         return api.put<GroupPostResponseModel>(requests.fetchGroups + '/posts', groupPostModel);
     },
-    drop(boardId: number){
+    drop(boardId: number) {
         return api.delete<Boolean>(requests.fetchGroups + `/posts/${boardId}`);
     },
-    findByGroupId(groupId: number, page: number, size: number, postCategory: string){
+    findByGroupId(groupId: number, page: number, size: number, postCategory: string) {
         return api.get<Page<GroupPostResponseModel>>(requests.fetchGroups + `/posts/${groupId}`, {
-            params: {page, size, postCategory: encodeURIComponent(postCategory)}
+            params: { page, size, postCategory: encodeURIComponent(postCategory) }
         });
     },
-    modifyViewCount(postId: number){
+    modifyViewCount(postId: number) {
         return api.put<GroupPostResponseModel>(requests.fetchGroups + `/posts/${postId}`);
     }
 }
