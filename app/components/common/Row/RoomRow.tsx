@@ -23,9 +23,7 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
   const addresses = useSelector(getAddresses)
   const dispatch = useAppDispatch()
   const router = useRouter()
-  const user = useSelector(getCurrentUser)
 
-  // const [items, setItems] = useState<RoomModel[]>([]);
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(9);
   const totalPages = useSelector(getTotalPageEnabledRoom)
@@ -72,7 +70,7 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
       </div>
       <Pagination
         currentPage={page}
-        totalPages={totalPages}
+        totalPages={totalPages - 1}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />

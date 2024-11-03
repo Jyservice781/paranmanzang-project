@@ -38,9 +38,9 @@ export default function SellerRoom() {
   };
 
   const getPaginatedData = (data: RoomModel[]) => {
-    const startIndex = (page - 1) * size;
-    const endIndex = startIndex + size;
-    return data.slice(startIndex, endIndex);
+    const startIndex = (page) * size
+    const endIndex = startIndex + size
+    return data.slice(startIndex, endIndex)
   };
 
   const showList: RoomModel[] = getPaginatedData(
@@ -50,9 +50,9 @@ export default function SellerRoom() {
   useEffect(() => {
     if (nickname) {
       if (selectedCategory === '관리') {
-        roomService.findEnableByNickname(page - 1, size, nickname, dispatch)
+        roomService.findEnableByNickname(page, size, nickname, dispatch)
       } else {
-        roomService.findDisableByNickname(page - 1, size, nickname, dispatch)
+        roomService.findDisableByNickname(page, size, nickname, dispatch)
       }
     }
   }, [nickname, page, size, dispatch, selectedCategory])
@@ -126,7 +126,7 @@ export default function SellerRoom() {
 
       <Pagination
         currentPage={page}
-        totalPages={totalItems}
+        totalPages={totalItems - 1}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
       />

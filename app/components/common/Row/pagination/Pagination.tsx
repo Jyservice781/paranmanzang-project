@@ -51,7 +51,7 @@ function Pagination({
         <button
         onClick={() => handlePageChange(0)}
         disabled={currentPage === 0}
-        className="px-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
+        className="px-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="First page"
       >
         &laquo;
@@ -59,7 +59,7 @@ function Pagination({
       <button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 0}
-        className="px-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
+        className="px-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="Previous page"
       >
         &lsaquo;
@@ -70,7 +70,7 @@ function Pagination({
       <button
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages - 1}
-        className="px-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
+        className="px-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="Next page"
       >
         &rsaquo;
@@ -78,7 +78,7 @@ function Pagination({
       <button
         onClick={() => handlePageChange(totalPages)}
         disabled={currentPage === totalPages - 1}
-        className="px-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
+        className="px-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="Last page"
       >
         &raquo;
