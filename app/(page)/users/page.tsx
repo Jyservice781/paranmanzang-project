@@ -179,7 +179,7 @@ export default function UserList() {
 
       <Pagination
         currentPage={page}
-        totalPages={totalPages}
+        totalPages={totalPages - 1}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
       />
