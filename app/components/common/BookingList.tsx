@@ -165,7 +165,6 @@ export default function BookingList({ bookingId }: BookingListProps) {
 
         <Pagination
           currentPage={page}
-          pageSize={size}
           totalPages={totalPages}
           onPageChange={handlePageChange}
           onPageSizeChange={handlePageSizeChange}

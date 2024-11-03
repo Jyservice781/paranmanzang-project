@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { useSelector } from "react-redux"
 import { getReviews, getTotalPageRoomReview } from "@/lib/features/room/review.slice"
-import { getNickname } from "@/lib/features/users/user.slice"
 import { useEffect, useState } from "react"
 import { reviewService } from "@/app/service/room/review.service"
 import { getCurrentRoom } from "@/lib/features/room/room.slice"
@@ -13,7 +12,6 @@ import Pagination from "../common/Row/pagination/Pagination"
 export default function RoomReview() {
   const route = useRouter()
   const reviews = useSelector(getReviews)
-  const nickname = useSelector(getNickname)
   const room = useSelector(getCurrentRoom)
   const dispatch = useAppDispatch()
   const goBack = () => {
@@ -44,7 +42,6 @@ export default function RoomReview() {
       </ul>
       <Pagination
         currentPage={page}
-        pageSize={pageSize}
         totalPages={totalPages}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}

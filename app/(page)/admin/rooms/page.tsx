@@ -132,7 +132,6 @@ export default function RoomAdmin() {
 
       <Pagination
         currentPage={currentPage}
-        pageSize={pageSize}
         totalPages={selectedCategory === '관리' ? totalPageEnabledRoom : totalPageDisableRoom}
         onPageChange={handlePageChange}
         onPageSizeChange={setPageSize}

@@ -2,17 +2,15 @@ import React from 'react';
 
 interface PaginationProps {
   currentPage: number;
-  pageSize: number;
   totalPages: number;
   onPageChange: (page: number) => void;
   onPageSizeChange: (size: number) => void;
 }
 
 function Pagination({
-  currentPage,
-  pageSize,
-  totalPages,
-  onPageChange,
+  currentPage, //활성 페이지 
+  totalPages, // 페이지의 총 갯수 
+  onPageChange, // 페이지 핸들링 
 }: PaginationProps) {
 
   const handlePageChange = (page: number) => {
@@ -24,7 +22,9 @@ function Pagination({
   const renderPageDots = () => {
     const dots = [];
     const maxVisibleDots = 5;
+    // 처음 페이지네이션 도트
     let startDot = Math.max(0, Math.min(currentPage - Math.floor(maxVisibleDots / 2), totalPages - maxVisibleDots));
+    // 마지막 페이지네이션 도트
     let endDot = Math.min(startDot + maxVisibleDots, totalPages);
 
     for (let i = startDot; i < endDot; i++) {
@@ -51,7 +51,7 @@ function Pagination({
         <button
         onClick={() => handlePageChange(0)}
         disabled={currentPage === 0}
-        className="p-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
+        className="px-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="First page"
       >
         &laquo;
@@ -59,7 +59,7 @@ function Pagination({
       <button
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 0}
-        className="p-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
+        className="px-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="Previous page"
       >
         &lsaquo;
@@ -70,7 +70,7 @@ function Pagination({
       <button
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages - 1}
-        className="p-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
+        className="px-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="Next page"
       >
         &rsaquo;
@@ -78,7 +78,7 @@ function Pagination({
       <button
         onClick={() => handlePageChange(totalPages)}
         disabled={currentPage === totalPages - 1}
-        className="p-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
+        className="px-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="Last page"
       >
         &raquo;

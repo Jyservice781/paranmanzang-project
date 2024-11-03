@@ -56,7 +56,6 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
       </div>
       <Pagination
         currentPage={page}
-        pageSize={pageSize}
         totalPages={totalPages}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}

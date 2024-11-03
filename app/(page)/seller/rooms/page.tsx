@@ -126,8 +126,7 @@ export default function SellerRoom() {
 
       <Pagination
         currentPage={page}
-        pageSize={size}
-        totalPages={page}
+        totalPages={totalItems}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
       />

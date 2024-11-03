@@ -104,7 +104,6 @@ export default function SellerBooking() {
 
             <Pagination
                 currentPage={page}
-                pageSize={size}
                 totalPages={selectedCategory === '확정' ? totalPageEnabledBooking : totalPageDisabledBooking}
                 onPageChange={handlePageChange}
                 onPageSizeChange={handlePageSizeChange}

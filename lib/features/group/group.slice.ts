@@ -182,7 +182,7 @@ export const getLeaderGroups = (state: RootState) => state.group.leadergroups;
 export const getIsLoading = (state: RootState) => state.group.isLoading;
 export const getError = (state: RootState) => state.group.error
 export const getTotalPageAbleGroup = (state: RootState) => state.group.totalPageAbleGroup
-export const getTotalPageEableGroup = (state: RootState) => state.group.totalPageEnableGroup
+export const getTotalPageEnableGroup = (state: RootState) => state.group.totalPageEnableGroup
 export const getTotalPageNoticeGroupPost = (state: RootState) => state.group.totalPageNoticeGroupPost
 export const getTotalPageGeneralGroupPost = (state: RootState) => state.group.totalPageGeneralGroupPost
 

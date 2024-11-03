@@ -40,7 +40,6 @@ const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
             </div>
             <Pagination
                 currentPage={page}
-                pageSize={pageSize}
                 totalPages={groups.length}
                 onPageChange={setPage}
                 onPageSizeChange={setPageSize}

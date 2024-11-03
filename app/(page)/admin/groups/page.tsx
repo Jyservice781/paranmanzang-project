@@ -2,7 +2,7 @@
 import Pagination from "@/app/components/common/Row/pagination/Pagination";
 import { GroupResponseModel } from "@/app/model/group/group.model";
 import { groupService } from "@/app/service/group/group.service";
-import { getEnableGroups, getGroups, getTotalPageAbleGroup, getTotalPageEableGroup, saveCurrentGroup } from "@/lib/features/group/group.slice";
+import { getEnableGroups, getGroups, getTotalPageAbleGroup, getTotalPageEnableGroup, saveCurrentGroup } from "@/lib/features/group/group.slice";
 import { getError, getIsLoading } from "@/lib/features/room/room.slice";
 import { useAppDispatch } from "@/lib/store";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,7 @@ export default function GroupsAdmin() {
   const router = useRouter();
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(9);
-  const totalPageEnabledGroup = useSelector(getTotalPageEableGroup)
+  const totalPageEnabledGroup = useSelector(getTotalPageEnableGroup)
   const totalPageAbleGroup = useSelector(getTotalPageAbleGroup)
 
   useEffect(() => {
@@ -31,8 +31,6 @@ export default function GroupsAdmin() {
   const groups = useSelector(getGroups)
   // 승인되지 않은 소모임 내역
   const enableGroups = useSelector(getEnableGroups)
-  const loading = useSelector(getIsLoading)
-  const error = useSelector(getError)
 
   const ableGroup = (group: GroupResponseModel) => {
     groupService.able(group, dispatch)
@@ -137,7 +135,6 @@ export default function GroupsAdmin() {
       </div>
       <Pagination
         currentPage={page}
-        pageSize={pageSize}
         totalPages={activeTab === "승인 완료" ? totalPageAbleGroup : totalPageEnabledGroup}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}

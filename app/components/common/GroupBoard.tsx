@@ -214,7 +214,6 @@ export default function GroupBoard() {
 
                 <Pagination
                     currentPage={page}
-                    pageSize={size}
                     totalPages={totalPages}
                     onPageChange={handlePageChange}
                     onPageSizeChange={handlePageSizeChange}
