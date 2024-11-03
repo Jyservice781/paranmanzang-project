@@ -43,7 +43,6 @@ export default function RoomAdd() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData)
     roomService.save(formData, dispatch);
   };
 

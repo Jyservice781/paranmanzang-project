@@ -24,7 +24,6 @@ export default function ComplainList() {
     router.push(`/complain/${complain.id}`)
   }
 
-  console.log("declaration값이 나오는지 봅시다", declarationList)
   return (
     <>
       {/* 신고 리스트 렌더링 */}

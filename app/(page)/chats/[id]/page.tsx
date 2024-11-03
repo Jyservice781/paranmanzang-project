@@ -78,9 +78,6 @@ export default function ChatRoom() {
                 if (chatRoomsResult && chatUsersResult) {
                     setChatRooms(chatRoomsResult);
                     setChatUsers(chatUsersResult);
-
-                    console.log('유저:', chatUsersResult);
-                    console.log('방:', JSON.stringify(chatRoomsResult, null, 2));
                 }
 
                 const handleNewMessage = (newMessage: ChatMessageModel) => {
@@ -120,7 +117,6 @@ export default function ChatRoom() {
             const { scrollTop, scrollHeight, clientHeight } = listRef.current;
             if (scrollTop + clientHeight >= scrollHeight) {
                 console.log("Reached the bottom of the people list.");
-                // 필요한 경우 더 많은 데이터를 불러오는 로직 추가
             }
         }
     }, []);
@@ -137,17 +133,14 @@ export default function ChatRoom() {
     }, [handleScroll]);
 
     const memoizedChatPage = useMemo(() => {
-        console.log("Rendering ChatPage with messages and roomId:", messages, roomId);
         return <ChatPage messages={messages} roomId={roomId} />;
     }, [messages, roomId]);
 
     const memoizedMyChatList = useMemo(() => {
-        console.log("Rendering MyChatList with chatRooms and roomId:", chatRooms, roomId);
         return <MyChatList chatRooms={chatRooms} currentChatRoomId={roomId} />;
     }, [chatRooms, roomId]);
 
     const memoizedPeopleList = useMemo(() => {
-        console.log("Rendering PeopleList with chatUsers:", chatUsers);
         return chatUsers.map((user, index) => (
             user.nickname !== nickname && <PeopleList key={index} chatUser={user} />
         ));

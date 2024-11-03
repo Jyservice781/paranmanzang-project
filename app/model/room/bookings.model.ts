@@ -21,8 +21,8 @@ export interface BookingState {
   totalPageEnabledBooking: number
   totalPageDisabledBooking: number
   totalPageGroupBooking: number
-  totalPageEnabledRoomBoking: number
-  totalPageDisabledRoomBoking: number
+  totalPageEnabledRoomBooking: number
+  totalPageDisabledRoomBooking: number
 }
 
 // 초기 상태
@@ -38,6 +38,6 @@ export const initialBookingState: BookingState = {
   totalPageEnabledBooking: 0,
   totalPageDisabledBooking: 0,
   totalPageGroupBooking: 0,
-  totalPageEnabledRoomBoking: 0,
-  totalPageDisabledRoomBoking: 0
+  totalPageEnabledRoomBooking: 0,
+  totalPageDisabledRoomBooking: 0
 };

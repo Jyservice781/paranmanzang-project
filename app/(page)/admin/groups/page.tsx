@@ -14,7 +14,7 @@ export default function GroupsAdmin() {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(9);
   const totalPageEnabledGroup = useSelector(getTotalPageEableGroup)
-  const totalPageAbledGroup = useSelector(getTotalPageAbleGroup)
+  const totalPageAbleGroup = useSelector(getTotalPageAbleGroup)
 
   useEffect(() => {
     groupService.findList(page, pageSize, dispatch)
@@ -138,7 +138,7 @@ export default function GroupsAdmin() {
       <Pagination
         currentPage={page}
         pageSize={pageSize}
-        totalPages={activeTab === "승인 완료" ? totalPageAbledGroup : totalPageEnabledGroup}
+        totalPages={activeTab === "승인 완료" ? totalPageAbleGroup : totalPageEnabledGroup}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />

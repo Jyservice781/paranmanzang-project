@@ -42,7 +42,6 @@ export default function RoomUpdate() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData)
     roomService.modify(formData, dispatch);
   }
 

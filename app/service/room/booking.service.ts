@@ -1,6 +1,6 @@
 import { BookingModel } from '@/app/model/room/bookings.model';
 import { AppDispatch } from '@/lib/store';
-import { addBooking, addRoomBooking, removeBooking, removeRoomBooking, saveBookings, saveLoading, saveSeperatedBookings, saveSeperatedRoomBookings, saveTotalPageDisabledBooking, saveTotalPageDisabledRoomBoking, saveTotalPageEnabledBooking, saveTotalPageEnabledRoomBoking, saveTotalPageGroupBooking, updateBooking, updateRoomBooking } from '@/lib/features/room/booking.slice';
+import { addBooking, addRoomBooking, removeBooking, removeRoomBooking, saveBookings, saveLoading, saveSeparatedBookings, saveSeparatedRoomBookings, saveTotalPageDisabledBooking, saveTotalPageDisabledRoomBooking, saveTotalPageEnabledBooking, saveTotalPageGroupBooking, updateBooking, updateRoomBooking } from '@/lib/features/room/booking.slice';
 import { bookingAPI } from '@/app/api/generate/booking.api';
 
 // 예약 등록
@@ -95,7 +95,7 @@ const findEnabledByGroups = async (groupIds: number[], page: number, size: numbe
   try {
     dispatch(saveLoading(true))
     const response = await bookingAPI.findEnabledByGroups(groupIds, page, size)
-    dispatch(saveSeperatedBookings(response.data.content))
+    dispatch(saveSeparatedBookings(response.data.content))
     dispatch(saveTotalPageEnabledBooking(response.data.totalPages))
   } catch (error: any) {
     if (error.response) {
@@ -114,7 +114,7 @@ const findDisabledByGroups = async (groupIds: number[], page: number, size: numb
   try {
     dispatch(saveLoading(true))
     const response = await bookingAPI.findDisabledByGroups(groupIds, page, size)
-    dispatch(saveSeperatedBookings(response.data.content))
+    dispatch(saveSeparatedBookings(response.data.content))
     dispatch(saveTotalPageDisabledBooking(response.data.totalPages))
   } catch (error: any) {
     if (error.response) {
@@ -131,12 +131,12 @@ const findDisabledByGroups = async (groupIds: number[], page: number, size: numb
 };
 
 // 공간 예약 조회
-const findEnabledByRoom = async (nickname:string, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
+const findEnabledByRoom = async (nickname: string, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
   try {
     dispatch(saveLoading(true))
     const response = await bookingAPI.findEnabledByRoom(nickname, page, size)
-    dispatch(saveSeperatedRoomBookings(response.data.content))
-    dispatch(saveTotalPageEnabledRoomBoking(response.data.totalPages))
+    dispatch(saveSeparatedRoomBookings(response.data.content))
+    dispatch(saveTotalPageEnabledBooking(response.data.totalPages))
   } catch (error: any) {
     if (error.response) {
       console.error('Server Error:', error.response.data);
@@ -154,8 +154,8 @@ const findDisabledByRoom = async (nickname: string, page: number, size: number, 
   try {
     dispatch(saveLoading(true))
     const response = await bookingAPI.findDisabledByRoom(nickname, page, size)
-    dispatch(saveSeperatedRoomBookings(response.data.content))
-    dispatch(saveTotalPageDisabledRoomBoking(response.data.totalPages))
+    dispatch(saveSeparatedRoomBookings(response.data.content))
+    dispatch(saveTotalPageDisabledRoomBooking(response.data.totalPages))
   } catch (error: any) {
     if (error.response) {
       console.error('Server Error:', error.response.data);
@@ -172,6 +172,6 @@ const findDisabledByRoom = async (nickname: string, page: number, size: number, 
 
 export const bookingService = {
   save, modify, drop,
-  findByGroupId, findEnabledByGroups, findDisabledByGroups, findEnabledByRoom,findDisabledByRoom
+  findByGroupId, findEnabledByGroups, findDisabledByGroups, findEnabledByRoom, findDisabledByRoom
 }
 

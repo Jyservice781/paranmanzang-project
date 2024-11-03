@@ -48,7 +48,7 @@ function Pagination({
 
   return (
     <div className="pagination flex justify-center items-center space-x-2">
-          <button
+        <button
         onClick={() => handlePageChange(0)}
         disabled={currentPage === 0}
         className="p-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
@@ -77,7 +77,7 @@ function Pagination({
       </button>
       <button
         onClick={() => handlePageChange(totalPages)}
-        disabled={currentPage === totalPages}
+        disabled={currentPage === totalPages - 1}
         className="p-1 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="Last page"
       >

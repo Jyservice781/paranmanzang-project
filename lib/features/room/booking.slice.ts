@@ -11,11 +11,11 @@ const bookingSlice = createSlice({
         saveBookings: (state, action: PayloadAction<BookingModel[]>) => {
             state.bookings = action.payload;
         },
-        saveSeperatedBookings: (state, action: PayloadAction<BookingModel[]>) => {
+        saveSeparatedBookings: (state, action: PayloadAction<BookingModel[]>) => {
             state.enabledBookings = action.payload.filter(booking => booking.enabled);
             state.notEnabledBookings = action.payload.filter(booking => !booking.enabled);
         },
-        saveSeperatedRoomBookings: (state, action: PayloadAction<BookingModel[]>) => {
+        saveSeparatedRoomBookings: (state, action: PayloadAction<BookingModel[]>) => {
             state.enabledRoomBookings = action.payload.filter(booking => booking.enabled);
             state.notEnabledRoomBookings = action.payload.filter(booking => !booking.enabled);
         },
@@ -67,16 +67,16 @@ const bookingSlice = createSlice({
         saveTotalPageGroupBooking: (state, action: PayloadAction<number>) => {
             state.totalPageGroupBooking = action.payload;
         },
-        saveTotalPageEnabledRoomBoking: (state, action: PayloadAction<number>) => {
-            state.totalPageEnabledRoomBoking = action.payload;
+        saveTotalPageEnabledRoomBooking: (state, action: PayloadAction<number>) => {
+            state.totalPageEnabledRoomBooking = action.payload;
         },
-        saveTotalPageDisabledRoomBoking: (state, action: PayloadAction<number>) => {
-            state.totalPageDisabledRoomBoking = action.payload;
+        saveTotalPageDisabledRoomBooking: (state, action: PayloadAction<number>) => {
+            state.totalPageDisabledRoomBooking = action.payload;
         },
     },
 });
 
-export const getSeperatedBookings = createSelector(
+export const getSeparatedBookings = createSelector(
     (state: RootState) => state.bookings.enabledBookings,
     (state: RootState) => state.bookings.notEnabledBookings,
     (enabledBookings, notEnabledBookings) => ({
@@ -94,27 +94,27 @@ export const getNotEnabledBooking = (state: RootState) => state.bookings.notEnab
 export const getTotalPageEnabledBooking = (state: RootState) => state.bookings.totalPageEnabledBooking
 export const getTotalPageDisabledBooking = (state: RootState) => state.bookings.totalPageDisabledBooking
 export const getTotalPageGroupBooking = (state: RootState) => state.bookings.totalPageGroupBooking
-export const getTotalPageEnabledRoomBoking = (state: RootState) => state.bookings.totalPageEnabledRoomBoking
-export const getTotalPageDisabledRoomBoking = (state: RootState) => state.bookings.totalPageDisabledRoomBoking
+export const getTotalPageEnabledRoomBooking = (state: RootState) => state.bookings.totalPageEnabledRoomBooking
+export const getTotalPageDisabledRoomBooking = (state: RootState) => state.bookings.totalPageDisabledRoomBooking
 
 export const {
     saveBookings,
-    saveSeperatedRoomBookings,
+    saveSeparatedRoomBookings,
     addBooking,
     addRoomBooking,
     updateBooking,
     updateRoomBooking,
     removeBooking,
     removeRoomBooking,
-    saveSeperatedBookings,
+    saveSeparatedBookings,
     saveCurrentBooking,
     saveLoading,
     saveError,
     saveTotalPageEnabledBooking,
     saveTotalPageDisabledBooking,
     saveTotalPageGroupBooking,
-    saveTotalPageEnabledRoomBoking,
-    saveTotalPageDisabledRoomBoking,
+    saveTotalPageEnabledRoomBooking,
+    saveTotalPageDisabledRoomBooking,
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;
