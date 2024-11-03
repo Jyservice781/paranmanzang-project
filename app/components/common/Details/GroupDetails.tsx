@@ -165,7 +165,7 @@ export default function GroupDetails() {
                                                 {nickname === group.nickname && (
                                                     <button
                                                         type="button"
-                                                        className="px-4 py-2 border border-red-500 bg-red-400 rounded-lg hover:bg-red-500"
+                                                        className="p-2 border border-red-500 bg-red-400 rounded-lg hover:bg-red-500 text-xs text-white"
                                                         onClick={() => deleteUser(user.nickname)}
                                                     >
                                                         소모임 멤버 제명
