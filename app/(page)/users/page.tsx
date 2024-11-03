@@ -44,7 +44,7 @@ export default function UserList() {
   }, [allUsers]);
 
   const { paginatedUsers, totalPages } = useMemo(() => {
-    const startIndex = (page - 1) * pageSize;
+    const startIndex = (page) * pageSize;
     const endIndex = startIndex + pageSize;
     return {
       paginatedUsers: allUsers.slice(startIndex, endIndex),
@@ -101,7 +101,6 @@ export default function UserList() {
       try {
         await userService.dropUser(nickname, dispatch);
         alert("회원이 성공적으로 탈퇴되었습니다.");
-        // await userService.findAllUsers(nickname, dispatch);
       } catch (error) {
         console.error("회원 강제 탈퇴 중 오류:", error);
         alert("회원 강제 탈퇴에 실패했습니다.");
@@ -155,10 +154,6 @@ export default function UserList() {
                       >
                         <option value="ROLE_USER">일반회원</option>
                         <option value="ROLE_SELLER">판매자</option>
-                        {/* 
-                          어드민으로 만드는게 필요할까? 
-                         <option value="ROLE_ADMIN">Admin</option> 
-                         */}
                       </select>
                     </div>
                     <button
@@ -184,7 +179,7 @@ export default function UserList() {
 
       <Pagination
         currentPage={page}
-        totalPages={allUsers.length}
+        totalPages={totalPages}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
       />
