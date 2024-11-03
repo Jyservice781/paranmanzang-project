@@ -4,8 +4,8 @@
   overflow-y: auto;
   max-height: 400px;
   min-height: 100dvh;
-  margin-bottom: 2.25rem;
-  padding:5rem;
+  margin-bottom: 3rem;
+  padding:6rem;
 }
 .systemMessageContainer {
   display: flex;

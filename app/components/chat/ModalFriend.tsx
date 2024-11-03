@@ -115,7 +115,7 @@ export default function ModalFriend({ name }: ModalFriendProps) {
                 {isFriend && (
                     <button
                         type="button"
-                        className="p-2 border border-green-300 text-xs rounded-lg text-green-400 hover:bg-gray-100 transition-colors"
+                        className="p-2 border border-green-300 text-xs bg-green-100 rounded-lg text-green-400 hover:bg-green-100 transition-colors"
                         onClick={() => onRejectRequest('delete')}
                     >
                         친구 삭제
