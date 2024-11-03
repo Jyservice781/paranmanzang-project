@@ -15,7 +15,6 @@ export default function SellerBooking() {
     const user = useSelector(getCurrentUser)
     const nickname = user?.nickname as string
     const dispatch = useAppDispatch()
-    const rooms = useSelector(getEnabledRoomByNickname)
     const { enabledBookings, notEnabledBookings } = useSelector(getSeparatedBookings)
     const route = useRouter()
     const [page, setPage] = useState(0);

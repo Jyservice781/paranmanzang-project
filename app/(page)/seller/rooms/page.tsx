@@ -38,8 +38,8 @@ export default function SellerRoom() {
   };
 
   const getPaginatedData = (data: RoomModel[]) => {
-    const startIndex = (page) * size
-    const endIndex = startIndex + size
+    const startIndex = (page) * size - 1
+    const endIndex = startIndex + size - 1
     return data.slice(startIndex, endIndex)
   };
 
@@ -126,7 +126,7 @@ export default function SellerRoom() {
 
       <Pagination
         currentPage={page}
-        totalPages={totalItems - 1}
+        totalPages={totalItems}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
       />
