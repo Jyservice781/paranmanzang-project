@@ -1,7 +1,7 @@
 "use client"
 import { RoomModel } from "@/app/model/room/room.model"
 import { roomService } from "@/app/service/room/room.service"
-import { getDisabledRoomByNickname, getEnabledRoomByNickname, getTotalPageSellerDisabledRoom, getTotalPageSellerEnabledRoom, saveCurrentRoom } from "@/lib/features/room/room.slice"
+import { getDisabledRoomByNickname, getEnabledRoomByNickname, saveCurrentRoom } from "@/lib/features/room/room.slice"
 import { getNickname } from "@/lib/features/users/user.slice"
 import { useAppDispatch } from "@/lib/store"
 import { useRouter } from "next/navigation"
@@ -15,15 +15,10 @@ export default function SellerRoom() {
   const enabledRooms = useSelector(getEnabledRoomByNickname)
   const disabledRooms = useSelector(getDisabledRoomByNickname)
   const route = useRouter()
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [size, setSize] = useState(10);
-  const totalPageEnabledRoom = useSelector(getTotalPageSellerEnabledRoom)
-  const totalPageDisabledRoom = useSelector(getTotalPageSellerDisabledRoom)
+  const [totalItems, setTotalItems] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState<'관리' | '승인 대기'>('관리');
-  // 각 탭별로 페이지 관리
-  const [managePage, setManagePage] = useState(1);
-  const [pendingPage, setPendingPage] = useState(1);
-  const currentPage = selectedCategory === '관리' ? managePage : pendingPage;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -38,26 +33,36 @@ export default function SellerRoom() {
   };
 
   const handleTabClick = (category: '관리' | '승인 대기') => {
-    setSelectedCategory(category)
-    // 토글 탭 움직일때 페이징 넘버 1로 이동 
-    setPage(1)
-  }
+    setSelectedCategory(category);
+    setPage(1); // 토글 탭 움직일때 페이징 넘버 1로 이동 
+  };
 
-  const showList: RoomModel[] = (
+  const getPaginatedData = (data: RoomModel[]) => {
+    const startIndex = (page - 1) * size;
+    const endIndex = startIndex + size;
+    return data.slice(startIndex, endIndex);
+  };
+
+  const showList: RoomModel[] = getPaginatedData(
     selectedCategory === '관리' ? enabledRooms : disabledRooms
-  )
+  );
 
   useEffect(() => {
     if (nickname) {
       if (selectedCategory === '관리') {
-        roomService.findEnableByNickname(managePage - 1, size, nickname, dispatch)
+        roomService.findEnableByNickname(page - 1, size, nickname, dispatch)
       } else {
-        roomService.findDisableByNickname(pendingPage - 1, size, nickname, dispatch)
+        roomService.findDisableByNickname(page - 1, size, nickname, dispatch)
       }
     }
-  }, [nickname, managePage, pendingPage, size, dispatch, selectedCategory])
+  }, [nickname, page, size, dispatch, selectedCategory])
+
+  useEffect(() => {
+    setTotalItems(selectedCategory === '관리' ? enabledRooms.length : disabledRooms.length);
+  }, [selectedCategory, enabledRooms, disabledRooms]);
 
   const onDelete = (id: string) => {
+    console.log(`Deleting id: ${id}`)
     roomService.drop(Number(id), dispatch)
   }
 
@@ -67,21 +72,15 @@ export default function SellerRoom() {
       route.push(`/rooms/update/${room.id}`)
     }
   }
+
   const handlePageChange = (newPage: number) => {
-    // 선택된 카테고리에 따라 해당하는 페이지 상태만 업데이트
-    if (selectedCategory === '관리') {
-      setManagePage(newPage);
-    } else {
-      setPendingPage(newPage);
-    }
-  };
+    setPage(newPage);
+  }
 
   const handlePageSizeChange = (newPageSize: number) => {
     setSize(newPageSize);
-    // 페이지 크기가 변경되면 양쪽 탭 모두 1페이지로 초기화
-    setManagePage(1);
-    setPendingPage(1);
-  };
+    setPage(1);
+  }
 
   return (
     <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
@@ -98,14 +97,7 @@ export default function SellerRoom() {
         >
           승인 대기
         </button>
-        <button
-          className="px-4 py-2 rounded-full bg-green-500 text-white"
-          onClick={() => { route.push('/rooms/add') }}
-        >
-          등록하기
-        </button>
       </div>
-
 
       {showList.length > 0 ? (
         showList.map((room) => (
@@ -133,9 +125,9 @@ export default function SellerRoom() {
       )}
 
       <Pagination
-        currentPage={currentPage}
+        currentPage={page}
         pageSize={size}
-        totalPages={selectedCategory === '관리' ? totalPageEnabledRoom : totalPageDisabledRoom}
+        totalPages={page}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
       />
