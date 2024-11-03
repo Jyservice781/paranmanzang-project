@@ -126,14 +126,14 @@ export default function ModalFriend({ name }: ModalFriendProps) {
                     <>
                         <button
                             type="button"
-                            className="p-2 border border-blue-500 text-blue-500 text-xs rounded-lg hover:bg-blue-50 transition-colors"
+                            className="p-2 border border-blue-500 text-blue-500 bg-blue-50 text-xs rounded-lg hover:bg-blue-50 transition-colors"
                             onClick={onAcceptRequest}
                         >
                             친구 요청 수락
                         </button>
                         <button
                             type="button"
-                            className="p-2 border border-gray-500 text-gray-700 text-xs rounded-lg hover:bg-gray-100 transition-colors"
+                            className="p-2 border border-gray-500 text-gray-700 bg-gray-100 text-xs rounded-lg hover:bg-gray-100 transition-colors"
                             onClick={() => onRejectRequest('reject')}
                         >
                             친구 요청 거절
