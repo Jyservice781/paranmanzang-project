@@ -86,13 +86,13 @@ export default function GroupDetails() {
             chatUserService.insert(group.chatRoomId, name, dispatch)
                 .then((result) => {
                     if (result) {
-                        console.log("result", result)
+                        console.log("함수 실행 결과보기", result)
                         return chatUserService.findList({ roomId: group.chatRoomId, dispatch })
                     }
                 })
                 .then((updatedChatUsers) => {
                     if (updatedChatUsers) {
-                        console.log("updatedChatUsers", updatedChatUsers)
+                        console.log("채팅유저 참여하기, update 실행", updatedChatUsers)
                         setChatUsers(updatedChatUsers)
                     }
                 })
