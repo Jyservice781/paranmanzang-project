@@ -81,6 +81,7 @@ export default function GroupDetails() {
     }, [group, dispatch]);
 
     const inputUserIntoChatRoom = (name: string) => {
+        console.log("유저 채팅방 초대함수 실행")
         if (group) {
             chatUserService.insert(group.chatRoomId, name, dispatch)
                 .then((result) => {
