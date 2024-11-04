@@ -8,6 +8,18 @@ export interface AddressModel {
     roomId: number;
 }
 
+export interface AddressResponseModel {
+    title: string;
+    category:string;
+    description: string;
+    link: string;
+    mapx: string;
+    mapy: string;
+    roadAddress: string;
+    telephone: string;
+    address: string;
+  }
+
 export const initializeAddressModel = (): AddressModel => ({
     id: 0,
     address: '',
