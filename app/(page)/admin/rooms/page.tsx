@@ -44,9 +44,9 @@ export default function RoomAdmin() {
   const totalPageDisableRoom = useSelector(getTotalPageDisabledRoom)
   useEffect(() => {
     if (selectedCategory === '관리') {
-      roomService.findByEnabled(관리Page, pageSize, dispatch);
+      roomService.findByEnabled(관리Page + 1, pageSize, dispatch);
     } else {
-      roomService.findDisable(승인대기Page, pageSize, dispatch);
+      roomService.findDisable(승인대기Page + 1, pageSize, dispatch);
     }
   }, [관리Page, 승인대기Page, pageSize, selectedCategory, dispatch]);
 
