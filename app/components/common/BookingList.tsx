@@ -135,10 +135,6 @@ export default function BookingList({ bookingId }: BookingListProps) {
     setPage(newPage);
   };
 
-  const handlePageSizeChange = (newPageSize: number) => {
-    setSize(newPageSize);
-    setPage(1);
-  };
 
   return (
     <div className="max-w-4xl mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
@@ -151,7 +147,7 @@ export default function BookingList({ bookingId }: BookingListProps) {
                         ${activeTab === tab ? 'bg-green-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
               onClick={() => {
                 setActiveTab(tab);
-                setPage(1);
+                setPage(0);
               }}
             >
               {tab}
@@ -167,7 +163,7 @@ export default function BookingList({ bookingId }: BookingListProps) {
           currentPage={page}
           totalPages={totalPages}
           onPageChange={handlePageChange}
-          onPageSizeChange={handlePageSizeChange}
+          onPageSizeChange={setSize}
         />
       </div>
 

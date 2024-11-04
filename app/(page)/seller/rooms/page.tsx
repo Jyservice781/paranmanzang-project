@@ -15,7 +15,7 @@ export default function SellerRoom() {
   const enabledRooms = useSelector(getEnabledRoomByNickname)
   const disabledRooms = useSelector(getDisabledRoomByNickname)
   const route = useRouter()
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
   const [totalItems, setTotalItems] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState<'관리' | '승인 대기'>('관리');
@@ -34,7 +34,7 @@ export default function SellerRoom() {
 
   const handleTabClick = (category: '관리' | '승인 대기') => {
     setSelectedCategory(category);
-    setPage(1); // 토글 탭 움직일때 페이징 넘버 1로 이동 
+    setPage(0); // 토글 탭 움직일때 페이징 넘버 1로 이동 
   };
 
   const getPaginatedData = (data: RoomModel[]) => {
@@ -77,10 +77,6 @@ export default function SellerRoom() {
     setPage(newPage);
   }
 
-  const handlePageSizeChange = (newPageSize: number) => {
-    setSize(newPageSize);
-    setPage(1);
-  }
 
   return (
     <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
@@ -128,7 +124,7 @@ export default function SellerRoom() {
         currentPage={page}
         totalPages={totalItems}
         onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
+        onPageSizeChange={setSize}
       />
 
       <button type="button" onClick={() => route.back()} className="mt-4 px-4 py-2 rounded-lg bg-green-400 text-white">뒤로가기</button>

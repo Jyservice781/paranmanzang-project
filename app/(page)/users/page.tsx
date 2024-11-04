@@ -56,10 +56,6 @@ export default function UserList() {
     setPage(newPage);
   }
 
-  const handlePageSizeChange = (newPageSize: number) => {
-    setPageSize(newPageSize);
-    setPage(1);
-  }
 
   const handleRoleChange = (nickname: string, newRole: string) => {
     setUserRoles(prevRoles => ({
@@ -181,7 +177,7 @@ export default function UserList() {
         currentPage={page}
         totalPages={totalPages}
         onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
+        onPageSizeChange={setPageSize}
       />
     </div>
   );
