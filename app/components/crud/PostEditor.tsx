@@ -14,7 +14,7 @@ export default function PostEditor() {
   const [content, setContent] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | null>(null); // 단일 파일
-  const [selectedGroup, setSelectedGroup] = useState<string>('자유게시판');
+  const [selectedGroup, setSelectedGroup] = useState<string>('General');
 
   const group = useSelector(getCurrentGroup);
   const nickname = useSelector(getNickname);
@@ -80,8 +80,8 @@ export default function PostEditor() {
           onChange={(e) => setSelectedGroup(e.target.value)}
           className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
         >
-          {group?.nickname === nickname && <option value="공지 사항">공지 사항</option>}
-          <option value="자유게시판">자유게시판</option>
+          {group?.nickname === nickname && <option value="Notice">공지 사항</option>}
+          <option value="General">자유게시판</option>
         </select>
       </div>
 
