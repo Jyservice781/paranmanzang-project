@@ -1,6 +1,6 @@
-import { ExceptionResponseModel } from "@/app/model/error.model";
 import requests from "@/app/api/requests";
 import api from "@/app/api/axios";
+import qs from 'qs';
 
 import {
     GroupPostModel,
@@ -20,7 +20,7 @@ export const groupPostAPI = {
     },
     findByGroupId(groupId: number, page: number, size: number, postCategory: string) {
         return api.get<Page<GroupPostResponseModel>>(requests.fetchGroups + `/posts/${groupId}`, {
-            params: { page, size, postCategory: encodeURIComponent(postCategory) }
+            params: { page, size, postCategory }
         });
     },
     modifyViewCount(postId: number) {

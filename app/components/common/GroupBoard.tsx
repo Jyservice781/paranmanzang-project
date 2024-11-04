@@ -39,9 +39,13 @@ export default function GroupBoard() {
 
     useEffect(() => {
         if (!group) return;
-
-        // 그룹 ID에 따라 게시글과 예약 정보를 가져옴
-        groupPostService.findByGroupId(group.id, page, size, encodeURIComponent(activeTab), dispatch);
+        let category;
+        if(activeTab === '공지 사항'){
+            category = 'Notice'
+        } else {
+            category = 'General'
+        }
+        groupPostService.findByGroupId(group.id, page, size, category, dispatch);
         bookingService.findByGroupId(group.id, page, size, dispatch);
     }, [dispatch, group, activeTab, page, size]);
 
