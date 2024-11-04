@@ -86,7 +86,8 @@ export default function ModalFriend({ name }: ModalFriendProps) {
     const onAcceptRequest = () => {
         console.log("친구요청 수락 onAcceptRequest 실행")
         const friendModel = responseFriends.find((friend) => friend.requestAt === name)
-        console.log(friendModel)
+        console.log("friendModel 결과", friendModel)
+
         if (friendModel) {
             friendService.modifyFriend(friendModel, dispatch)
                 .then(() => {
