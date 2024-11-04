@@ -113,7 +113,7 @@ export default function RoomAdd() {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAddress(event.target.value); // 상태 업데이트
-    addressService.search(address, dispatch)
+    addressService.search(encodeURIComponent(address), dispatch)
       .then((response) => {
         setData(response)
       })
