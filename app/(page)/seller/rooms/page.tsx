@@ -1,7 +1,7 @@
 "use client"
 import { RoomModel } from "@/app/model/room/room.model"
 import { roomService } from "@/app/service/room/room.service"
-import { getDisabledRoomByNickname, getEnabledRoomByNickname, saveCurrentRoom } from "@/lib/features/room/room.slice"
+import { getDisabledRoomByNickname, getEnabledRoomByNickname, getTotalPageSellerDisabledRoom, getTotalPageSellerEnabledRoom, saveCurrentRoom } from "@/lib/features/room/room.slice"
 import { getNickname } from "@/lib/features/users/user.slice"
 import { useAppDispatch } from "@/lib/store"
 import { useRouter } from "next/navigation"
@@ -17,8 +17,10 @@ export default function SellerRoom() {
   const route = useRouter()
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(10);
-  const [totalItems, setTotalItems] = useState(0)
   const [selectedCategory, setSelectedCategory] = useState<'관리' | '승인 대기'>('관리');
+
+  const enabledRoomTotalPage = useSelector(getTotalPageSellerEnabledRoom)
+  const disabledRoomTotalPage = useSelector(getTotalPageSellerDisabledRoom)
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -37,13 +39,8 @@ export default function SellerRoom() {
     setPage(0); // 토글 탭 움직일때 페이징 넘버 1로 이동 
   };
 
-  const getPaginatedData = (data: RoomModel[]) => {
-    const startIndex = (page) * size - 1
-    const endIndex = startIndex + size - 1
-    return data.slice(startIndex, endIndex)
-  };
 
-  const showList: RoomModel[] = getPaginatedData(
+  const showList: RoomModel[] = (
     selectedCategory === '관리' ? enabledRooms : disabledRooms
   );
 
@@ -56,10 +53,6 @@ export default function SellerRoom() {
       }
     }
   }, [nickname, page, size, dispatch, selectedCategory])
-
-  useEffect(() => {
-    setTotalItems(selectedCategory === '관리' ? enabledRooms.length : disabledRooms.length);
-  }, [selectedCategory, enabledRooms, disabledRooms]);
 
   const onDelete = (id: string) => {
     console.log(`Deleting id: ${id}`)
@@ -122,7 +115,7 @@ export default function SellerRoom() {
 
       <Pagination
         currentPage={page}
-        totalPages={totalItems}
+        totalPages={selectedCategory === '관리' ? enabledRoomTotalPage : disabledRoomTotalPage}
         onPageChange={handlePageChange}
         onPageSizeChange={setSize}
       />

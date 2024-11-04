@@ -23,6 +23,9 @@ export default function SellerBooking() {
     const totalPageDisabledBooking = useSelector(getTotalPageDisabledRoomBooking)
     const [selectedCategory, setSelectedCategory] = useState<'확정' | '승인 대기'>('확정');
 
+    console.log("booking 확정"+ enabledBookings)
+    console.log("booking 대기"+ notEnabledBookings)
+
     const handleTabClick = (category: '확정' | '승인 대기') => {
         setSelectedCategory(category);
         setPage(0); // 페이지네이션 리셋 하는 부분 
@@ -36,7 +39,6 @@ export default function SellerBooking() {
         if (nickname) {
             bookingService.findEnabledByRoom(nickname, page, size, dispatch)
             bookingService.findDisabledByRoom(nickname, page, size, dispatch)
-            roomService.findEnableByNickname(page, size, nickname, dispatch)
         }
     }, [nickname, page, size, dispatch, selectedCategory])
 

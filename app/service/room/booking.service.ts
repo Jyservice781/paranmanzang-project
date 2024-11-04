@@ -1,6 +1,6 @@
 import { BookingModel } from '@/app/model/room/bookings.model';
 import { AppDispatch } from '@/lib/store';
-import { addBooking, addRoomBooking, removeBooking, removeRoomBooking, saveBookings, saveLoading, saveSeparatedBookings, saveSeparatedRoomBookings, saveTotalPageDisabledBooking, saveTotalPageDisabledRoomBooking, saveTotalPageEnabledBooking, saveTotalPageGroupBooking, updateBooking, updateRoomBooking } from '@/lib/features/room/booking.slice';
+import { addBooking, addRoomBooking, removeBooking, removeRoomBooking, saveBookings, saveLoading, saveSeparatedBookings, saveSeparatedRoomBookings, saveTotalPageDisabledBooking, saveTotalPageDisabledRoomBooking, saveTotalPageEnabledBooking, saveTotalPageEnabledRoomBooking, saveTotalPageGroupBooking, updateBooking, updateRoomBooking } from '@/lib/features/room/booking.slice';
 import { bookingAPI } from '@/app/api/generate/booking.api';
 
 // 예약 등록
@@ -136,7 +136,7 @@ const findEnabledByRoom = async (nickname: string, page: number, size: number, d
     dispatch(saveLoading(true))
     const response = await bookingAPI.findEnabledByRoom(nickname, page, size)
     dispatch(saveSeparatedRoomBookings(response.data.content))
-    dispatch(saveTotalPageEnabledBooking(response.data.totalPages))
+    dispatch(saveTotalPageEnabledRoomBooking(response.data.totalPages))
   } catch (error: any) {
     if (error.response) {
       console.error('Server Error:', error.response.data);
