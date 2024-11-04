@@ -33,7 +33,6 @@ const login = async (username: string, password: string, dispatch: AppDispatch):
       likePostService.findAllByUserNickname(nickname, dispatch)
 
     } else {
-      console.log("토큰이 안보여요 ㅠㅠ")
       throw new Error('토큰을 받지 못했습니다.');
     }
   } catch (error: any) {
@@ -53,9 +52,7 @@ const login = async (username: string, password: string, dispatch: AppDispatch):
 const get = async (): Promise<UserModel> => {
   try {
     const response = await api.get<any>("/get")
-
     console.log("GET: ", response)
-
     return response.data;
 
   } catch (error: any) {
@@ -88,21 +85,15 @@ const handleOAuthCallback = (dispatch: AppDispatch): void => {
     const authToken = getAuthorization()
     const nickname = getNickname()
 
-    console.log('🔍 handleOAuthCallback 함수 시작')
-    console.log('👉 쿠키에서 가져온 닉네임:', nickname)
-    console.log('👉 쿠키에서 가져온 토큰:', authToken)
-
     if (!authToken || !nickname) {
       console.error('🚨 에러 발생: 액세스 토큰이나 닉네임이 없습니다.')
       throw new Error('액세스 토큰이나 닉네임이 없습니다.')
     }
 
-    console.log('✅ 모든 값이 정상적으로 수신되었습니다. getToken 함수를 호출합니다.')
+    // 현재 user 의 정보를 redux 에 저장
     GetToken(authToken, nickname, dispatch)
-    saveCurrentUser; // 현재 user 의 정보를 redux 에 저장
-    console.log("authToken 결과", authToken)
-    console.log("nickname 결과", nickname)
-    
+    saveCurrentUser; 
+    // auth 로그인 이후 nickname, Authorization 없애기
     removeAuthorization()
     removeNickname()
 
