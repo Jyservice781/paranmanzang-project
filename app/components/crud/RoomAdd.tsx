@@ -44,6 +44,7 @@ export default function RoomAdd() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     roomService.save(formData, dispatch);
+    router.push('/seller/rooms')
   };
 
   const goBack = () => {

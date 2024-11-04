@@ -74,7 +74,8 @@ export default function SellerRoom() {
 
   return (
     <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
-      <div className="flex space-x-4 mb-4 justify-evenly">
+      <div className="flex mb-4 justify-between">
+        <div>
         <button
           className={`px-4 py-2 rounded-lg ${selectedCategory === '관리' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
           onClick={() => handleTabClick('관리')}
@@ -82,11 +83,12 @@ export default function SellerRoom() {
           관리
         </button>
         <button
-          className={`px-4 py-2 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+          className={`px-4 py-2 mx-4 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
           onClick={() => handleTabClick('승인 대기')}
         >
           승인 대기
         </button>
+        </div>
         <div>
           <button
             className={`px-4 py-2 rounded-full bg-green-400 text-white hover:bg-green-500 text-black'}`}
