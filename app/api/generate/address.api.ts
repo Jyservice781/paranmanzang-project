@@ -4,9 +4,7 @@ import api from "../axios";
 
 export const addressAPI = {
     search(query: string) {
-        return api.get<AddressResponseModel[]>(requests.fetchRooms + '/addresses/search', {
-            params: { query },
-        });
+        return api.get<AddressResponseModel[]>(requests.fetchRooms + `/addresses/search?query=${encodeURIComponent(query)}`);
     },
     insert(addressModel: AddressModel) {
         return api.post<AddressModel>(requests.fetchRooms + '/addresses', addressModel);
