@@ -167,25 +167,23 @@ export default function RoomAdd() {
           <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">이용 금액</label>
           <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} placeholder="시간당 이용금액을 적어주세요" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
         </div>
-
-
-        <div>
-          <label htmlFor="imageUpload" className="block text-sm font-medium text-gray-700 mb-2">
-            이미지 업로드
-          </label>
-          <input
-            type="file"
-            id="imageUpload"
-            onChange={handleImageUpload}
-            accept="image/*"
-            className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
-          />
-          {imageFile && (
-            <div className="mt-4">
-              <p className="text-sm text-gray-500">{imageFile.name}</p>
-            </div>
-          )}
-        </div>
+      <div className="my-4">
+        <label htmlFor="imageUpload" className="block text-sm font-medium text-gray-700 mb-2">
+          {/* 이미지 업로드 */}
+        </label>
+        <input
+          type="file"
+          id="imageUpload"
+          onChange={handleImageUpload}
+          accept="image/*"
+          className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200"
+        />
+        {imageFile && (
+          <div className="mt-4">
+            <p className="text-sm text-gray-500">{imageFile.name}</p>
+          </div>
+        )}
+      </div>
 
         <button type="submit" onClick={onCreate} className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">등록하기</button>
         <button type="button" onClick={goBack} className="text-gray-900 bg-green-50 hover:bg-green-100 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-2 border-green-600 text-center">뒤로가기</button>
