@@ -18,15 +18,15 @@ export const roomSlice = createSlice({
         saveDisableRoomByNickname: (state, action: PayloadAction<RoomModel[]>) => {
             state.disabledRoomByNickname = action.payload;
         },
-        saveEnabledRoomByNickanme: (state, action: PayloadAction<RoomModel[]>) => {
+        saveEnabledRoomByNickname: (state, action: PayloadAction<RoomModel[]>) => {
             state.enabledRoomByNickname = action.payload;
         },
         saveLikedRooms: (state, action: PayloadAction<RoomModel[]>) => {
             state.roomsLiked = action.payload
         },
-        saveSeperatedRooms: (state, action: PayloadAction<RoomModel[]>) => {
-            state.enabledrooms = action.payload.filter(room => room.enabled);
-            state.notEnabledrooms = action.payload.filter(room => !room.enabled);
+        saveSeparatedRooms: (state, action: PayloadAction<RoomModel[]>) => {
+            state.enabledRooms = action.payload.filter(room => room.enabled);
+            state.notEnabledRooms = action.payload.filter(room => !room.enabled);
         },
         saveCurrentRoom: (state, action: PayloadAction<RoomModel | null>) => {
             state.currentRoom = action.payload;
@@ -56,7 +56,7 @@ export const roomSlice = createSlice({
             state.roomsLiked.push(action.payload);
         },
         addEnabledRoom: (state, action: PayloadAction<RoomModel>) => {
-            state.enabledrooms.push(action.payload);
+            state.enabledRooms.push(action.payload);
         },
         updateRoom: (state, action: PayloadAction<RoomModel>) => {
             const index = state.rooms.findIndex(room => room.id === action.payload.id)
@@ -104,7 +104,7 @@ export const roomSlice = createSlice({
             state.disabledRooms.filter(room => room.id !== action.payload)
         },
         removeNotEnabledRoom: (state, action: PayloadAction<number>) => {
-            state.notEnabledrooms.filter(room => room.id !== action.payload)
+            state.notEnabledRooms.filter(room => room.id !== action.payload)
         },
         removeLikedRoom: (state, action: PayloadAction<number>) => {
             state.roomsLiked.filter(room => room.id !== action.payload)
@@ -125,12 +125,12 @@ export const roomSlice = createSlice({
 });
 
 // Selector 함수들
-export const getSeperatedRooms = createSelector(
-    (state: RootState) => state.room.enabledrooms,
-    (state: RootState) => state.room.notEnabledrooms,
-    (enabledrooms, notEnabledrooms) => ({
-        enabledrooms,
-        notEnabledrooms
+export const getSeparatedRooms = createSelector(
+    (state: RootState) => state.room.enabledRooms,
+    (state: RootState) => state.room.notEnabledRooms,
+    (enabledRooms, notEnabledRooms) => ({
+        enabledRooms,
+        notEnabledRooms
     })
 )
 export const getRooms = (state: RootState) => state.room.rooms;
@@ -152,10 +152,10 @@ export const {
     saveRooms,
     saveRoomsMap,
     saveDisableRooms,
-    saveEnabledRoomByNickanme,
+    saveEnabledRoomByNickname,
     saveDisableRoomByNickname,
     saveLikedRooms,
-    saveSeperatedRooms,
+    saveSeparatedRooms,
     saveCurrentRoom,
     saveLoading,
     saveError,

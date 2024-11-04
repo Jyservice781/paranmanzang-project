@@ -155,7 +155,7 @@ export default function GroupDetails() {
                                                 {!isUserInChatRoom(user.nickname) && nickname === group.nickname && (
                                                     <button
                                                         type="button"
-                                                        className="px-4 py-2 border border-green-400 text-green-600 rounded-lg hover:bg-green-50"
+                                                        className="p-2 text-xs border border-green-400 text-green-600 rounded-lg hover:bg-green-50"
                                                         onClick={() => inputUserIntoChatRoom(user.nickname)}
                                                     >
                                                         채팅방 초대하기

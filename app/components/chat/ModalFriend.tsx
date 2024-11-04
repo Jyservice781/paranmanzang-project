@@ -161,7 +161,7 @@ export default function ModalFriend({ name }: ModalFriendProps) {
                     <>
                         <button
                             type="button"
-                            className="py-2 px-4 border-2 border-green-400 text-gray-900
+                            className="p-2 border-2 border-green-400 text-gray-900
                             text-xs rounded-lg 
                             bg-green-100 hover:bg-green-50 transition-colors"
                             onClick={onFriends}

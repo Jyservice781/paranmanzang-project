@@ -50,8 +50,8 @@ interface RoomState {
     disabledRoomByNickname: RoomModel[];
     disabledRooms: RoomModel[];
     roomsLiked: RoomModel[];
-    enabledrooms: RoomModel[];
-    notEnabledrooms: RoomModel[];
+    enabledRooms: RoomModel[];
+    notEnabledRooms: RoomModel[];
     currentRoom: RoomModel | null;
     isLoading: boolean;
     error: string | null;
@@ -69,8 +69,8 @@ export const initialRoomState: RoomState = {
     disabledRoomByNickname: [],
     disabledRooms: [],
     roomsLiked: [],
-    enabledrooms: [],
-    notEnabledrooms: [],
+    enabledRooms: [],
+    notEnabledRooms: [],
     currentRoom: null,
     isLoading: false,
     error: null,
