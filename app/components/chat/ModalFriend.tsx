@@ -40,6 +40,7 @@ export default function ModalFriend({ name }: ModalFriendProps) {
 
     // 친구 요청 거절 또는 친구 삭제
     const onRejectRequest = (action: string) => {
+        console.log("친구요청 거절 삭제 onRejectRequest 실행")
         let message = '';
         let id: number | null | undefined = null;
         switch (action) {
@@ -53,8 +54,10 @@ export default function ModalFriend({ name }: ModalFriendProps) {
                 }
                 break;
             case 'reject':
-                const friendToReject = responseFriends.find((friend) =>
+                const friendToReject = responseFriends.find((friend) => {
+                    console.log("친구요청 거절했습니다")
                     friend.requestUser === name && friend.responseUser === nickname
+                }
                 );
                 if (friendToReject) {
                     id = friendToReject.id;
@@ -81,6 +84,7 @@ export default function ModalFriend({ name }: ModalFriendProps) {
 
     // 친구 요청 수락
     const onAcceptRequest = () => {
+        console.log("친구요청 수락 onAcceptRequest 실행")
         const friendModel = responseFriends.find((friend) => friend.requestAt === name)
         console.log(friendModel)
         if (friendModel) {
@@ -96,7 +100,7 @@ export default function ModalFriend({ name }: ModalFriendProps) {
     };
 
     // 나한테 온 요청
-    const isReqsponse = responseFriends.some((friend) =>
+    const isResponse = responseFriends.some((friend) =>
         friend.requestUser === name && friend.responseUser === nickname
     );
 
@@ -122,7 +126,7 @@ export default function ModalFriend({ name }: ModalFriendProps) {
                     </button>
                 )}
 
-                {isReqsponse && (
+                {isResponse && (
                     <>
                         <button
                             type="button"
@@ -157,7 +161,7 @@ export default function ModalFriend({ name }: ModalFriendProps) {
                     </>
                 )}
 
-                {!isFriend && !isRequest && !isReqsponse && (
+                {!isFriend && !isRequest && !isResponse && (
                     <>
                         <button
                             type="button"
