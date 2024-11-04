@@ -100,6 +100,12 @@ const handleOAuthCallback = (dispatch: AppDispatch): void => {
     console.log('✅ 모든 값이 정상적으로 수신되었습니다. getToken 함수를 호출합니다.')
     GetToken(authToken, nickname, dispatch)
     saveCurrentUser; // 현재 user 의 정보를 redux 에 저장
+    console.log("authToken 결과", authToken)
+    console.log("nickname 결과", nickname)
+    
+    removeAuthorization()
+    removeNickname()
+
     console.log('🔍 handleOAuthCallback 함수 종료')
   } catch (error) {
     console.error('OAuth 처리 중 오류:', error)

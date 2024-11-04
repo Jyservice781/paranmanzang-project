@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react';
 import { useAppDispatch } from '@/lib/store';
-import { loginService } from '@/app/service/user/login.service';
 import { useRouter } from 'next/navigation';
 import LoadingSpinner from '@/app/components/common/status/LoadingSpinner';
 
