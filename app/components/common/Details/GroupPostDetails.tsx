@@ -9,6 +9,7 @@ import { FileType } from "@/app/model/file/file.model";
 export default function GroupPostDetails() {
     const post = useSelector(getCurrentGroupPost)
     const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [isImage,setIsImage] = useState<Boolean>(false)
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         return date.toLocaleString('ko-KR', {
@@ -29,8 +30,10 @@ export default function GroupPostDetails() {
             console.log("url: ", url)
             if (url.size > 0) {
                 setImageUrl(URL.createObjectURL(url)); // Blob URL을 상태에 저장
+                setIsImage(true)
             } else {
                 setImageUrl(null);
+                setIsImage(false)
             }
         };
 
@@ -55,7 +58,7 @@ export default function GroupPostDetails() {
                 </div>
                 <div className="border-t-2 border-dotted border-green-500 py-6">
                     <h3 className="m-4 font-medium text-base">내용:</h3>
-                    {imageUrl && imageUrl.length > 0 && (<img src={imageUrl} alt="포스트 이미지" className="rounded-lg shadow-md" />)}
+                    {imageUrl && isImage && (<img src={imageUrl} alt="포스트 이미지" className="rounded-lg shadow-md" />)}
 
                     {post?.bookId && (
                         <div className="mb-4">
