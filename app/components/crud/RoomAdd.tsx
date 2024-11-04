@@ -64,7 +64,9 @@ export default function RoomAdd() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    roomService.save(formData, imageFile ,dispatch);
+    if(lalngModel){
+      roomService.save(formData, imageFile, lalngModel ,dispatch);
+    }
     router.push('/seller/rooms')
   };
 
@@ -105,7 +107,7 @@ export default function RoomAdd() {
       latitude: parseFloat(addr.mapy.slice(0, addr.mapy.length - 7) + "." + addr.mapy.slice(-7)),
       longitude: parseFloat(addr.mapx.slice(0, addr.mapx.length - 7) + "." + addr.mapx.slice(-7)),
       address: addr.roadAddress,
-      roomId: 2,
+      roomId: 0,
     })
   }
 
