@@ -168,9 +168,9 @@ export default function RoomAdd() {
         </div>
 
 
-      <div>
+      <div className="my-4">
         <label htmlFor="imageUpload" className="block text-sm font-medium text-gray-700 mb-2">
-          이미지 업로드
+          {/* 이미지 업로드 */}
         </label>
         <input
           type="file"
