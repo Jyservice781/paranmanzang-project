@@ -23,6 +23,7 @@ import {
 } from "@/lib/features/group/group.slice";
 import { AppDispatch } from "@/lib/store";
 import { chatRoomService } from '../chat/chatRoom.service';
+import { Result } from 'postcss';
 
 
 // 그룹 관련 서비스 로직
@@ -87,6 +88,9 @@ const able = async (group: GroupResponseModel, dispatch: AppDispatch): Promise<v
         try {
             const response = await groupApi.able(group.id);
             chatRoomService.insert({ roomName: group.name, nickname: group.nickname, dispatch: dispatch })
+                .then((result: string) => {
+                    modifyChatRoomId(result, group.id, dispatch)
+                })
             dispatch(addGroup(response.data))
             dispatch(deleteEnableGroup(response.data.id))
         } catch (error: any) {
@@ -125,7 +129,7 @@ const findUserById = async (groupId: number, dispatch: AppDispatch): Promise<voi
 };
 
 // 소모임에 채팅방 추가
-const modifyChatRoomId = async (roomId: number, groupId: number, dispatch: AppDispatch): Promise<void> => {
+const modifyChatRoomId = async (roomId: string, groupId: number, dispatch: AppDispatch): Promise<void> => {
     await handleLoading(dispatch, async () => {
         try {
             const response = await groupApi.modifyChatRoomId(roomId, groupId);

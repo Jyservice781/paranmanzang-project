@@ -26,7 +26,7 @@ const insert = async ({ roomName, nickname, dispatch }: {
     roomName: string,
     nickname: string,
     dispatch: AppDispatch
-}): Promise<any> => {
+}): Promise<string> => {
     return await handleLoading(dispatch, async () => {
         try {
             const response = await chatRoomAPI.insert(roomName, nickname);
