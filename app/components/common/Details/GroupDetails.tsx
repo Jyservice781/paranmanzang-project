@@ -85,12 +85,14 @@ export default function GroupDetails() {
             chatUserService.insert(group.chatRoomId, name, dispatch)
                 .then((result) => {
                     if (result) {
-                        return chatUserService.findList({ roomId: group.chatRoomId, dispatch });
+                        console.log("result", result)
+                        return chatUserService.findList({ roomId: group.chatRoomId, dispatch })
                     }
                 })
                 .then((updatedChatUsers) => {
                     if (updatedChatUsers) {
-                        setChatUsers(updatedChatUsers);
+                        console.log("updatedChatUsers", updatedChatUsers)
+                        setChatUsers(updatedChatUsers)
                     }
                 })
         }
