@@ -32,9 +32,6 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
     bookService.findList(page, pageSize, dispatch)
   }, [page, pageSize, dispatch])
 
-  const handlePageChange = (page: number) => {
-    setPage(page);
-  };
 
 
   if (isLoading) return <LoadingSpinner />
@@ -55,7 +52,7 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
       <Pagination
         currentPage={page}
         totalPages={totalPages}
-        onPageChange={handlePageChange}
+        onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />
     </>

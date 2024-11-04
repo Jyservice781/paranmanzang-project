@@ -66,10 +66,6 @@ export default function SellerRoom() {
     }
   }
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  }
-
 
   return (
     <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
@@ -116,7 +112,7 @@ export default function SellerRoom() {
       <Pagination
         currentPage={page}
         totalPages={selectedCategory === '관리' ? enabledRoomTotalPage : disabledRoomTotalPage}
-        onPageChange={handlePageChange}
+        onPageChange={setPage}
         onPageSizeChange={setSize}
       />
 

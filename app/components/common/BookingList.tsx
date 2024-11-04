@@ -131,10 +131,6 @@ export default function BookingList({ bookingId }: BookingListProps) {
     bookingService.drop(id, dispatch);
   };
 
-  const handlePageChange = (newPage: number) => {
-    setPage(newPage);
-  };
-
 
   return (
     <div className="max-w-4xl mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
@@ -162,7 +158,7 @@ export default function BookingList({ bookingId }: BookingListProps) {
         <Pagination
           currentPage={page}
           totalPages={totalPages}
-          onPageChange={handlePageChange}
+          onPageChange={setPage}
           onPageSizeChange={setSize}
         />
       </div>
