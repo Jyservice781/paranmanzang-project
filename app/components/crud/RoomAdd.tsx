@@ -36,7 +36,6 @@ export default function RoomAdd() {
   const dispatch = useAppDispatch();
   const [imageFile, setImageFile] = useState<File | null>(null); // 단일 파일
 
-  const [isValue, setIsValue] = useState<String>('')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = event.target;
@@ -64,8 +63,8 @@ export default function RoomAdd() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(lalngModel){
-      roomService.save(formData, imageFile, lalngModel ,dispatch);
+    if (lalngModel) {
+      roomService.save(formData, imageFile, lalngModel, dispatch);
     }
     router.push('/seller/rooms')
   };
@@ -115,6 +114,7 @@ export default function RoomAdd() {
     setAddress(event.target.value); // 상태 업데이트
     addressService.search(encodeURIComponent(address), dispatch)
       .then((response) => {
+        console.log("room add search",response)
         setData(response)
       })
   };
@@ -130,8 +130,9 @@ export default function RoomAdd() {
           <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">주소 입력</label>
           <input type="text" id="address" name="address" value={address} onChange={handleInputChange} placeholder="공간의 주소를 입력해주세요" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
           <ul>
-            {data.map((addr, index) => (
-              <li key={index} onClick={() => onMap(addr)}>{addr.title}
+            {(Array.isArray(data) ? data : []).map((addr, index) => (
+              <li key={index} onClick={() => onMap(addr)}>
+                {addr.title}
               </li>
             ))}
           </ul>
@@ -166,8 +167,6 @@ export default function RoomAdd() {
           <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-900">이용 금액</label>
           <input type="text" id="price" name="price" value={formData.price} onChange={handleChange} placeholder="시간당 이용금액을 적어주세요" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
         </div>
-
-
       <div className="my-4">
         <label htmlFor="imageUpload" className="block text-sm font-medium text-gray-700 mb-2">
           {/* 이미지 업로드 */}
