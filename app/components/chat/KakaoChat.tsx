@@ -13,7 +13,7 @@ const KakaoChat = () => {
     const initializeKakao = () => {
       if (window.Kakao && !window.Kakao.isInitialized()) {
         // 환경 변수로부터 JavaScript 키 사용
-        window.Kakao.init(process.env.KAKAO_API_KEY);
+        window.Kakao.init(process.env.NEXT_PUBLIC_KAKAO_API_KEY);
       }
 
       // 채팅 버튼 생성
