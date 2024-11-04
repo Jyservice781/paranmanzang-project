@@ -14,13 +14,17 @@ const save = async (roomModel: RoomModel, file: any, lalngModel: AddressModel, d
         dispatch(saveLoading(true))
         const response = await roomAPI.insert(roomModel)
         if (file) {
-            await fileService.uploadFile(file, FileType.ROOM, Number(response.data.id), dispatch);
+            console.log("사진 업로드 되나요?  네")
+           fileService.uploadFile(file, FileType.ROOM, Number(response.data.id), dispatch);
         }
+        console.log("여기서 주소검색 일어나요")
         const addressModel: AddressModel = {
             ...lalngModel,
             roomId: Number(response.data.id)
         }
+
         addressService.insert(addressModel,dispatch)
+        console.log("주소 insert")
         dispatch(addDisabledRoomByNickname(response.data))
         dispatch(addDisabledRoom(response.data))
     } catch (error: any) {
