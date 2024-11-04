@@ -46,6 +46,7 @@ export default function RecommendBook() {
   return (
     <div className="relative">
       <div className="fixed bottom-8 right-6 z-30">
+        
         <div id={styles.targetItem} className={isHidden ? "hidden" : ""}>
           {answer &&<div id={styles.answerTag}>추천 결과: {answer}</div>}
           <form onSubmit={handleSubmit}>
