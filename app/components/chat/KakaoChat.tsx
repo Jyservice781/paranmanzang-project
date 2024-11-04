@@ -21,7 +21,7 @@ const KakaoChat = () => {
       if (chatbuttonContainer) {
         window.Kakao.Channel.createChatButton({
           container: "#chat-channel-button",
-          channelPublicId: process.env.NEXT_PUBLIC_KAKAO_CHANNEL_ID, // 환경 변수로 공개 ID 관리
+          channelPublicId: process.env.KAKAO_CHANNEL_ID, // 환경 변수로 공개 ID 관리
         });
       } else {
         console.error("Chat button container not found");
