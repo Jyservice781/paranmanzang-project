@@ -89,10 +89,6 @@ export default function GroupBoard() {
         setIsEditorVisible((prev) => !prev);
     };
 
-    const handlePageChange = (newPage: number) => {
-        setPage(newPage);
-    };
-
 
     const renderTabContent = () => {
         switch (activeTab) {
@@ -210,7 +206,7 @@ export default function GroupBoard() {
                 <Pagination
                     currentPage={page}
                     totalPages={totalPages}
-                    onPageChange={handlePageChange}
+                    onPageChange={setPage}
                     onPageSizeChange={setSize}
                 />
             </div>

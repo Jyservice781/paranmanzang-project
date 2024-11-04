@@ -73,13 +73,6 @@ export default function RoomAdmin() {
     }
   };
 
-  const handlePageChange = (newPage: number) => {
-    if (selectedCategory === '관리') {
-      set관리Page(newPage);
-    } else {
-      set승인대기Page(newPage);
-    }
-  };
 
   return (
     <div className="mx-auto mt-8 max-w-[80%]">
@@ -133,7 +126,7 @@ export default function RoomAdmin() {
       <Pagination
         currentPage={currentPage}
         totalPages={selectedCategory === '관리' ? totalPageEnabledRoom : totalPageDisableRoom}
-        onPageChange={handlePageChange}
+        onPageChange={selectedCategory === '관리' ? set관리Page : set승인대기Page}
         onPageSizeChange={setPageSize}
       />
     </div>
