@@ -8,7 +8,7 @@ import ErrorMessage from '@/app/components/common/status/ErrorMessage';
 import { getCurrentUser } from '@/lib/features/users/user.slice';
 import { RootState, useAppDispatch } from '@/lib/store';
 import { getLeaderGroups } from '@/lib/features/group/group.slice';
-import styles from './UserProfile.module.css'; 
+import styles from './UserProfile.module.css';
 interface UserProfileProps {
     getUser: string | undefined;
 }
@@ -67,56 +67,60 @@ export default function UserProfile({ getUser }: UserProfileProps) {
             <div className={styles['button-group']}>
                 {leaderGroup.length > 0 && (
                     <>
-                        <ActionButton 
-                            onClick={() => router.push('/booking')} 
-                            icon={<FaCalendarAlt />} 
-                            label="예약내역보기" 
+                        <ActionButton
+                            onClick={() => router.push('/booking')}
+                            icon={<FaCalendarAlt />}
+                            label="예약내역보기"
                         />
-                        <ActionButton 
-                            onClick={() => router.push('/account')} 
-                            icon={<FaWallet />} 
-                            label="결제내역보기" 
+                        <ActionButton
+                            onClick={() => router.push('/account')}
+                            icon={<FaWallet />}
+                            label="결제내역보기"
                         />
                     </>
                 )}
 
                 {user?.role === 'ROLE_SELLER' && (
-                    <ActionButton 
-                        onClick={() => router.push('/seller/rooms')} 
-                        icon={<FaBuilding />} 
-                        label="등록 공간" 
+                    <ActionButton
+                        onClick={() => router.push('/seller/rooms')}
+                        icon={<FaBuilding />}
+                        label="등록 공간"
                     />
                 )}
 
-                <ActionButton 
-                    onClick={() => router.push('/likeList')} 
-                    icon={<FaHeart />} 
-                    label="찜목록" 
+                {user?.role === 'ROLE_USER' && (
+                    <>
+                        <ActionButton
+                            onClick={() => router.push('/likeList')}
+                            icon={<FaHeart />}
+                            label="찜목록"
+                        />
+                        <ActionButton
+                            onClick={() => router.push('/users/declarationList')}
+                            icon={<FaExclamationCircle />}
+                            label="내가 신고한 내역"
+                        />
+                        <ActionButton
+                            onClick={() => router.push('/users/friends')}
+                            icon={<FaUserFriends />}
+                            label="친구 목록"
+                        />
+                        <ActionButton
+                            onClick={() => router.push('/groups/add')}
+                            icon={<FaUserFriends />}
+                            label="모임 개설"
+                        />
+                    </>
+                )}
+                <ActionButton
+                    onClick={() => router.push(`/users/update/${getUser}`)}
+                    icon={<FaUserEdit />}
+                    label="내정보수정"
                 />
-                <ActionButton 
-                    onClick={() => router.push('/users/declarationList')} 
-                    icon={<FaExclamationCircle />} 
-                    label="내가 신고한 내역" 
-                />
-                <ActionButton 
-                    onClick={() => router.push('/users/friends')} 
-                    icon={<FaUserFriends />} 
-                    label="친구 목록" 
-                />
-                <ActionButton 
-                    onClick={() => router.push(`/users/update/${getUser}`)} 
-                    icon={<FaUserEdit />} 
-                    label="내정보수정" 
-                />
-                <ActionButton 
-                    onClick={() => router.push('/groups/add')} 
-                    icon={<FaUserFriends />} 
-                    label="모임 개설" 
-                />
-                <ActionButton 
-                    onClick={() => router.back()} 
-                    icon={<FaArrowLeft />} 
-                    label="뒤로가기" 
+                <ActionButton
+                    onClick={() => router.back()}
+                    icon={<FaArrowLeft />}
+                    label="뒤로가기"
                     className={styles['back-button']}
                 />
             </div>
