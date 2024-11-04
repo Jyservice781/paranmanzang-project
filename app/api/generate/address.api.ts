@@ -1,10 +1,10 @@
-import { AddressModel, AddressUpdateModel } from "@/app/model/room/address.model";
+import { AddressModel, AddressResponseModel, AddressUpdateModel } from "@/app/model/room/address.model";
 import requests from "../requests";
 import api from "../axios";
 
 export const addressAPI = {
     search(query: string) {
-        return api.get<AddressModel[]>(requests.fetchRooms + '/accounts/search', {
+        return api.get<AddressResponseModel[]>(requests.fetchRooms + '/accounts/search', {
             params: { query },
         });
     },
@@ -22,5 +22,5 @@ export const addressAPI = {
     },
     findByQuery(query: string) {
         return api.get<AddressModel[]>(`${requests.fetchRooms}/addresses/${query}`);
-    },
+    }
 }

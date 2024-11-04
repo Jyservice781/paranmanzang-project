@@ -25,5 +25,5 @@ export const roomAPI = {
 
     findLikeRoomList: (nickname: string) => {
         return api.get<RoomModel[]>(requests.fetchRooms + `/like/${nickname}`);
-    },
+    }
 }

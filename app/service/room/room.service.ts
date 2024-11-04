@@ -7,12 +7,12 @@ import { FileModel, FileType } from '@/app/model/file/file.model';
 import { fileService } from '../file/file.service';
 
 // 공간 등록
-const save = async (roomModel: RoomModel, file: FileModel, dispatch: AppDispatch): Promise<void> => {
+const save = async (roomModel: RoomModel, file: any, dispatch: AppDispatch): Promise<void> => {
     try {
         dispatch(saveLoading(true))
         const response = await roomAPI.insert(roomModel)
         if (file) {
-            await fileService.uploadFile(file, FileType.ROOM, response.data.id, dispatch);
+            await fileService.uploadFile(file, FileType.ROOM, Number(response.data.id), dispatch);
         }
         dispatch(addDisabledRoomByNickname(response.data))
         dispatch(addDisabledRoom(response.data))
