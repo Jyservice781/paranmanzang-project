@@ -71,7 +71,6 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
         currentPage={page}
         totalPages={totalPages}
         onPageChange={setPage}
-        onPageSizeChange={setPageSize}
       />
     </>
   );

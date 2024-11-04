@@ -99,7 +99,6 @@ export default function SellerBooking() {
                 currentPage={page}
                 totalPages={selectedCategory === '확정' ? totalPageEnabledBooking : totalPageDisabledBooking}
                 onPageChange={setPage}
-                onPageSizeChange={setSize}
             />
 
             <button type="button" onClick={() => route.back()} className="rounded-lg bg-green-400 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-500">뒤로가기</button>

@@ -127,7 +127,6 @@ export default function RoomAdmin() {
         currentPage={currentPage}
         totalPages={selectedCategory === '관리' ? totalPageEnabledRoom : totalPageDisableRoom}
         onPageChange={selectedCategory === '관리' ? set관리Page : set승인대기Page}
-        onPageSizeChange={setPageSize}
       />
     </div>
   );

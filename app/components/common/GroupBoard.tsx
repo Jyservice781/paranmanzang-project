@@ -35,7 +35,7 @@ export default function GroupBoard() {
     const [size, setSize] = useState(10);
     const [activeTab, setActiveTab] = useState<TabType>('공지 사항');
     const tabs: TabType[] = ["공지 사항", "자유게시판", "스케쥴"];
-    const [totalPages, setTotalPages] = useState(0);
+    const [totalPages, setTotalPages] = useState(totalPageNotice);
 
     useEffect(() => {
         if (!group) return;
@@ -207,7 +207,6 @@ export default function GroupBoard() {
                     currentPage={page}
                     totalPages={totalPages}
                     onPageChange={setPage}
-                    onPageSizeChange={setSize}
                 />
             </div>
 

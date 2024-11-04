@@ -136,7 +136,6 @@ export default function GroupsAdmin() {
         currentPage={page}
         totalPages={activeTab === "승인 완료" ? totalPageAbleGroup : totalPageEnabledGroup}
         onPageChange={setPage}
-        onPageSizeChange={setPageSize}
       />
     </div>
   );

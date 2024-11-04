@@ -44,7 +44,6 @@ export default function RoomReview() {
         currentPage={page}
         totalPages={totalPages}
         onPageChange={setPage}
-        onPageSizeChange={setPageSize}
       />
       <button type="button" className="rounded-lg border-white bg-green-100 p-2" onClick={goBack}>뒤로가기</button>
     </div>

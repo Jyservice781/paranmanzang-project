@@ -174,7 +174,6 @@ export default function UserList() {
         currentPage={page}
         totalPages={totalPages}
         onPageChange={setPage}
-        onPageSizeChange={setPageSize}
       />
     </div>
   );

@@ -159,7 +159,6 @@ export default function BookingList({ bookingId }: BookingListProps) {
           currentPage={page}
           totalPages={totalPages}
           onPageChange={setPage}
-          onPageSizeChange={setSize}
         />
       </div>
 

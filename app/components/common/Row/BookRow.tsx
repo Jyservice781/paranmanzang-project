@@ -53,7 +53,6 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
         currentPage={page}
         totalPages={totalPages}
         onPageChange={setPage}
-        onPageSizeChange={setPageSize}
       />
     </>
   );

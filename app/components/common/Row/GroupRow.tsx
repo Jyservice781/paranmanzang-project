@@ -43,7 +43,6 @@ const GroupRow = ({ active, onSelect }: GroupRowProps) => {
         currentPage={page}
         totalPages={totalPages}
         onPageChange={setPage}
-        onPageSizeChange={setPageSize}
       />
     </>
 

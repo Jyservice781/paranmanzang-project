@@ -22,6 +22,11 @@ export default function SellerRoom() {
   const enabledRoomTotalPage = useSelector(getTotalPageSellerEnabledRoom)
   const disabledRoomTotalPage = useSelector(getTotalPageSellerDisabledRoom)
 
+  console.log("rooms 승인", enabledRoomTotalPage)
+  console.log("rooms 대기", disabledRoomTotalPage)
+  console.log("rooms 승인", enabledRooms)
+  console.log("rooms 대기", disabledRooms)
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString('ko-KR', {
@@ -40,9 +45,9 @@ export default function SellerRoom() {
   };
 
 
-  const showList: RoomModel[] = (
+  const showList: RoomModel[] =
     selectedCategory === '관리' ? enabledRooms : disabledRooms
-  );
+    ;
 
   useEffect(() => {
     if (nickname) {
@@ -113,7 +118,6 @@ export default function SellerRoom() {
         currentPage={page}
         totalPages={selectedCategory === '관리' ? enabledRoomTotalPage : disabledRoomTotalPage}
         onPageChange={setPage}
-        onPageSizeChange={setSize}
       />
 
       <button type="button" onClick={() => route.back()} className="mt-4 px-4 py-2 rounded-lg bg-green-400 text-white">뒤로가기</button>
