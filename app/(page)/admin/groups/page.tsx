@@ -3,7 +3,6 @@ import Pagination from "@/app/components/common/Row/pagination/Pagination";
 import { GroupResponseModel } from "@/app/model/group/group.model";
 import { groupService } from "@/app/service/group/group.service";
 import { getEnableGroups, getGroups, getTotalPageAbleGroup, getTotalPageEnableGroup, saveCurrentGroup } from "@/lib/features/group/group.slice";
-import { getError, getIsLoading } from "@/lib/features/room/room.slice";
 import { useAppDispatch } from "@/lib/store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

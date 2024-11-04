@@ -16,7 +16,7 @@ export default function UserList() {
   const [userRoles, setUserRoles] = useState<{ [key: string]: string | undefined}>({})
   const router = useRouter()
 
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(8)
 
   useEffect(() => {
@@ -179,7 +179,7 @@ export default function UserList() {
 
       <Pagination
         currentPage={page}
-        totalPages={totalPages - 1}
+        totalPages={totalPages}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
       />
