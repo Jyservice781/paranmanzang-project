@@ -93,11 +93,6 @@ export default function GroupBoard() {
         setPage(newPage);
     };
 
-    const handlePageSizeChange = (newPageSize: number) => {
-        setSize(newPageSize);
-        setPage(0);
-    };
-
 
     const renderTabContent = () => {
         switch (activeTab) {
@@ -184,7 +179,7 @@ export default function GroupBoard() {
                                 ${activeTab === tab ? 'bg-green-500 text-white' : 'bg-gray-200 hover:bg-gray-300'}`}
                             onClick={() => {
                                 setActiveTab(tab);
-                                setPage(1);
+                                setPage(0);
                             }}
                         >
                             {tab}
@@ -216,7 +211,7 @@ export default function GroupBoard() {
                     currentPage={page}
                     totalPages={totalPages}
                     onPageChange={handlePageChange}
-                    onPageSizeChange={handlePageSizeChange}
+                    onPageSizeChange={setSize}
                 />
             </div>
 

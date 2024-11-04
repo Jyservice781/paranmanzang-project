@@ -3,8 +3,7 @@ import Pagination from "@/app/components/common/Row/pagination/Pagination"
 import { BookingModel } from "@/app/model/room/bookings.model"
 import { bookingService } from "@/app/service/room/booking.service"
 import { roomService } from "@/app/service/room/room.service"
-import { getSeparatedBookings, getTotalPageDisabledRoomBooking, getTotalPageEnabledRoomBooking } from "@/lib/features/room/booking.slice"
-import { getEnabledRoomByNickname } from "@/lib/features/room/room.slice"
+import { getEnabledBooking, getNotEnabledBooking, getTotalPageDisabledRoomBooking, getTotalPageEnabledRoomBooking } from "@/lib/features/room/booking.slice"
 import { getCurrentUser } from "@/lib/features/users/user.slice"
 import { useAppDispatch } from "@/lib/store"
 import { useRouter } from "next/navigation"
@@ -15,7 +14,8 @@ export default function SellerBooking() {
     const user = useSelector(getCurrentUser)
     const nickname = user?.nickname as string
     const dispatch = useAppDispatch()
-    const { enabledBookings, notEnabledBookings } = useSelector(getSeparatedBookings)
+    const enabledBookings = useSelector(getEnabledBooking)
+    const notEnabledBookings = useSelector(getNotEnabledBooking)
     const route = useRouter()
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
@@ -25,7 +25,7 @@ export default function SellerBooking() {
 
     const handleTabClick = (category: '확정' | '승인 대기') => {
         setSelectedCategory(category);
-        setPage(1); // 페이지네이션 리셋 하는 부분 
+        setPage(0); // 페이지네이션 리셋 하는 부분 
     };
 
     const showList: BookingModel[] = (
@@ -52,11 +52,6 @@ export default function SellerBooking() {
 
     const handlePageChange = (newPage: number) => {
         setPage(newPage);
-    }
-
-    const handlePageSizeChange = (newPageSize: number) => {
-        setSize(newPageSize);
-        setPage(0);
     }
 
     return (
@@ -105,7 +100,7 @@ export default function SellerBooking() {
                 currentPage={page}
                 totalPages={selectedCategory === '확정' ? totalPageEnabledBooking : totalPageDisabledBooking}
                 onPageChange={handlePageChange}
-                onPageSizeChange={handlePageSizeChange}
+                onPageSizeChange={setSize}
             />
 
             <button type="button" onClick={() => route.back()} className="rounded-lg bg-green-400 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-500">뒤로가기</button>

@@ -26,6 +26,8 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(9);
   const totalPages = useSelector(getTotalPage)
+
+  console.log("책 토탈 페이지 갯수"+totalPages)
   useEffect(() => {
     bookService.findList(page, pageSize, dispatch)
   }, [page, pageSize, dispatch])
@@ -34,10 +36,6 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
     setPage(page);
   };
 
-  const handlePageSizeChange = (size: number) => {
-    setPageSize(size);
-    setPage(0);
-  };
 
   if (isLoading) return <LoadingSpinner />
   if (error) return <ErrorMessage message={error} />
@@ -58,7 +56,7 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
         currentPage={page}
         totalPages={totalPages}
         onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
+        onPageSizeChange={setPageSize}
       />
     </>
   );

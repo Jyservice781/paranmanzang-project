@@ -16,7 +16,7 @@ export default function UserList() {
   const [userRoles, setUserRoles] = useState<{ [key: string]: string | undefined}>({})
   const router = useRouter()
 
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(8)
 
   useEffect(() => {
@@ -56,10 +56,6 @@ export default function UserList() {
     setPage(newPage);
   }
 
-  const handlePageSizeChange = (newPageSize: number) => {
-    setPageSize(newPageSize);
-    setPage(1);
-  }
 
   const handleRoleChange = (nickname: string, newRole: string) => {
     setUserRoles(prevRoles => ({
@@ -181,7 +177,7 @@ export default function UserList() {
         currentPage={page}
         totalPages={totalPages - 1}
         onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
+        onPageSizeChange={setPageSize}
       />
     </div>
   );

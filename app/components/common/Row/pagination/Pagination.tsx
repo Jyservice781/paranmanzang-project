@@ -14,7 +14,7 @@ function Pagination({
 }: PaginationProps) {
 
   const handlePageChange = (page: number) => {
-    if (page >= 0 && page <= totalPages) {
+    if (page >= 0 && page < totalPages) {
       onPageChange(page);
     }
   };
@@ -76,7 +76,7 @@ function Pagination({
         &rsaquo;
       </button>
       <button
-        onClick={() => handlePageChange(totalPages)}
+        onClick={() => handlePageChange(totalPages-1)}
         disabled={currentPage === totalPages - 1}
         className="px-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none disabled:opacity-50"
         aria-label="Last page"
