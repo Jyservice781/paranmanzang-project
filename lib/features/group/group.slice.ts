@@ -94,7 +94,7 @@ const groupSlice = createSlice({
         case 'Notice':
           state.groupPostsNotices.push(action.payload);
           break;
-        case ' General':
+        case 'General':
           state.groupPostsGenerals.push(action.payload);
           break;
       }
@@ -113,7 +113,7 @@ const groupSlice = createSlice({
         case 'Notice':
           updatePostList(state.groupPostsNotices);
           break;
-        case ' General':
+        case 'General':
           updatePostList(state.groupPostsGenerals);
           break;
       }
@@ -124,7 +124,7 @@ const groupSlice = createSlice({
         case 'Notice':
           state.groupPostsNotices = state.groupPostsNotices.filter(post => post.id !== id);
           break;
-        case ' General':
+        case 'General':
           state.groupPostsGenerals = state.groupPostsGenerals.filter(post => post.id !== id);
           break;
       }
