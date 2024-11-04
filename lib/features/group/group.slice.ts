@@ -7,7 +7,6 @@ import {
 } from '@/app/model/group/group.model';
 import { RootState } from '@/lib/store';
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { saveTotalPage } from './book.slice';
 
 const groupSlice = createSlice({
   name: 'group',
@@ -87,15 +86,15 @@ const groupSlice = createSlice({
       }
     },
     saveGroupPosts: (state, action: PayloadAction<GroupPostResponseModel[]>) => {
-      state.groupPostsNotices = action.payload.filter(post => post.postCategory === '공지 사항');
-      state.groupPostsGenerals = action.payload.filter(post => post.postCategory !== '공지 사항');
+      state.groupPostsNotices = action.payload.filter(post => post.postCategory === 'Notice');
+      state.groupPostsGenerals = action.payload.filter(post => post.postCategory !== 'Notice');
     },
     addGroupPost: (state, action: PayloadAction<GroupPostResponseModel>) => {
       switch (action.payload.postCategory) {
-        case '공지 사항':
+        case 'Notice':
           state.groupPostsNotices.push(action.payload);
           break;
-        case '자유 게시판':
+        case ' General':
           state.groupPostsGenerals.push(action.payload);
           break;
       }
@@ -111,10 +110,10 @@ const groupSlice = createSlice({
       };
 
       switch (postCategory) {
-        case '공지 사항':
+        case 'Notice':
           updatePostList(state.groupPostsNotices);
           break;
-        case '자유 게시판':
+        case ' General':
           updatePostList(state.groupPostsGenerals);
           break;
       }
@@ -122,10 +121,10 @@ const groupSlice = createSlice({
     deleteGroupPost: (state, action: PayloadAction<{ id: number; postCategory: string }>) => {
       const { id, postCategory } = action.payload;
       switch (postCategory) {
-        case '공지 사항':
+        case 'Notice':
           state.groupPostsNotices = state.groupPostsNotices.filter(post => post.id !== id);
           break;
-        case '자유 게시판':
+        case ' General':
           state.groupPostsGenerals = state.groupPostsGenerals.filter(post => post.id !== id);
           break;
       }
