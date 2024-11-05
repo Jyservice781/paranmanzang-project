@@ -7,6 +7,7 @@ import ErrorMessage from '../status/ErrorMessage';
 import { groupService } from '@/app/service/group/group.service';
 import { useAppDispatch } from '@/lib/store';
 import Pagination from './pagination/Pagination';
+import { getNickname } from '@/app/api/authUtils';
 
 interface MyGroupRowProps {
     active: boolean;
@@ -22,19 +23,20 @@ const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(9);
 
+    const nickname = useSelector(getNickname)
     useEffect(() => {
-        groupService.findList(page, pageSize, dispatch);
-    }, [page, pageSize]);
+        if (nickname) {
+            groupService.findByNickname(nickname, dispatch)
+        }
+    }, [page, pageSize, dispatch, nickname]);
 
     if (loading) return <LoadingSpinner />;
     if (error) return <ErrorMessage message={error} />;
 
-    const myGroup = groups.filter((group)=>group.enabled===true)
-
     return (
         <>
             <div className="w-[92%] mb-4 ml-4 grid grid-cols-4 gap-6 md:grid-cols-3">
-                {myGroup.map((group, index) => (
+                {groups.map((group, index) => (
                     <GroupCard key={index} group={group} active={active} onSelect={onSelect} />
                 ))}
             </div>

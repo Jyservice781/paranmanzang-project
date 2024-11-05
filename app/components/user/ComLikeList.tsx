@@ -172,7 +172,6 @@ const ComLikeList = ({ type }: ComLikeListProps) => {
                 >
                   예약하기
                 </button>
-                <AccountButton />
               </>
             )}
           </div>
