@@ -21,9 +21,7 @@ interface RoomRowProps {
 const RoomRow = ({ active, onSelect }: RoomRowProps) => {
   const rooms = useSelector(getRooms)
   const files = useSelector(getFiles)
-  const addresses = useSelector(getAddresses)
   const dispatch = useAppDispatch()
-  const router = useRouter()
   const isLoading = useSelector(getIsLoading)
   const error = useSelector(getError)
 
@@ -34,18 +32,6 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
   useEffect(() => {
     roomService.findByEnabled(page, pageSize, dispatch);
   }, [page, pageSize, dispatch])
-
-  // const onClickToDetail = (currentId: number | undefined): void => {
-  //   if (currentId !== undefined) {
-  //     const currentRoom = rooms.find(({ id }) => id === currentId);
-  //     if (currentRoom) {
-  //       dispatch(saveCurrentRoom(currentRoom));
-  //       // dispatch(saveCurrentFile(files.roomFiles.find(({ refId }) => refId === currentId) ?? {} as FileModel));
-  //       dispatch(saveCurrentAddress(addresses.find(({ roomId }) => roomId === currentId) ?? null))
-  //       router.push(`/rooms/${currentId}`);
-  //     }
-  //   }
-  // };
 
   if (isLoading) return <LoadingSpinner />
   if (error) return <ErrorMessage message={error} />
