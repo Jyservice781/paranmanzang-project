@@ -51,8 +51,8 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
     const users = useSelector(getGroupMembers)
     const nickname = useSelector(getNickname)
     const userInfo = user?.role
-    const isUserInGroup = group?.id && users[group.id]?.some((user: any) => user.nickname === nickname);
     const enableUsers = useSelector(getGroupEnableMembers)
+    const isUserInGroup = group?.id && users[group.id]?.some((user: any) => user.nickname === nickname);
     const isPendingGroup = group?.id && enableUsers[group.id]?.some((user) => user.nickname === nickname);
 
     const handleReview = () => {

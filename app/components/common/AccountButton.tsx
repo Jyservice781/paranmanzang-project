@@ -5,10 +5,10 @@ import { v4 } from "uuid";
 import { accountService } from "@/app/service/room/account.service";
 import { AccountResultModel, AmountModel } from "@/app/model/room/account.model";
 import { useSelector } from "react-redux";
-import { getCurrentBooking } from "@/lib/features/room/booking.slice";
 import { getCurrentUser } from "@/lib/features/users/user.slice";
 import { useAppDispatch } from "@/lib/store";
 import { saveLoading } from "@/lib/features/room/account.slice";
+import { BookingModel } from "@/app/model/room/bookings.model";
 
 interface TossPaymentResponse {
     orderId: string;
@@ -18,12 +18,15 @@ interface TossPaymentResponse {
     };
 }
 
-export default function AccountButton(): JSX.Element {
+interface AccountButtonProps {
+    booking: BookingModel | null
+}
+
+export default function AccountButton({ booking }: AccountButtonProps): JSX.Element {
     const dispatch = useAppDispatch();
     // 입력 받은 값
     const orderName: string = "1회 모임";
     const amountValue: number = 5000;
-    const booking = useSelector(getCurrentBooking);
     const user = useSelector(getCurrentUser);
     const usePoint: number = 0;
     const [payment, setPayment] = useState<TossPaymentsPayment | null>(null);

@@ -112,9 +112,7 @@ export default function BookingList() {
                     </button>
                   )}
                   {activeTab === '결제 대기' && (
-                    new Date(booking.date) > new Date() && !accountService.findByBooking(booking.id ?? 0, dispatch) && (
-                      <AccountButton />
-                    )
+                      <AccountButton booking={booking}/>
                   )}
                   {activeTab === '결제 완료' && (
                     <button
