@@ -123,31 +123,18 @@ export default function RoomAdd() {
 
   return (
     <div className="max-w-lg mx-auto bg-green-50 my-8 rounded-lg p-6">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mb-8">
         <div className="mb-4">
           <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">공간 이름</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} placeholder="공간의 이름을 적어주세요" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">주소 입력</label>
-          <input type="text" id="address" name="address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="공간의 주소를 입력해주세요 ex)강남" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
-          <button
-            onClick={handleInputChange}
-            className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 mb-2"
-          >
-            검색
-          </button>
-          <ul className="bg-green-50 border border-green-300 rounded-lg mt-2 max-h-40 overflow-y-auto">
-            {(Array.isArray(data) ? data : []).map((addr, index) => (
-              <li
-                key={index}
-                onClick={() => onMap(addr)}
-                className="cursor-pointer px-4 py-2 hover:bg-green-100 border-b border-green-200 last:border-b-0"
-              >
-                {addr.title}
-              </li>
-            ))}
-          </ul>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="공간의 이름을 적어주세요"
+            className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+          />
         </div>
         <div className="mb-4">
           <label htmlFor="maxPeople" className="block mb-2 text-sm font-medium text-gray-900">정원 수</label>
@@ -197,9 +184,51 @@ export default function RoomAdd() {
           )}
         </div>
 
-        <button type="submit" onClick={onCreate} className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">등록하기</button>
-        <button type="button" onClick={goBack} className="text-gray-900 bg-green-50 hover:bg-green-100 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-2 border-green-600 text-center">뒤로가기</button>
+        <button
+          type="submit"
+          onClick={onCreate}
+          className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+        >
+          등록하기
+        </button>
+        <button
+          type="button"
+          onClick={goBack}
+          className="text-gray-900 bg-green-50 hover:bg-green-100 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 mx-2 border border-green-300 text-center"
+        >
+          뒤로가기
+        </button>
       </form>
+      {/* 주소 검색 영역 */}
+      <div className="mb-8 p-4 bg-green-50 border border-green-200 rounded-lg">
+        <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">주소 입력</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          placeholder="건물명을 입력해주세요 ex)비트빌"
+          className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 mb-2"
+        />
+        <button
+          onClick={handleInputChange}
+          className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 mb-2"
+        >
+          검색
+        </button>
+        <ul className="bg-white border border-green-300 rounded-lg mt-2 max-h-40 overflow-y-auto">
+          {(Array.isArray(data) ? data : []).map((addr, index) => (
+            <li
+              key={index}
+              onClick={() => onMap(addr)}
+              className="cursor-pointer px-4 py-2 hover:bg-green-100 border-b border-green-200 last:border-b-0"
+            >
+              {addr.title}
+            </li>
+          ))}
+        </ul>
+      </div>
       {mapState && (
         <NaverMapAdd latitude={latitude} longitude={longitude} zoom={15} />
       )}
