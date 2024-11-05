@@ -102,9 +102,11 @@ export default function SellerBooking() {
         setIsModalOpen(false);
     };
 
-    const handleToDetailRoom = (id: number) => {
-        dispatch(saveCurrentRoom(room));
-        route.push(`/rooms/${id}`);
+    const handleToDetailRoom = () => {
+        if (room) {
+            dispatch(saveCurrentRoom(room));
+            route.push(`/rooms/${room.id}`);
+        }
     }
 
 
@@ -115,6 +117,13 @@ export default function SellerBooking() {
                 <p className="text-lg font-semibold">가격: <span className="font-normal">{room?.price ? `${room.price}원` : "정보 없음"}</span></p>
                 <p className="text-lg font-semibold">오픈 시간: <span className="font-normal">{room?.openTime || "정보 없음"}</span></p>
                 <p className="text-lg font-semibold">종료 시간: <span className="font-normal">{room?.closeTime || "정보 없음"}</span></p>
+                <button
+                    type="button"
+                    onClick={() => handleToDetailRoom}
+                    className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                >
+                    공간 상세 보기
+                </button>
             </div>
             <div className="flex space-x-4 my-4">
                 <button
@@ -170,13 +179,6 @@ export default function SellerBooking() {
                                         결제 상세 보기
                                     </button>
                                 )}
-                                <button
-                                    type="button"
-                                    onClick={() => handleToDetailRoom(booking.roomId)}
-                                    className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
-                                >
-                                    공간 상세 보기
-                                </button>
                             </div>
                         </li>
                     ))}

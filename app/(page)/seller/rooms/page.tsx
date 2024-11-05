@@ -78,28 +78,32 @@ export default function SellerRoom() {
     }
   }
 
+  const handleToDetailRoom = (room: RoomModel) => {
+    dispatch(saveCurrentRoom(room));
+    route.push(`/rooms/${room.id}`);
+  }
 
   return (
     <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
       <div className="flex mb-4 justify-between">
         <div>
-        <button
-          className={`px-4 py-2 rounded-lg ${selectedCategory === '관리' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
-          onClick={() => handleTabClick('관리')}
-        >
-          관리
-        </button>
-        <button
-          className={`px-4 py-2 mx-4 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
-          onClick={() => handleTabClick('승인 대기')}
-        >
-          승인 대기
-        </button>
+          <button
+            className={`px-4 py-2 rounded-lg ${selectedCategory === '관리' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+            onClick={() => handleTabClick('관리')}
+          >
+            관리
+          </button>
+          <button
+            className={`px-4 py-2 mx-4 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+            onClick={() => handleTabClick('승인 대기')}
+          >
+            승인 대기
+          </button>
         </div>
         <div>
           <button
             className={`px-4 py-2 rounded-full bg-green-400 text-white hover:bg-green-500 text-black'}`}
-            onClick={() => {route.push('/rooms/add')}}
+            onClick={() => { route.push('/rooms/add') }}
           >
             공간등록
           </button>
@@ -126,6 +130,13 @@ export default function SellerRoom() {
                 <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg bg-green-100 p-3">등록 취소</button>
               </div>
             )}
+            <button
+              type="button"
+              onClick={() => handleToDetailRoom(room)}
+              className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+            >
+              공간 상세 보기
+            </button>
           </li>
         ))
       ) : (
