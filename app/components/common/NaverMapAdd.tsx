@@ -8,7 +8,7 @@ interface NaverMapAddProps {
     zoom?: number;
 }
 
-const NaverMapAdd: React.FC<NaverMapAddProps> = ({ latitude, longitude, zoom = 15 }) => {
+const NaverMapAdd = ({ latitude, longitude, zoom = 15 }: NaverMapAddProps) => {
     useEffect(() => {
         const initMap = () => {
             if (typeof window !== 'undefined' && window.naver) {
@@ -24,7 +24,7 @@ const NaverMapAdd: React.FC<NaverMapAddProps> = ({ latitude, longitude, zoom = 1
                     map: map,
                 });
             }
-        };
+        }
 
         // 네이버 지도 스크립트가 로드된 후 지도 초기화
         if (!window.naver) {
@@ -36,11 +36,11 @@ const NaverMapAdd: React.FC<NaverMapAddProps> = ({ latitude, longitude, zoom = 1
         } else {
             initMap();
         }
-    }, [latitude, longitude, zoom]);
+    }, [latitude, longitude, zoom])
 
     return (
         <>
-            <div id="map" style={{ width: '100%', height: '100%' }} />
+          <div id="map" style={{ width: '100%', height: '100%' }} />
         </>
     );
 };
