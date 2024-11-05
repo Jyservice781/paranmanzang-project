@@ -15,18 +15,18 @@ interface TossPaymentResponse {
     paymentKey: string;
     amount: {
         value: number;
-    };
+    }
 }
 
-export default function AccountButton(): JSX.Element {
-    const dispatch = useAppDispatch();
+export default function AccountButton() {
+    const dispatch = useAppDispatch()
     // 입력 받은 값
-    const orderName: string = "1회 모임";
-    const amountValue: number = 5000;
-    const booking = useSelector(getCurrentBooking);
-    const user = useSelector(getCurrentUser);
-    const usePoint: number = 0;
-    const [payment, setPayment] = useState<TossPaymentsPayment | null>(null);
+    const orderName: string = "1회 모임"
+    const amountValue: number = 5000
+    const booking = useSelector(getCurrentBooking)
+    const user = useSelector(getCurrentUser)
+    const usePoint: number = 0
+    const [payment, setPayment] = useState<TossPaymentsPayment | null>(null)
     const [amount] = useState<AmountModel>({
         currency: "KRW",
         value: amountValue,

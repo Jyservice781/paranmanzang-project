@@ -31,13 +31,13 @@ export default function RoomCard({ room, isActive, file, onSelect }: RoomCardPro
       onClick={onSelect}
     >
       <Image
-          width={600}
-          height={400}
-          className="cursor-pointer rounded-lg bg-green-400"
-          src={file.path === process.env.NEXT_PUBLIC_IMAGE_DEFAULT ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT : `http://api.paranmanzang.com/api/files?path=${file.path}`}
-          alt={`cover of ${room?.name}`}
-          priority
-          unoptimized
+        width={260}
+        height={210}
+        className="w-80 h-40 rounded-t-lg object-fit"
+        src={file.path === process.env.NEXT_PUBLIC_IMAGE_DEFAULT ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT : `http://api.paranmanzang.com/api/files?path=${file.path}`}
+        alt={`cover of ${room?.name}`}
+        priority
+        unoptimized
       />
       <div className="p-5">
         <h5
