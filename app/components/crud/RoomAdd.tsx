@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from "next/navigation";
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import Alert from "../common/Alert";
 import { useAppDispatch } from "@/lib/store";
 import { roomService } from "@/app/service/room/room.service";
@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { AddressModel, AddressResponseModel, QueryModel } from "@/app/model/room/address.model";
 import { addressService } from "@/app/service/room/address.service";
 import NaverMapAdd from "../common/NaverMapAdd";
-import { getNickname } from "@/app/api/authUtils";
+import { getNickname } from "@/lib/features/users/user.slice";
 
 export default function RoomAdd() {
   const nickname = useSelector(getNickname)
@@ -26,8 +26,17 @@ export default function RoomAdd() {
     closeTime: '24:00',
     price: 0,
     enabled: false,
-    nickname: nickname as string
+    nickname: ''
   });
+
+  useEffect(() => {
+    if (nickname) {
+      setFormData(prevFormData => ({
+        ...prevFormData,
+        nickname: nickname
+      }));
+    }
+  }, [nickname]);
 
   const [address, setAddress] = useState<string>('')
 
@@ -63,7 +72,8 @@ export default function RoomAdd() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (lalngModel) {
+    console.log("add Room form data", formData, imageFile, lalngModel)
+    if (lalngModel && nickname && imageFile) {
       roomService.save(formData, imageFile, lalngModel, dispatch);
     }
     router.push('/seller/rooms')
