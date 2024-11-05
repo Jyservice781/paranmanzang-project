@@ -1,7 +1,7 @@
 import { BookingModel } from '@/app/model/room/bookings.model';
 import { AppDispatch } from '@/lib/store';
 import { bookingAPI } from '@/app/api/generate/booking.api';
-import { addBooking, removeBooking, saveLoading, savePayCompletedBookings, saveSeparatedBookings, saveSeparatedRoomBookings, saveTotalPageDisabledBooking, saveTotalPageDisabledRoomBooking, saveTotalPageEnabledBooking, saveTotalPageEnabledRoomBooking, saveTotalPageGroupBooking, saveTotalPagePayCompletedBooking, updateBooking } from '@/lib/features/room/booking.slice';
+import { addBooking, removeBooking, saveLoading, savePayCompletedBookings, savePayCompletedBookingsByGroup, saveSeparatedBookings, saveSeparatedRoomBookings, saveTotalPageDisabledBooking, saveTotalPageDisabledRoomBooking, saveTotalPageEnabledBooking, saveTotalPageEnabledRoomBooking, saveTotalPageGroupBooking, saveTotalPagePayCompletedBooking, updateBooking } from '@/lib/features/room/booking.slice';
 
 // 예약 등록
 const save = async (bookingModel: BookingModel, dispatch: AppDispatch): Promise<void> => {
@@ -72,7 +72,7 @@ const findPayCompletedByGroupId = async (groupId: number, page: number, size: nu
   try {
     dispatch(saveLoading(true))
     const response = await bookingAPI.findPayCompletedByGroup(groupId, page, size)
-    dispatch(saveSeparatedBookings(response.data.content))
+    dispatch(savePayCompletedBookingsByGroup(response.data.content))
     dispatch(saveTotalPagePayCompletedBooking(response.data.totalPages))
   } catch (error: any) {
     if (error.response) {
