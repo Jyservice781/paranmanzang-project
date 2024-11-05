@@ -15,14 +15,14 @@ interface TossPaymentResponse {
     paymentKey: string;
     amount: {
         value: number;
-    };
+    }
 }
 
 interface AccountButtonProps {
     booking: BookingModel | null
 }
 
-export default function AccountButton({ booking }: AccountButtonProps): JSX.Element {
+export default function AccountButton({ booking }: AccountButtonProps){
     const dispatch = useAppDispatch();
     // 입력 받은 값
     const orderName: string = "1회 모임";
