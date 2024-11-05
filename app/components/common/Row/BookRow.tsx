@@ -32,6 +32,7 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
     bookService.findList(page, pageSize, dispatch)
   }, [page, pageSize, dispatch])
 
+
   if (isLoading) return <LoadingSpinner />
   if (error) return <ErrorMessage message={error} />
 

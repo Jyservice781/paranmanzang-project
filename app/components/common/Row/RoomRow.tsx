@@ -40,7 +40,7 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
       const currentRoom = rooms.find(({ id }) => id === currentId);
       if (currentRoom) {
         dispatch(saveCurrentRoom(currentRoom));
-        dispatch(saveCurrentFile(files.roomFiles.find(({ refId }) => refId === currentId) ?? {} as FileModel));
+        // dispatch(saveCurrentFile(files.roomFiles.find(({ refId }) => refId === currentId) ?? {} as FileModel));
         dispatch(saveCurrentAddress(addresses.find(({ roomId }) => roomId === currentId) ?? null))
         router.push(`/rooms/${currentId}`);
       }
