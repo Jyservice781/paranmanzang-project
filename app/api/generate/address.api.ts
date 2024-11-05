@@ -6,9 +6,14 @@ import qs from 'qs';
 export const addressAPI = {
     search(queryModel: QueryModel) {
         console.log("queryModel", queryModel)
+
         return api.get<AddressResponseModel[]>(requests.fetchRooms + `/addresses/search`, {
-            params: queryModel,
-            paramsSerializer: (params: QueryModel) => qs.stringify(params, { encode: true })
+            params: queryModel,  // 객체 그대로 전달하고
+            paramsSerializer: (params: QueryModel) => qs.stringify(params, {
+                encode: true,
+                charset: 'utf-8',
+                encodeValuesOnly: true  // 값만 인코딩
+            })
         });
     },
     insert(addressModel: AddressModel) {
