@@ -74,12 +74,12 @@ export default function SellerBooking() {
 
     const totalPage: number = useMemo(() => {
         switch (selectedCategory) {
-            case '결제 완료':
-                return totalPagePayCompletedBooking;
-            case '결제 대기':
-                return totalPageEnabledBooking;
-            case '승인 대기':
-                return totalPageDisabledBooking;
+            case "결제 완료":
+                return totalPagePayCompletedBooking || 0
+            case "결제 대기":
+                return totalPageEnabledBooking || 0
+            case "승인 대기":
+                return totalPageDisabledBooking || 0
             default:
                 return 0;
         }
@@ -135,38 +135,45 @@ export default function SellerBooking() {
                 </button>
             </div>
 
-            {showList.length > 0 ? (
-                showList.map((booking) => (
-                    <li key={booking.id}
-                        className="mx-auto my-3 flex items-center justify-around bg-white p-3">
-                        <div className="flex justify-around">
-                            <p>예약일: {booking.date}</p>
-                            <p>예약시간: {booking.usingTime.map(time => time.slice(0, 5)).join(', ')}</p>
-                        </div>
-                        <div>
-                            {selectedCategory === '승인 대기' && !booking.enabled && (
-                                <>
-                                    <button type="button" onClick={() => onUpdate(Number(booking.id))} className="mx-2 rounded-lg bg-green-100 p-3">승인</button>
-                                    <button type="button" onClick={() => onDelete(booking)} className="mx-2 rounded-lg bg-green-100 p-3">거절</button>
-                                </>
-                            )}
-                            {['결제 완료', '결제 대기'].includes(selectedCategory) && (
-                                <button type="button" onClick={() => onDelete(booking)} className="mx-2 rounded-lg bg-green-100 p-3">승인 취소</button>
-                            )}
-                            {selectedCategory === '결제 완료' && (
-                                <button
-                                    type="button"
-                                    onClick={() => openModal(booking)}
-                                    className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
-                                >
-                                    결제 상세 보기
-                                </button>
-                            )}
-                        </div>
-                    </li>
-                ))
+            {showList && showList.length > 0 ? (
+                <ul>
+                    {showList.map((booking) => (
+                        <li key={booking.id} className="mx-auto my-3 flex items-center justify-around bg-white p-3">
+                            <div className="flex justify-around">
+                                <p>예약일: {booking.date}</p>
+                                <p>예약시간: {booking.usingTime.map((time) => time.slice(0, 5)).join(", ")}</p>
+                            </div>
+                            <div>
+                                {selectedCategory === "승인 대기" && !booking.enabled && (
+                                    <>
+                                        <button type="button" onClick={() => onUpdate(Number(booking.id))} className="mx-2 rounded-lg bg-green-100 p-3">
+                                            승인
+                                        </button>
+                                        <button type="button" onClick={() => onDelete(booking)} className="mx-2 rounded-lg bg-green-100 p-3">
+                                            거절
+                                        </button>
+                                    </>
+                                )}
+                                {["결제 완료", "결제 대기"].includes(selectedCategory) && (
+                                    <button type="button" onClick={() => onDelete(booking)} className="mx-2 rounded-lg bg-green-100 p-3">
+                                        승인 취소
+                                    </button>
+                                )}
+                                {selectedCategory === "결제 완료" && (
+                                    <button
+                                        type="button"
+                                        onClick={() => openModal(booking)}
+                                        className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                                    >
+                                        결제 상세 보기
+                                    </button>
+                                )}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             ) : (
-                <li className="list-none my-3">정보가 존재하지 않습니다.</li>
+                <p className="list-none my-3 text-center text-gray-500">정보가 존재하지 않습니다.</p>
             )}
 
             <Pagination
