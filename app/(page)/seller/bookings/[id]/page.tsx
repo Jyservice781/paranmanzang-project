@@ -113,8 +113,8 @@ export default function SellerBooking() {
     return (
         <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-8 my-4 items-center text-gray-700 bg-white rounded-lg ">
-                <p className="text-lg font-semibold">방 이름: <span className="font-normal">{room?.name || "정보 없음"}</span></p>
-                <p className="text-lg font-semibold">가격: <span className="font-normal">{room?.price ? `${room.price}원` : "정보 없음"}</span></p>
+                <p className="font-semibold">방 이름: <span>{room?.name || "정보 없음"}</span></p>
+                <p className="text-lg font-semibold">가격: <span>{room?.price ? `${room.price}원` : "정보 없음"}</span></p>
                 <p className="text-lg font-semibold">오픈 시간: <span className="font-normal">{room?.openTime || "정보 없음"}</span></p>
                 <p className="text-lg font-semibold">종료 시간: <span className="font-normal">{room?.closeTime || "정보 없음"}</span></p>
                 <button

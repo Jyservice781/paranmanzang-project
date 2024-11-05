@@ -27,9 +27,9 @@ export default function LeaderGroup() {
   };
 
   return (
-    <ul className="space-y-4">
+    <ul className="max-w-lg mx-auto my-8 space-y-4">
       {groups.map((group) => (
-        <li key={group.id} className="p-5 bg-white shadow rounded-lg">
+        <li key={group.id} className="p-6 bg-white shadow rounded-lg">
           <div>
             <h5 className={`mb-2 text-lg font-medium tracking-tight text-green-600'}`}>
               {group.name || 'Group Title'}
