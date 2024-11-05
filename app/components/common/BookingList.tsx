@@ -13,13 +13,10 @@ import { getLeaderGroups } from "@/lib/features/group/group.slice"
 import { accountService } from "@/app/service/room/account.service"
 import Pagination from "./Row/pagination/Pagination"
 
-interface BookingListProps {
-  bookingId?: string
-}
 
 type TabType = "예약 확정" | "예약 대기";
 
-export default function BookingList({ bookingId }: BookingListProps) {
+export default function BookingList() {
   const router = useRouter()
   const [selectedBookings, setSelectedBookings] = useState<string[]>([])
   const dispatch = useAppDispatch();

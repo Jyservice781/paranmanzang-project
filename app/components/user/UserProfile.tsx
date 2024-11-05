@@ -9,10 +9,6 @@ import { getCurrentUser } from '@/lib/features/users/user.slice';
 import { RootState, useAppDispatch } from '@/lib/store';
 import { getLeaderGroups } from '@/lib/features/group/group.slice';
 import styles from './UserProfile.module.css';
-interface UserProfileProps {
-    getUser: string | undefined;
-}
-
 interface ActionButtonProps {
     onClick: () => void;
     icon: JSX.Element;
@@ -27,9 +23,8 @@ const ActionButton = ({ onClick, icon, label, className = '' }: ActionButtonProp
     </button>
 );
 
-export default function UserProfile({ getUser }: UserProfileProps) {
+export default function UserProfile() {
     const router = useRouter();
-    const dispatch = useAppDispatch();
     const user = useSelector(getCurrentUser);
     const leaderGroup = useSelector(getLeaderGroups);
     const { isLoading, error } = useSelector((state: RootState) => state.user);
@@ -113,7 +108,7 @@ export default function UserProfile({ getUser }: UserProfileProps) {
                     </>
                 )}
                 <ActionButton
-                    onClick={() => router.push(`/users/update/${getUser}`)}
+                    onClick={() => router.push(`/users/update/${user}`)}
                     icon={<FaUserEdit />}
                     label="내정보수정"
                 />

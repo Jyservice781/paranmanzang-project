@@ -2,8 +2,7 @@
 import Pagination from "@/app/components/common/Row/pagination/Pagination"
 import { BookingModel } from "@/app/model/room/bookings.model"
 import { bookingService } from "@/app/service/room/booking.service"
-import { roomService } from "@/app/service/room/room.service"
-import { getEnabledBooking, getNotEnabledBooking, getTotalPageDisabledRoomBooking, getTotalPageEnabledRoomBooking } from "@/lib/features/room/booking.slice"
+import { getEnabledRoomBooking, getNotEnabledRoomBooking, getTotalPageDisabledRoomBooking, getTotalPageEnabledRoomBooking } from "@/lib/features/room/booking.slice"
 import { getCurrentUser } from "@/lib/features/users/user.slice"
 import { useAppDispatch } from "@/lib/store"
 import { useRouter } from "next/navigation"
@@ -14,8 +13,8 @@ export default function SellerBooking() {
     const user = useSelector(getCurrentUser)
     const nickname = user?.nickname as string
     const dispatch = useAppDispatch()
-    const enabledBookings = useSelector(getEnabledBooking)
-    const notEnabledBookings = useSelector(getNotEnabledBooking)
+    const enabledBookings = useSelector(getEnabledRoomBooking)
+    const notEnabledBookings = useSelector(getNotEnabledRoomBooking)
     const route = useRouter()
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
@@ -23,8 +22,8 @@ export default function SellerBooking() {
     const totalPageDisabledBooking = useSelector(getTotalPageDisabledRoomBooking)
     const [selectedCategory, setSelectedCategory] = useState<'확정' | '승인 대기'>('확정');
 
-    console.log("booking 확정"+ enabledBookings)
-    console.log("booking 대기"+ notEnabledBookings)
+    console.log("booking 확정" + enabledBookings)
+    console.log("booking 대기" + notEnabledBookings)
 
     const handleTabClick = (category: '확정' | '승인 대기') => {
         setSelectedCategory(category);

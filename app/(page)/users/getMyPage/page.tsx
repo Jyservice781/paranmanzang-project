@@ -8,14 +8,13 @@ import { getCurrentUser } from "@/lib/features/users/user.slice";
 
 export default function GetMyPage() {
     const currentUser = useSelector(getCurrentUser);
-    const dispatch = useAppDispatch();
     if (!currentUser || !currentUser.nickname) {
        return <ErrorMessage message={'사용자 정보가 없습니다.'} />;
     }
 
     return (
         <div>
-            <UserProfile getUser={currentUser.nickname} />
+            <UserProfile />
         </div>
     );
 }

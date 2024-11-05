@@ -9,7 +9,7 @@ export default function GetMyPage({ params }: PageProps) {
 
   return (
     <div>
-      <UserProfile getUser={userId} />
+      <UserProfile/>
     </div>
   );
 }
