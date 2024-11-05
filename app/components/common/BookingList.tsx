@@ -23,11 +23,11 @@ export default function BookingList() {
 
   // Redux 상태를 최상위 레벨에서 가져오기
   const group = useSelector(getCurrentGroup)
-  const enabledBookings = useSelector(getEnabledBooking);
-  const notEnabledBookings = useSelector(getNotEnabledBooking);
+  const enabledBookings = useSelector(getEnabledBooking)
+  const notEnabledBookings = useSelector(getNotEnabledBooking)
   const payCompletedBookings = useSelector(getPayCompletedBookingsByGroup)
-  const totalPageEnabled = useSelector(getTotalPageEnabledBooking);
-  const totalPageDisabled = useSelector(getTotalPageDisabledBooking);
+  const totalPageEnabled = useSelector(getTotalPageEnabledBooking)
+  const totalPageDisabled = useSelector(getTotalPageDisabledBooking)
   const totalPagePayCompletedBooking = useSelector(getTotalPagePayCompletedBookingsByGroup)
   const enableRooms = useSelector(getRoomsMap)
 
@@ -92,7 +92,7 @@ export default function BookingList() {
               <div className="border-b border-gray-100 p-6">
                 <Link href={`/books/${booking.id}`} passHref>
                   <h5 className="mb-2 text-lg font-semibold tracking-tight text-gray-800 cursor-pointer hover:text-green-600 transition-colors">
-                    예약 방 번호: {booking.roomId}
+                    예약 방: {booking.roomName}
                   </h5>
                 </Link>
                 <p className="mb-3 text-sm font-medium text-gray-700">예약 일: {booking.date}</p>
