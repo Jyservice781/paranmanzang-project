@@ -24,6 +24,8 @@ export default function RoomCard({ room, isActive, file, onSelect }: RoomCardPro
       router.push(`/rooms/${room.id}`);
   };
 
+ 
+
   return (
     <div key={room.id}>
     <div
