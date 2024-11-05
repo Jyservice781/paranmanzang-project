@@ -1,11 +1,10 @@
-import { AddressModel, AddressResponseModel, AddressUpdateModel } from "@/app/model/room/address.model";
+import { AddressModel, AddressResponseModel, AddressUpdateModel, QueryModel } from "@/app/model/room/address.model";
 import requests from "../requests";
 import api from "../axios";
 
 export const addressAPI = {
-    search(query: string) {
-        console.log("query : ", query)
-        return api.get<AddressResponseModel[]>(requests.fetchRooms + `/addresses/search?query=${encodeURIComponent(query)}`);
+    search(queryModel: QueryModel) {
+        return api.get<AddressResponseModel[]>(requests.fetchRooms + `/addresses/search`,{data:queryModel});
     },
     insert(addressModel: AddressModel) {
         return api.post<AddressModel>(requests.fetchRooms + '/addresses', addressModel);

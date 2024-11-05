@@ -1,13 +1,13 @@
-import { AddressModel, AddressResponseModel, AddressUpdateModel } from '@/app/model/room/address.model';
+import { AddressModel, AddressResponseModel, AddressUpdateModel, QueryModel } from '@/app/model/room/address.model';
 import { AppDispatch } from '@/lib/store';
 import { addAddress, deleteAddress, saveAddresses, saveLoading, updateAddress } from '@/lib/features/room/address.slice';
 import { addressAPI } from '@/app/api/generate/address.api';
 
 // 주소 검색
-const search = async (query: string, dispatch: AppDispatch): Promise<AddressResponseModel[]> => {
+const search = async (queryModel: QueryModel, dispatch: AppDispatch): Promise<AddressResponseModel[]> => {
   try {
     dispatch(saveLoading(true))
-    const response = await addressAPI.search(query)
+    const response = await addressAPI.search(queryModel)
     return response.data;
   } catch (error: any) {
     if (error.response) {

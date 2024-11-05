@@ -37,6 +37,10 @@ export interface AddressUpdateModel {
     longitude: number;
 }
 
+export interface QueryModel {
+    query : string
+}
+
 // 상태 인터페이스 정의
 export interface AddressState {
     addresses: AddressModel[];
