@@ -27,7 +27,7 @@ const BookCard = ({ book, active, file }: BookCardProps) => {
     return (
         <li className="list-none">
             <div
-                className={`max-w-80 rounded-lg border border-gray-200 bg-white shadow ${active ? 'ring-2 ring-green-500' : ''}`}>
+                className={`max-w-80 rounded-lg border border-gray-200 bg-white shadow ${active ? 'ring-1 ring-gray-500' : ''}`}>
                 <Image
                     width={260}
                     height={210}

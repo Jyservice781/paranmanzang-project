@@ -21,7 +21,7 @@ const GroupCard = ({ group, active, onSelect }: GroupCardProps) => {
   return (
     <>
       <li
-        className={`max-w-sm my-2 list-none rounded-lg border border-gray-200 bg-white shadow ${active ? 'ring-2 ring-green-500' : ''
+        className={`max-w-sm my-2 list-none rounded-lg border border-gray-200 bg-white shadow ${active ? 'ring-1 ring-gray-500' : ''
           }`}
         onClick={onSelect}
       >

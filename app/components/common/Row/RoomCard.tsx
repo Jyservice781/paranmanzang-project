@@ -29,7 +29,7 @@ export default function RoomCard({ room, isActive, file, onSelect }: RoomCardPro
   return (
     <div key={room.id}>
     <div
-      className={`max-w-80 rounded-lg border border-gray-200 bg-white shadow ${isActive ? 'ring-2 ring-green-500' : ''}`}
+      className={`max-w-80 rounded-lg border border-gray-200 bg-white shadow ${isActive ? 'ring-1 ring-gray-400' : ''}`}
       onClick={onSelect}
     >
       <Image

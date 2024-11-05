@@ -180,10 +180,10 @@ const findByEnabled = async (page: number, size: number, dispatch: AppDispatch):
     try {
         dispatch(saveLoading(true))
         const response = await roomAPI.findEnable(page, size)
+        dispatch(saveLoading(false))
         console.log("findByEnabled - service await 부분임", response.data.content)
         dispatch(saveTotalPageEnabledRoom(response.data.totalPages))
         dispatch(saveRooms(response.data.content))
-        dispatch(saveLoading(false))
         const roomIds = response.data.content.map(room => Number(room.id))
         fileService.selectFileList(roomIds, FileType.ROOM, dispatch)
     } catch (error: any) {
