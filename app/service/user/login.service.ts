@@ -108,17 +108,14 @@ const GetToken = async (token: string, nickname: string, dispatch: AppDispatch) 
   setAccessToken(token);
   dispatch(saveNickname(nickname));
   await userService.findUserDetail(nickname, dispatch);
-  const user = useSelector(getCurrentUser)
 
   // 사용자 정보를 가져오기 위한 요청을 Promise.all로 처리
-  if (user?.role === 'ROLE_USER') {
-    await Promise.all([
+    Promise.all([
       groupService.findByNickname(nickname, dispatch),
       likeBookService.findByNickname(nickname, dispatch),
       roomService.findAllLikedByNickname(nickname, dispatch),
       likePostService.findAllByUserNickname(nickname, dispatch)
     ]);
-  }
 
   removeNickname(); // 함수 호출
   removeAuthorization(); // 함수 호출

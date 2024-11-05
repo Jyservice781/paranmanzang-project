@@ -20,15 +20,15 @@ const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
     const loading = useSelector(getIsLoading);
     const error = useSelector(getError);
 
-    const [page, setPage] = useState(0);
-    const [pageSize, setPageSize] = useState(9);
 
     const nickname = useSelector(getNickname)
+    console.log("My group", groups)
+
     useEffect(() => {
         if (nickname) {
             groupService.findByNickname(nickname, dispatch)
         }
-    }, [page, pageSize, dispatch, nickname]);
+    }, [dispatch, nickname, active]);
 
     if (loading) return <LoadingSpinner />;
     if (error) return <ErrorMessage message={error} />;
@@ -40,11 +40,6 @@ const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
                     <GroupCard key={index} group={group} active={active} onSelect={onSelect} />
                 ))}
             </div>
-            <Pagination
-                currentPage={page}
-                totalPages={groups.length}
-                onPageChange={setPage}
-            />
         </>
     );
 };
