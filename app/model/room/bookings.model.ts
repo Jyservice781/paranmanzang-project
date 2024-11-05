@@ -10,7 +10,7 @@ export interface BookingModel {
   groupId: number;
   roomName?: string;
   address?: string
-  accountModel?: AccountModel
+  account?: AccountModel
 }
 
 // 상태 인터페이스 정의

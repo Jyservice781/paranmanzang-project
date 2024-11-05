@@ -212,8 +212,8 @@ export default function BookingList() {
             <p>예약 방 이름: {selectedBooking.roomName}</p>
             <p>예약 일: {selectedBooking.date}</p>
             <p>소모임: {group?.name}</p>
-            <p>결제일: {selectedBooking.accountModel?.createAt}</p>
-            <p>결제 금액: {selectedBooking.accountModel?.amount}</p>
+            <p>결제일: {selectedBooking.account?.createAt}</p>
+            <p>결제 금액: {selectedBooking.account?.amount}</p>
             <div className="mt-5 flex justify-end">
               <button
                 onClick={closeModal}
