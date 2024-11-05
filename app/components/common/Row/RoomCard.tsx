@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { RoomModel } from '@/app/model/room/room.model';
 import { FileModel } from '@/app/model/file/file.model';
 import { useAppDispatch } from '@/lib/store';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { saveCurrentRoom } from '@/lib/features/room/room.slice';
 import { saveCurrentFile } from '@/lib/features/file/file.slice';
 
@@ -23,8 +23,6 @@ export default function RoomCard({ room, isActive, file, onSelect }: RoomCardPro
       dispatch(saveCurrentFile(file));
       router.push(`/rooms/${room.id}`);
   };
-
- 
 
   return (
     <div key={room.id}>
