@@ -15,7 +15,7 @@ const save = async (roomModel: RoomModel, file: any, lalngModel: AddressModel, d
         const response = await roomAPI.insert(roomModel)
         if (file) {
             console.log("사진 업로드 되나요?  네")
-           fileService.uploadFile(file, FileType.ROOM, Number(response.data.id), dispatch);
+            fileService.uploadFile(file, FileType.ROOM, Number(response.data.id), dispatch);
         }
         console.log("여기서 주소검색 일어나요")
         const addressModel: AddressModel = {
@@ -23,7 +23,7 @@ const save = async (roomModel: RoomModel, file: any, lalngModel: AddressModel, d
             roomId: Number(response.data.id)
         }
 
-        addressService.insert(addressModel,dispatch)
+        addressService.insert(addressModel, dispatch)
         console.log("주소 insert")
         dispatch(addDisabledRoomByNickname(response.data))
         dispatch(addDisabledRoom(response.data))
@@ -183,11 +183,8 @@ const findByEnabled = async (page: number, size: number, dispatch: AppDispatch):
         console.log("findByEnabled - service await 부분임", response.data.content)
         dispatch(saveTotalPageEnabledRoom(response.data.totalPages))
         dispatch(saveRooms(response.data.content))
-        fileService.selectFileList(
-
-            response.data.content.map((room: RoomModel) => room.id)
-                .filter((id): id is number => id !== undefined),
-            FileType.ROOM, dispatch)
+        const roomIds = response.data.content.map(room => Number(room.id))
+        fileService.selectFileList(roomIds, FileType.ROOM, dispatch)
     } catch (error: any) {
         if (error.response) {
             console.error('Server Error:', error.response.data);
