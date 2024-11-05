@@ -33,7 +33,7 @@ export default function RoomCard({ room, isActive, file, onSelect }: RoomCardPro
       <Image
         width={260}
         height={210}
-        className="w-80 h-40 rounded-t-lg object-fit"
+        className="w-80 h-40 rounded-t-lg object-cover"
         src={file.path === process.env.NEXT_PUBLIC_IMAGE_DEFAULT ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT : `http://api.paranmanzang.com/api/files?path=${file.path}`}
         alt={`cover of ${room?.name}`}
         priority
