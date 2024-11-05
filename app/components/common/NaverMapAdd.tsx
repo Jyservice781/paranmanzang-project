@@ -40,7 +40,7 @@ const NaverMapAdd: React.FC<NaverMapAddProps> = ({ latitude, longitude, zoom = 1
 
     return (
         <>
-            <div id="map" style={{ width: '50rem', height: '30rem' }} />
+            <div id="map" style={{ width: '100%', height: '100%' }} />
         </>
     );
 };

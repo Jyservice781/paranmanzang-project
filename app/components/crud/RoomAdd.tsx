@@ -6,13 +6,13 @@ import { useAppDispatch } from "@/lib/store";
 import { roomService } from "@/app/service/room/room.service";
 import { RoomModel } from "@/app/model/room/room.model";
 import { useSelector } from "react-redux";
-import { getCurrentUser } from "@/lib/features/users/user.slice";
-import { AddressModel, AddressResponseModel, ApiResponse, QueryModel } from "@/app/model/room/address.model";
+import { AddressModel, AddressResponseModel, QueryModel } from "@/app/model/room/address.model";
 import { addressService } from "@/app/service/room/address.service";
 import NaverMapAdd from "../common/NaverMapAdd";
+import { getNickname } from "@/app/api/authUtils";
 
 export default function RoomAdd() {
-  const user = useSelector(getCurrentUser)
+  const nickname = useSelector(getNickname)
   const [latitude, setLatitude] = useState<number>(0);
   const [longitude, setLongitude] = useState<number>(0);
   const [mapState, setMapState] = useState(false);
@@ -26,7 +26,7 @@ export default function RoomAdd() {
     closeTime: '24:00',
     price: 0,
     enabled: false,
-    nickname: user?.nickname as string
+    nickname: nickname as string
   });
 
   const [address, setAddress] = useState<string>('')
@@ -105,7 +105,7 @@ export default function RoomAdd() {
       detailAddress: addr.title,
       latitude: parseFloat(addr.mapy.slice(0, addr.mapy.length - 7) + "." + addr.mapy.slice(-7)),
       longitude: parseFloat(addr.mapx.slice(0, addr.mapx.length - 7) + "." + addr.mapx.slice(-7)),
-      address: addr.roadAddress,
+      address: addr.roadAddress ? addr.roadAddress : addr.address,
       roomId: 0,
     })
   }
@@ -187,6 +187,7 @@ export default function RoomAdd() {
         <button
           type="submit"
           onClick={onCreate}
+          disabled={!(imageFile && lalngModel)}
           className="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         >
           등록하기
@@ -230,7 +231,9 @@ export default function RoomAdd() {
         </ul>
       </div>
       {mapState && (
-        <NaverMapAdd latitude={latitude} longitude={longitude} zoom={15} />
+        <div className="w-full h-80 mb-8">
+          <NaverMapAdd latitude={latitude} longitude={longitude} zoom={15} />
+        </div>
       )}
       <Alert message={'등록되었습니다.'} isOpen={isOpen} onClose={() => { setIsOpen(false) }} />
     </div>
