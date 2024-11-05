@@ -114,11 +114,11 @@ export const getFiles = createSelector(
         groupPostFiles: fileState.groupPostFiles,
         bookFiles: fileState.bookFiles,
     })
-);
-export const getCurrentFile = (state: RootState) => state.file.currentFile;
-export const getFileToDelete = (state: RootState) => state.file.fileToDelete;
-export const getLoading = (state: RootState) => state.file.isLoading;
-export const getError = (state: RootState) => state.file.error;
+)
+export const getCurrentFile = (state: RootState) => state.file.currentFile
+export const getFileToDelete = (state: RootState) => state.file.fileToDelete
+export const getLoading = (state: RootState) => state.file.isLoading
+export const getError = (state: RootState) => state.file.error
 
 export const {
     saveFiles,

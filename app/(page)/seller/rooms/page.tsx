@@ -123,6 +123,13 @@ export default function SellerRoom() {
                 <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg bg-green-100 p-3">삭제</button>
                 <button type="button" onClick={() => onUpdate(room)} className="mx-2 rounded-lg bg-green-100 p-3">수정</button>
                 <button type="button" onClick={() => handleDetail(room)} className="mx-2 rounded-lg bg-green-100 p-3">예약 정보 보기</button>
+                <button
+                  type="button"
+                  onClick={() => handleToDetailRoom(room)}
+                  className="mx-2 rounded-lg bg-green-100 p-3"
+                >
+                  공간 상세 보기
+                </button>
               </div>
             )}
             {selectedCategory === '승인 대기' && (
@@ -130,13 +137,7 @@ export default function SellerRoom() {
                 <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg bg-green-100 p-3">등록 취소</button>
               </div>
             )}
-            <button
-              type="button"
-              onClick={() => handleToDetailRoom(room)}
-              className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
-            >
-              공간 상세 보기
-            </button>
+
           </li>
         ))
       ) : (
