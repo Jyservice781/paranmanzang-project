@@ -91,6 +91,8 @@ export const getIsLoading = (state: RootState) => state.bookings.isLoading;
 export const getError = (state: RootState) => state.bookings.error;
 export const getEnabledBooking = (state: RootState) => state.bookings.enabledBookings
 export const getNotEnabledBooking = (state: RootState) => state.bookings.notEnabledBookings
+export const getEnabledRoomBooking = (state: RootState) => state.bookings.enabledRoomBookings
+export const getNotEnabledRoomBooking = (state: RootState) => state.bookings.notEnabledRoomBookings
 export const getTotalPageEnabledBooking = (state: RootState) => state.bookings.totalPageEnabledBooking
 export const getTotalPageDisabledBooking = (state: RootState) => state.bookings.totalPageDisabledBooking
 export const getTotalPageGroupBooking = (state: RootState) => state.bookings.totalPageGroupBooking
