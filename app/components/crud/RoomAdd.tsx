@@ -110,8 +110,7 @@ export default function RoomAdd() {
     })
   }
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress(event.target.value);
+  const handleInputChange = () => {
     const queryModel: QueryModel = {
       query: address
     } // 상태 업데이트
@@ -131,10 +130,20 @@ export default function RoomAdd() {
         </div>
         <div className="mb-4">
           <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">주소 입력</label>
-          <input type="text" id="address" name="address" value={address} onChange={handleInputChange} placeholder="공간의 주소를 입력해주세요" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
-          <ul>
+          <input type="text" id="address" name="address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="공간의 주소를 입력해주세요 ex)강남" className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
+          <button
+            onClick={handleInputChange}
+            className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 mb-2"
+          >
+            검색
+          </button>
+          <ul className="bg-green-50 border border-green-300 rounded-lg mt-2 max-h-40 overflow-y-auto">
             {(Array.isArray(data) ? data : []).map((addr, index) => (
-              <li key={index} onClick={() => onMap(addr)}>
+              <li
+                key={index}
+                onClick={() => onMap(addr)}
+                className="cursor-pointer px-4 py-2 hover:bg-green-100 border-b border-green-200 last:border-b-0"
+              >
                 {addr.title}
               </li>
             ))}
