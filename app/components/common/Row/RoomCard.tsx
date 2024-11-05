@@ -1,17 +1,31 @@
 import Image from 'next/image';
 import { RoomModel } from '@/app/model/room/room.model';
 import { FileModel } from '@/app/model/file/file.model';
+import { useAppDispatch } from '@/lib/store';
+import { useRouter } from 'next/router';
+import { saveCurrentRoom } from '@/lib/features/room/room.slice';
+import { saveCurrentFile } from '@/lib/features/file/file.slice';
 
 interface RoomCardProps {
   room: RoomModel
   isActive: boolean
   onSelect: () => void
   file: FileModel;
-  onClickToDetail: (currentId: number | undefined) => void
 }
 
-const RoomCard = ({ room, isActive, file, onClickToDetail, onSelect }: RoomCardProps) => (
-  <div key={room.id}>
+export default function RoomCard({ room, isActive, file, onSelect }: RoomCardProps){
+  
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+
+  const onClickToDetail = () => {
+      dispatch(saveCurrentRoom(room));
+      dispatch(saveCurrentFile(file));
+      router.push(`/rooms/${room.id}`);
+  };
+  
+  return (
+    <div key={room.id}>
     <div
       className={`max-w-80 rounded-lg border border-gray-200 bg-white shadow ${isActive ? 'ring-2 ring-green-500' : ''}`}
       onClick={onSelect}
@@ -36,7 +50,7 @@ const RoomCard = ({ room, isActive, file, onClickToDetail, onSelect }: RoomCardP
         </p>
         <p className="text-sm font-medium">판매자: {room.nickname}</p>
         <button
-          onClick={() => onClickToDetail(room.id)}
+          onClick={() => onClickToDetail()}
           className={`mt-5 inline-flex w-full items-center rounded-lg p-3 text-sm font-medium text-white ${isActive
             ? 'bg-green-600 hover:bg-green-700'
             : 'bg-green-400 hover:bg-green-500'
@@ -62,6 +76,5 @@ const RoomCard = ({ room, isActive, file, onClickToDetail, onSelect }: RoomCardP
       </div>
     </div>
   </div>
-);
-
-export default RoomCard;
+  )
+}  
