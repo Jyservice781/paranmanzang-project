@@ -87,10 +87,8 @@ const able = async (group: GroupResponseModel, dispatch: AppDispatch): Promise<v
     await handleLoading(dispatch, async () => {
         try {
             const response = await groupApi.able(group.id);
-            chatRoomService.insert({ roomName: group.name, nickname: group.nickname, dispatch: dispatch })
-                .then((result: string) => {
-                    modifyChatRoomId(result, group.id, dispatch)
-                })
+            const chatRoomId = await chatRoomService.insert({ roomName: group.name, nickname: group.nickname, dispatch: dispatch })
+            modifyChatRoomId(chatRoomId, group.id, dispatch)
             dispatch(addGroup(response.data))
             dispatch(deleteEnableGroup(response.data.id))
         } catch (error: any) {

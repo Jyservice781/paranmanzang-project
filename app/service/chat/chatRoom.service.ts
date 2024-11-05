@@ -30,14 +30,7 @@ const insert = async ({ roomName, nickname, dispatch }: {
     return await handleLoading(dispatch, async () => {
         try {
             const response = await chatRoomAPI.insert(roomName, nickname);
-            
-            console.log("response 채팅insert ", response.data)
-            
-            const json = JSON.parse(response.data as string).roomId;
-            
-            console.log("json 채팅 insert ", json)
-
-            return json
+            return response.data
         } catch (error) {
             return handleApiError(error, dispatch, "방 생성 중 오류 발생했습니다.");
         }
