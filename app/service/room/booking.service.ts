@@ -127,11 +127,10 @@ const findDisabledByGroup = async (groupId: number, page: number, size: number, 
   }
 };
 
-// 공간 예약 조회
-const findEnabledByRoom = async (nickname: string, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
+const findEnabledByRoom = async (roomId: number, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
   try {
     dispatch(saveLoading(true))
-    const response = await bookingAPI.findEnabledByRoom(nickname, page, size)
+    const response = await bookingAPI.findEnabledByRoom(roomId, page, size)
     dispatch(saveSeparatedRoomBookings(response.data.content))
     dispatch(saveTotalPageEnabledRoomBooking(response.data.totalPages))
   } catch (error: any) {
@@ -147,10 +146,10 @@ const findEnabledByRoom = async (nickname: string, page: number, size: number, d
     }
   }
 };
-const findDisabledByRoom = async (nickname: string, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
+const findDisabledByRoom = async (roomId: number, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
   try {
     dispatch(saveLoading(true))
-    const response = await bookingAPI.findDisabledByRoom(nickname, page, size)
+    const response = await bookingAPI.findDisabledByRoom(roomId, page, size)
     dispatch(saveSeparatedRoomBookings(response.data.content))
     dispatch(saveTotalPageDisabledRoomBooking(response.data.totalPages))
   } catch (error: any) {
@@ -167,10 +166,10 @@ const findDisabledByRoom = async (nickname: string, page: number, size: number, 
   }
 };
 
-const findPayCompletedByNickname = async (nickname: string, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
+const findPayCompletedByRoom = async (roomId: number, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
   try {
     dispatch(saveLoading(true))
-    const response = await bookingAPI.findPayCompletedByNickname(nickname, page, size)
+    const response = await bookingAPI.findPayCompletedByRoom(roomId, page, size)
     dispatch(savePayCompletedBookings(response.data.content))
     dispatch(saveTotalPagePayCompletedBooking(response.data.totalPages))
   } catch (error: any) {
@@ -189,6 +188,6 @@ const findPayCompletedByNickname = async (nickname: string, page: number, size: 
 
 export const bookingService = {
   save, modify, drop,
-  findPayCompletedByGroupId, findEnabledByGroup, findDisabledByGroup, findEnabledByRoom, findDisabledByRoom, findPayCompletedByNickname
+  findPayCompletedByGroupId, findEnabledByGroup, findDisabledByGroup, findEnabledByRoom, findDisabledByRoom, findPayCompletedByRoom
 }
 

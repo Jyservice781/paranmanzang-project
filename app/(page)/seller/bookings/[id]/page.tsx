@@ -3,16 +3,13 @@ import Pagination from "@/app/components/common/Row/pagination/Pagination"
 import { BookingModel } from "@/app/model/room/bookings.model"
 import { bookingService } from "@/app/service/room/booking.service"
 import { getEnabledRoomBooking, getNotEnabledRoomBooking, getPayCompletedBookings, getTotalPageDisabledRoomBooking, getTotalPageEnabledRoomBooking, getTotalPagePayCompletedBooking } from "@/lib/features/room/booking.slice"
-import { getCurrentRoom, getRoomsMap, saveCurrentRoom } from "@/lib/features/room/room.slice"
-import { getCurrentUser } from "@/lib/features/users/user.slice"
+import { getCurrentRoom, saveCurrentRoom } from "@/lib/features/room/room.slice"
 import { useAppDispatch } from "@/lib/store"
 import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useState } from "react"
 import { useSelector } from "react-redux"
 
 export default function SellerBooking() {
-    const user = useSelector(getCurrentUser)
-    const nickname = user?.nickname as string
     const dispatch = useAppDispatch()
     const room = useSelector(getCurrentRoom)
     const enabledBookings = useSelector(getEnabledRoomBooking);
@@ -24,7 +21,6 @@ export default function SellerBooking() {
     const totalPageEnabledBooking = useSelector(getTotalPageEnabledRoomBooking)
     const totalPageDisabledBooking = useSelector(getTotalPageDisabledRoomBooking)
     const totalPagePayCompletedBooking = useSelector(getTotalPagePayCompletedBooking)
-    const enableRooms = useSelector(getRoomsMap);
     const [selectedCategory, setSelectedCategory] = useState<'결제 완료' | '결제 대기' | '승인 대기'>('결제 완료');
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,22 +33,22 @@ export default function SellerBooking() {
     };
 
     useEffect(() => {
-        if (nickname && room) {
+        if (room) {
             switch (selectedCategory) {
                 case '결제 완료':
-                    bookingService.findPayCompletedByNickname(nickname, page, size, dispatch);
+                    bookingService.findPayCompletedByRoom(Number(room.id), page, size, dispatch);
                     break;
                 case '결제 대기':
-                    bookingService.findEnabledByRoom(nickname, page, size, dispatch);
+                    bookingService.findEnabledByRoom(Number(room.id), page, size, dispatch);
                     break;
                 case '승인 대기':
-                    bookingService.findDisabledByRoom(nickname, page, size, dispatch);
+                    bookingService.findDisabledByRoom(Number(room.id), page, size, dispatch);
                     break;
                 default:
                     break;
             }
         }
-    }, [nickname, page, selectedCategory, dispatch])
+    }, [page, selectedCategory, dispatch])
 
 
     console.log("booking 확정" + enabledBookings)

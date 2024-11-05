@@ -16,13 +16,13 @@ export const bookingAPI = {
     findDisabledByGroup(groupId: number, page: number, size: number) { return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/group/disabled`, { params: { groupId, page, size }})},
     findPayCompletedByGroup(groupId: number, page: number, size: number) { return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/group/paid`, { params: { groupId, page, size }}); },
 
-    findEnabledByRoom(nickname: string, page: number, size: number) {
-        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/enabled`, { params: { nickname, page, size } });
+    findEnabledByRoom(roomId: number, page: number, size: number) {
+        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/enabled`, { params: { roomId, page, size } });
     },
-    findDisabledByRoom(nickname: string, page: number, size: number) {
-        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/disabled`, { params: { nickname, page, size } });
+    findDisabledByRoom(roomId: number, page: number, size: number) {
+        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/disabled`, { params: { roomId, page, size } });
     },
-    findPayCompletedByNickname(nickname: string, page: number, size: number) {
-        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/paid`, { params: { nickname, page, size } });
+    findPayCompletedByRoom(roomId: number, page: number, size: number) {
+        return api.get<Page<BookingModel>>(requests.fetchRooms + `/bookings/room/paid`, { params: { roomId, page, size } });
     },
 }
