@@ -35,17 +35,17 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
     roomService.findByEnabled(page, pageSize, dispatch);
   }, [page, pageSize, dispatch])
 
-  const onClickToDetail = (currentId: number | undefined): void => {
-    if (currentId !== undefined) {
-      const currentRoom = rooms.find(({ id }) => id === currentId);
-      if (currentRoom) {
-        dispatch(saveCurrentRoom(currentRoom));
-        // dispatch(saveCurrentFile(files.roomFiles.find(({ refId }) => refId === currentId) ?? {} as FileModel));
-        dispatch(saveCurrentAddress(addresses.find(({ roomId }) => roomId === currentId) ?? null))
-        router.push(`/rooms/${currentId}`);
-      }
-    }
-  };
+  // const onClickToDetail = (currentId: number | undefined): void => {
+  //   if (currentId !== undefined) {
+  //     const currentRoom = rooms.find(({ id }) => id === currentId);
+  //     if (currentRoom) {
+  //       dispatch(saveCurrentRoom(currentRoom));
+  //       // dispatch(saveCurrentFile(files.roomFiles.find(({ refId }) => refId === currentId) ?? {} as FileModel));
+  //       dispatch(saveCurrentAddress(addresses.find(({ roomId }) => roomId === currentId) ?? null))
+  //       router.push(`/rooms/${currentId}`);
+  //     }
+  //   }
+  // };
 
   if (isLoading) return <LoadingSpinner />
   if (error) return <ErrorMessage message={error} />
@@ -60,7 +60,6 @@ const RoomRow = ({ active, onSelect }: RoomRowProps) => {
             isActive={active}
             file={files.roomFiles.find(file => file.refId === room.id) ?? defaultFile(FileType.ROOM, Number(room.id))}
             onSelect={onSelect}
-            onClickToDetail={onClickToDetail}
           />
         ))}
       </div>
