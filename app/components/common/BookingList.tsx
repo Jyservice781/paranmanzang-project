@@ -75,10 +75,10 @@ export default function BookingList() {
   };
 
   console.log("booking 확정" + enabledBookings)
-  
+
   console.log("booking 대기" + notEnabledBookings)
 
-  const renderBookingList = (bookings: BookingModel[]) => (
+  const renderBookingList = (bookings: BookingModel[] = []) => (
     <ul className="space-y-4">
       {bookings.length > 0 ? (
         bookings.map((booking) => (
@@ -93,18 +93,12 @@ export default function BookingList() {
                     예약 방 번호: {booking.roomId}
                   </h5>
                 </Link>
-                <p className="mb-3 text-sm font-medium text-gray-700">
-                  예약 일: {booking.date}
-                </p>
-                <p className="mb-3 text-sm font-medium text-gray-700">
-                  예약 소모임: {booking.groupId}
-                </p>
+                <p className="mb-3 text-sm font-medium text-gray-700">예약 일: {booking.date}</p>
+                <p className="mb-3 text-sm font-medium text-gray-700">예약 소모임: {booking.groupId}</p>
                 <p className="mb-3 text-sm font-medium text-gray-700">
                   시간: {booking.usingTime.length > 1 && `${booking.usingTime[0]} - ${booking.usingTime[booking.usingTime.length - 1]}`}
                 </p>
-                <p className="mb-3 text-sm font-medium text-gray-700">
-                  상태: {booking.enabled ? '활성화됨' : '비활성화됨'}
-                </p>
+                <p className="mb-3 text-sm font-medium text-gray-700">상태: {booking.enabled ? '활성화됨' : '비활성화됨'}</p>
                 <div className="mt-5 flex justify-end space-x-3">
                   {activeTab === '예약 대기' && (
                     <button
