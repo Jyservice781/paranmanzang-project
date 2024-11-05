@@ -12,6 +12,7 @@ import { bookingService } from "@/app/service/room/booking.service"
 import { getCurrentGroup } from "@/lib/features/group/group.slice"
 import { accountService } from "@/app/service/room/account.service"
 import Pagination from "./Row/pagination/Pagination"
+import { getRoomsMap, saveCurrentRoom } from "@/lib/features/room/room.slice"
 
 
 type TabType = "결제 완료" | '결제 대기' | "예약 대기";
@@ -28,6 +29,7 @@ export default function BookingList() {
   const totalPageEnabled = useSelector(getTotalPageEnabledBooking);
   const totalPageDisabled = useSelector(getTotalPageDisabledBooking);
   const totalPagePayCompletedBooking = useSelector(getTotalPagePayCompletedBookingsByGroup)
+  const enableRooms = useSelector(getRoomsMap)
 
   // 로컬 상태 정의
   const [page, setPage] = useState(0);
@@ -123,6 +125,13 @@ export default function BookingList() {
                       결제 상세 보기
                     </button>
                   )}
+                  <button
+                    type="button"
+                    onClick={() => handleToDetailRoom(booking.roomId)}
+                    className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                  >
+                    공간 상세 보기
+                  </button>
                 </div>
               </div>
             </div>
@@ -149,6 +158,11 @@ export default function BookingList() {
     setIsModalOpen(false);
   };
 
+  const handleToDetailRoom = (id: number) => {
+    const selectedRoom = enableRooms.find(room => room.id === id) || null;
+    dispatch(saveCurrentRoom(selectedRoom));
+    router.push(`/rooms/${id}`);
+  }
 
   return (
     <div className="max-w-4xl mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">

@@ -3,7 +3,7 @@ import Pagination from "@/app/components/common/Row/pagination/Pagination"
 import { BookingModel } from "@/app/model/room/bookings.model"
 import { bookingService } from "@/app/service/room/booking.service"
 import { getEnabledRoomBooking, getNotEnabledRoomBooking, getPayCompletedBookings, getTotalPageDisabledRoomBooking, getTotalPageEnabledRoomBooking, getTotalPagePayCompletedBooking } from "@/lib/features/room/booking.slice"
-import { getCurrentRoom } from "@/lib/features/room/room.slice"
+import { getCurrentRoom, getRoomsMap, saveCurrentRoom } from "@/lib/features/room/room.slice"
 import { getCurrentUser } from "@/lib/features/users/user.slice"
 import { useAppDispatch } from "@/lib/store"
 import { useRouter } from "next/navigation"
@@ -24,6 +24,7 @@ export default function SellerBooking() {
     const totalPageEnabledBooking = useSelector(getTotalPageEnabledRoomBooking)
     const totalPageDisabledBooking = useSelector(getTotalPageDisabledRoomBooking)
     const totalPagePayCompletedBooking = useSelector(getTotalPagePayCompletedBooking)
+    const enableRooms = useSelector(getRoomsMap);
     const [selectedCategory, setSelectedCategory] = useState<'결제 완료' | '결제 대기' | '승인 대기'>('결제 완료');
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -105,6 +106,11 @@ export default function SellerBooking() {
         setIsModalOpen(false);
     };
 
+    const handleToDetailRoom = (id: number) => {
+        dispatch(saveCurrentRoom(room));
+        route.push(`/rooms/${id}`);
+    }
+
 
     return (
         <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
@@ -168,6 +174,13 @@ export default function SellerBooking() {
                                         결제 상세 보기
                                     </button>
                                 )}
+                                <button
+                                    type="button"
+                                    onClick={() => handleToDetailRoom(booking.roomId)}
+                                    className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                                >
+                                    공간 상세 보기
+                                </button>
                             </div>
                         </li>
                     ))}

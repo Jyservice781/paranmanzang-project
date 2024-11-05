@@ -11,7 +11,8 @@ import { getAddresses, saveCurrentAddress } from "@/lib/features/room/address.sl
 import { GroupPostResponseModel } from "@/app/model/group/group.model";
 import PostEditor from "../crud/PostEditor";
 import Pagination from "@/app/components/common/Row/pagination/Pagination";
-import { getPayCompletedBookingsByGroup, getTotalPageGroupBooking, getTotalPagePayCompletedBookingsByGroup } from "@/lib/features/room/booking.slice";
+import { getPayCompletedBookingsByGroup, getTotalPagePayCompletedBookingsByGroup } from "@/lib/features/room/booking.slice";
+import { BookingModel } from "@/app/model/room/bookings.model";
 
 type TabType = "공지 사항" | "자유게시판" | "스케쥴";
 
@@ -134,7 +135,7 @@ export default function GroupBoard() {
         </ul>
     );
 
-    const renderScheduleList = (bookings: any[]) => (
+    const renderScheduleList = (bookings: BookingModel[] = []) => (
         <ul className="space-y-4">
             {bookings.length > 0 ? (
                 bookings.map((booking, index) => (
@@ -164,6 +165,7 @@ export default function GroupBoard() {
             )}
         </ul>
     );
+
 
     return (
         <div className="max-w-4xl mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
