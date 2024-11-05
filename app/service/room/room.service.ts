@@ -180,7 +180,7 @@ const findByEnabled = async (page: number, size: number, dispatch: AppDispatch):
     try {
         dispatch(saveLoading(true))
         const response = await roomAPI.findEnable(page, size)
-        dispatch(saveLoading(false))
+        // dispatch(saveLoading(false))
         console.log("findByEnabled - service await 부분임", response.data.content)
         dispatch(saveTotalPageEnabledRoom(response.data.totalPages))
         dispatch(saveRooms(response.data.content))
