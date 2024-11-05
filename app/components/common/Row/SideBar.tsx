@@ -24,7 +24,7 @@ export default function SideBar() {
 
   const tabs = useMemo(() => {
     // 사용자가 그룹에 참여 중이면 모든 탭을 표시
-    if (nickname) {
+    if (nickname as string) {
       console.log(userGroups);
       return allTabs;
     } else {
