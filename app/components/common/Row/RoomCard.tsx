@@ -1,28 +1,29 @@
 import Image from 'next/image';
 import { RoomModel } from '@/app/model/room/room.model';
+import { FileModel } from '@/app/model/file/file.model';
 
 interface RoomCardProps {
   room: RoomModel
   isActive: boolean
   onSelect: () => void
-  getRoomImage: (roomId: number | undefined) => string
+  file: FileModel;
   onClickToDetail: (currentId: number | undefined) => void
 }
 
-const RoomCard = ({ room, isActive, getRoomImage, onClickToDetail, onSelect }: RoomCardProps) => (
+const RoomCard = ({ room, isActive, file, onClickToDetail, onSelect }: RoomCardProps) => (
   <div key={room.id}>
     <div
       className={`max-w-80 rounded-lg border border-gray-200 bg-white shadow ${isActive ? 'ring-2 ring-green-500' : ''}`}
       onClick={onSelect}
     >
       <Image
-        width={400}
-        height={380}
-        className="w-80 h-40 cursor-pointer rounded-t-lg object-cover"
-        src={getRoomImage(room.id)}
-        alt={`cover of ${room.name}`}
-        priority
-        unoptimized
+          width={600}
+          height={400}
+          className="cursor-pointer rounded-lg bg-green-400"
+          src={file.path === process.env.NEXT_PUBLIC_IMAGE_DEFAULT ? process.env.NEXT_PUBLIC_IMAGE_DEFAULT : `http://api.paranmanzang.com/api/files?path=${file.path}`}
+          alt={`cover of ${room?.name}`}
+          priority
+          unoptimized
       />
       <div className="p-5">
         <h5

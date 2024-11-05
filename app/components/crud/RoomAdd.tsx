@@ -27,23 +27,23 @@ export default function RoomAdd() {
     price: 0,
     enabled: false,
     nickname: ''
-  });
+  })
 
   useEffect(() => {
     if (nickname) {
       setFormData(prevFormData => ({
         ...prevFormData,
         nickname: nickname
-      }));
+      }))
     }
-  }, [nickname]);
+  }, [nickname])
 
   const [address, setAddress] = useState<string>('')
 
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const [imageFile, setImageFile] = useState<File | null>(null); // 단일 파일
+  const [imageFile, setImageFile] = useState<File | null>(null) // 단일 파일
 
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -52,7 +52,7 @@ export default function RoomAdd() {
       ...prevState,
       [name]: type === 'radio' ? value === 'true' : value
     }));
-  };
+  }
 
   // 이미지 올리기
   const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
@@ -60,19 +60,18 @@ export default function RoomAdd() {
       const file = e.target.files[0];
       setImageFile(file); // 첫 번째 파일 저장
     }
-  };
+  }
 
   const handleTimeChange = (timeType: 'openTime' | 'closeTime', part: 'hour' | 'minute', value: string) => {
     setFormData(prevState => {
       const [hour, minute] = prevState[timeType].split(':');
       const newTime = part === 'hour' ? `${value}:${minute}` : `${hour}:${value}`;
       return { ...prevState, [timeType]: newTime };
-    });
-  };
+    })
+  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("add Room form data", formData, imageFile, lalngModel)
     if (lalngModel && nickname && imageFile) {
       roomService.save(formData, imageFile, lalngModel, dispatch);
     }
@@ -146,6 +145,44 @@ export default function RoomAdd() {
             className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
           />
         </div>
+
+        {/* 주소 검색 영역 */}
+        <div className="mb-8 p-4 bg-green-50 border border-green-200 rounded-lg">
+          <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">주소 검색</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder="건물명을 입력해주세요 ex)비트빌"
+            className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 mb-2"
+          />
+          <button
+            type="button"
+            onClick={handleInputChange}
+            className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 mb-2"
+          >
+            검색
+          </button>
+          <ul className="bg-white border border-green-300 rounded-lg mt-2 max-h-40 overflow-y-auto">
+            {(Array.isArray(data) ? data : []).map((addr, index) => (
+              <li
+                key={index}
+                onClick={() => onMap(addr)}
+                className="cursor-pointer px-4 py-2 hover:bg-green-100 border-b border-green-200 last:border-b-0"
+              >
+                {addr.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+        {mapState && (
+          <div className="w-full h-80 mb-8">
+            <NaverMapAdd latitude={latitude} longitude={longitude} zoom={15} />
+          </div>
+        )}
+
         <div className="mb-4">
           <label htmlFor="maxPeople" className="block mb-2 text-sm font-medium text-gray-900">정원 수</label>
           <input type="number" id="maxPeople" name="maxPeople" value={formData.maxPeople} onChange={handleChange} className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5" />
@@ -210,41 +247,7 @@ export default function RoomAdd() {
           뒤로가기
         </button>
       </form>
-      {/* 주소 검색 영역 */}
-      <div className="mb-8 p-4 bg-green-50 border border-green-200 rounded-lg">
-        <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900">주소 입력</label>
-        <input
-          type="text"
-          id="address"
-          name="address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
-          placeholder="건물명을 입력해주세요 ex)비트빌"
-          className="bg-green-50 border border-green-300 text-green-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 mb-2"
-        />
-        <button
-          onClick={handleInputChange}
-          className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2 mb-2"
-        >
-          검색
-        </button>
-        <ul className="bg-white border border-green-300 rounded-lg mt-2 max-h-40 overflow-y-auto">
-          {(Array.isArray(data) ? data : []).map((addr, index) => (
-            <li
-              key={index}
-              onClick={() => onMap(addr)}
-              className="cursor-pointer px-4 py-2 hover:bg-green-100 border-b border-green-200 last:border-b-0"
-            >
-              {addr.title}
-            </li>
-          ))}
-        </ul>
-      </div>
-      {mapState && (
-        <div className="w-full h-80 mb-8">
-          <NaverMapAdd latitude={latitude} longitude={longitude} zoom={15} />
-        </div>
-      )}
+
       <Alert message={'등록되었습니다.'} isOpen={isOpen} onClose={() => { setIsOpen(false) }} />
     </div>
   )

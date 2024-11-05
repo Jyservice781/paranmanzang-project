@@ -33,7 +33,6 @@ export default function BookRow({ active, onSelect }: BookRowProps) {
   }, [page, pageSize, dispatch])
 
 
-
   if (isLoading) return <LoadingSpinner />
   if (error) return <ErrorMessage message={error} />
 
