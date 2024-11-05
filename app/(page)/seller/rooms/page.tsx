@@ -120,13 +120,13 @@ export default function SellerRoom() {
             </div>
             {selectedCategory === '관리' && (
               <div>
-                <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg bg-green-100 p-3">삭제</button>
-                <button type="button" onClick={() => onUpdate(room)} className="mx-2 rounded-lg bg-green-100 p-3">수정</button>
-                <button type="button" onClick={() => handleDetail(room)} className="mx-2 rounded-lg bg-green-100 p-3">예약 정보 보기</button>
+                <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg text-white bg-red-200 p-3">삭제</button>
+                <button type="button" onClick={() => onUpdate(room)} className="mx-2 rounded-lg bg-green-200 text-white p-3">수정</button>
+                <button type="button" onClick={() => handleDetail(room)} className="mx-2 rounded-lg bg-green-300 text-white p-3">예약 정보</button>
                 <button
                   type="button"
                   onClick={() => handleToDetailRoom(room)}
-                  className="mx-2 rounded-lg bg-green-100 p-3"
+                  className="mx-2 rounded-lg bg-green-200 text-white p-3"
                 >
                   공간 상세 보기
                 </button>
@@ -134,7 +134,7 @@ export default function SellerRoom() {
             )}
             {selectedCategory === '승인 대기' && (
               <div>
-                <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg bg-green-100 p-3">등록 취소</button>
+                <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg bg-red-100 p-3">등록 취소</button>
               </div>
             )}
 
