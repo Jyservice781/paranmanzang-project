@@ -23,7 +23,7 @@ export default function RoomCard({ room, isActive, file, onSelect }: RoomCardPro
       dispatch(saveCurrentFile(file));
       router.push(`/rooms/${room.id}`);
   };
-  
+
   return (
     <div key={room.id}>
     <div
