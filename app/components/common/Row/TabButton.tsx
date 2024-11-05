@@ -40,7 +40,7 @@ export default function TabButton({ initialTab }: TabButtonProps): JSX.Element {
     setActiveTab(tab);
   }, []);
 
-  const renderActiveContent = useMemo((): JSX.Element | null => {
+  const renderActiveContent = useMemo(() => {
     const ActiveComponent = tabConfig[activeTab]?.component;
     return ActiveComponent ? <ActiveComponent active={true} onSelect={() => {}} /> : null;
   }, [activeTab]);
