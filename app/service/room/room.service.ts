@@ -38,6 +38,8 @@ const save = async (roomModel: RoomModel, file: any, lalngModel: AddressModel, d
             console.error('Error:', error.message);
             throw new Error('요청 설정 중 오류가 발생했습니다.');
         }
+    }finally {
+        dispatch(saveLoading(false));
     }
 };
 
@@ -61,6 +63,8 @@ const modify = async (roomModel: RoomUpdateModel, dispatch: AppDispatch): Promis
             console.error('Error:', error.message);
             throw new Error('요청 설정 중 오류가 발생했습니다.');
         }
+    }finally {
+        dispatch(saveLoading(false));
     }
 }
 // 공간 삭제, 공간 승인 거절
@@ -87,6 +91,8 @@ const drop = async (id: number, dispatch: AppDispatch): Promise<boolean> => {
             console.error('Error:', error.message);
             throw new Error('요청 설정 중 오류가 발생했습니다.');
         }
+    }finally {
+        dispatch(saveLoading(false));
     }
 };
 
@@ -107,6 +113,8 @@ const findAllMap = async (dispatch: AppDispatch): Promise<void> => {
             console.error('Error:', error.message);
             throw new Error('요청 설정 중 오류가 발생했습니다.');
         }
+    }finally {
+        dispatch(saveLoading(false));
     }
 };
 // 나의 승인된 공간
@@ -128,6 +136,8 @@ const findEnableByNickname = async (page: number, size: number, nickname: string
             console.error('Error:', error.message);
             throw new Error('요청 설정 중 오류가 발생했습니다.');
         }
+    }finally {
+        dispatch(saveLoading(false));
     }
 };
 
@@ -150,6 +160,8 @@ const findDisableByNickname = async (page: number, size: number, nickname: strin
             console.error('Error:', error.message);
             throw new Error('요청 설정 중 오류가 발생했습니다.');
         }
+    }finally {
+        dispatch(saveLoading(false));
     }
 };
 
@@ -172,6 +184,8 @@ const findDisable = async (page: number, size: number, dispatch: AppDispatch): P
             console.error('Error:', error.message);
             throw new Error('요청 설정 중 오류가 발생했습니다.');
         }
+    }finally {
+        dispatch(saveLoading(false));
     }
 };
 
@@ -197,6 +211,8 @@ const findByEnabled = async (page: number, size: number, dispatch: AppDispatch):
             console.error('Error:', error.message);
             throw new Error('요청 설정 중 오류가 발생했습니다.');
         }
+    }finally {
+        dispatch(saveLoading(false));
     }
 }
 
@@ -221,6 +237,8 @@ const modifyConfirm = async (id: number, dispatch: AppDispatch): Promise<void> =
             console.error('Error:', error.message);
             throw new Error('요청 설정 중 오류가 발생했습니다.');
         }
+    }finally {
+        dispatch(saveLoading(false));
     }
 }
 
