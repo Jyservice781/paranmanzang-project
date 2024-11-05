@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie';
 
 export const getAccessToken = () => Cookies.get('accessToken')
-export const setAccessToken = (token: string) => Cookies.set('accessToken', token, { secure: true, sameSite: 'Lax' })
+export const setAccessToken = (token: string) => Cookies.set('accessToken', token, { secure: true, sameSite: 'Lax', maxAge: 86400})
 
 export const getNickname = () => Cookies.get('nickname')
 export const getAuthorization = () => Cookies.get('Authorization')
