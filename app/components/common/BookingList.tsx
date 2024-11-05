@@ -75,6 +75,7 @@ export default function BookingList() {
   };
 
   console.log("booking 확정" + enabledBookings)
+  
   console.log("booking 대기" + notEnabledBookings)
 
   const renderBookingList = (bookings: BookingModel[]) => (
