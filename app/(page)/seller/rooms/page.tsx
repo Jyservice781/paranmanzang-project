@@ -71,6 +71,13 @@ export default function SellerRoom() {
     }
   }
 
+  const handleDetail = (room: RoomModel) => {
+    if (room.id !== undefined) {
+      dispatch(saveCurrentRoom(room))
+      route.push(`/seller/bookings/${room.id}`)
+    }
+  }
+
 
   return (
     <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
@@ -111,6 +118,7 @@ export default function SellerRoom() {
               <div>
                 <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg bg-green-100 p-3">삭제</button>
                 <button type="button" onClick={() => onUpdate(room)} className="mx-2 rounded-lg bg-green-100 p-3">수정</button>
+                <button type="button" onClick={() => handleDetail(room)} className="mx-2 rounded-lg bg-green-100 p-3">예약 정보 보기</button>
               </div>
             )}
             {selectedCategory === '승인 대기' && (

@@ -6,54 +6,69 @@ import { useEffect, useState } from "react"
 import { useAppDispatch } from "@/lib/store"
 import { BookingModel } from "@/app/model/room/bookings.model"
 
-import { getEnabledBooking, getNotEnabledBooking, getTotalPageDisabledBooking, getTotalPageEnabledBooking } from "@/lib/features/room/booking.slice"
+import { getEnabledBooking, getNotEnabledBooking, getPayCompletedBookingsByGroup, getTotalPageDisabledBooking, getTotalPageEnabledBooking, getTotalPagePayCompletedBookingsByGroup } from "@/lib/features/room/booking.slice"
 import { useSelector } from "react-redux"
 import { bookingService } from "@/app/service/room/booking.service"
-import { getLeaderGroups } from "@/lib/features/group/group.slice"
+import { getCurrentGroup } from "@/lib/features/group/group.slice"
 import { accountService } from "@/app/service/room/account.service"
 import Pagination from "./Row/pagination/Pagination"
 
 
-type TabType = "예약 확정" | "예약 대기";
+type TabType = "결제 완료" | '결제 대기' | "예약 대기";
 
 export default function BookingList() {
   const router = useRouter()
   const dispatch = useAppDispatch();
 
   // Redux 상태를 최상위 레벨에서 가져오기
-  const leaderGroups = useSelector(getLeaderGroups);
+  const group = useSelector(getCurrentGroup)
   const enabledBookings = useSelector(getEnabledBooking);
   const notEnabledBookings = useSelector(getNotEnabledBooking);
+  const payCompletedBookings = useSelector(getPayCompletedBookingsByGroup)
   const totalPageEnabled = useSelector(getTotalPageEnabledBooking);
   const totalPageDisabled = useSelector(getTotalPageDisabledBooking);
+  const totalPagePayCompletedBooking = useSelector(getTotalPagePayCompletedBookingsByGroup)
 
   // 로컬 상태 정의
   const [page, setPage] = useState(0);
   const [size] = useState(10);
-  const [activeTab, setActiveTab] = useState<TabType>('예약 확정');
-  const tabs: TabType[] = ["예약 확정", "예약 대기"];
+  const [activeTab, setActiveTab] = useState<TabType>('결제 완료');
+  const tabs: TabType[] = ["결제 완료", "결제 대기", "예약 대기"];
   const [totalPages, setTotalPages] = useState(0);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedBooking, setSelectedBooking] = useState<BookingModel | null>(null);
+
   useEffect(() => {
+    if (!group) return;
     switch (activeTab) {
-      case "예약 확정":
-        bookingService.findEnabledByGroups(leaderGroups.map(group => group.id), page, size, dispatch);
-        setTotalPages(totalPageEnabled);
+      case '결제 완료':
+        bookingService.findPayCompletedByGroupId(group.id, page, size, dispatch);
+        setTotalPages(totalPagePayCompletedBooking)
         break;
-      case "예약 대기":
-        bookingService.findDisabledByGroups(leaderGroups.map(group => group.id), page, size, dispatch);
+      case '결제 대기':
+        bookingService.findEnabledByGroup(group.id, page, size, dispatch);
+        setTotalPages(totalPageEnabled)
+        break;
+      case '예약 대기':
+        bookingService.findDisabledByGroup(group.id, page, size, dispatch);
         setTotalPages(totalPageDisabled);
         break;
+      default:
+        break;
     }
-  }, [dispatch, leaderGroups, page, size, activeTab]);
+  }, [dispatch, group, page, size, activeTab]);
 
 
   const renderTabContent = () => {
+    if (!group) return;
     switch (activeTab) {
-      case "예약 확정":
-        return renderBookingList(enabledBookings);
-      case "예약 대기":
-        return renderBookingList(notEnabledBookings);
+      case '결제 완료':
+        return renderBookingList(payCompletedBookings[group.id])
+      case '결제 대기':
+        return renderBookingList(enabledBookings[group.id]);
+      case '예약 대기':
+        return renderBookingList(notEnabledBookings[group.id]);
       default:
         return null;
     }
@@ -90,26 +105,28 @@ export default function BookingList() {
                   상태: {booking.enabled ? '활성화됨' : '비활성화됨'}
                 </p>
                 <div className="mt-5 flex justify-end space-x-3">
-                  <button
-                    type="button"
-                    onClick={() => router.push(`/rooms/${booking.id}`)}
-                    className="px-4 py-2 rounded-lg bg-green-600 text-white font-medium text-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-1"
-                  >
-                    상세보기
-                  </button>
                   {activeTab === '예약 대기' && (
                     <button
                       type="button"
-                      onClick={() => handleDelete(Number(booking.id))}
+                      onClick={() => handleDelete(booking)}
                       className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
                     >
                       삭제하기
                     </button>
                   )}
-                  {activeTab === '예약 확정' && (
+                  {activeTab === '결제 대기' && (
                     new Date(booking.date) > new Date() && !accountService.findByBooking(booking.id ?? 0, dispatch) && (
                       <AccountButton />
                     )
+                  )}
+                  {activeTab === '결제 완료' && (
+                    <button
+                      type="button"
+                      onClick={() => openModal(booking)}
+                      className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                    >
+                      결제 상세 보기
+                    </button>
                   )}
                 </div>
               </div>
@@ -122,15 +139,27 @@ export default function BookingList() {
     </ul>
   );
 
-  const handleDelete = (id: number) => {
-    console.log('삭제하기:', id);
-    bookingService.drop(id, dispatch);
+  const handleDelete = (booking: BookingModel) => {
+    console.log('삭제하기:', booking.id);
+    bookingService.drop(booking, dispatch);
+  };
+
+  const openModal = (booking: BookingModel) => {
+    setSelectedBooking(booking);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedBooking(null);
+    setIsModalOpen(false);
   };
 
 
   return (
     <div className="max-w-4xl mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
       <div className="my-6 space-y-6">
+        <div>
+          {group?.name} </div>
         <div className="flex justify-center space-x-4 mb-8">
           {tabs.map((tab) => (
             <button
@@ -167,6 +196,26 @@ export default function BookingList() {
           뒤로가기
         </button>
       </div>
+      {isModalOpen && selectedBooking && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">결제 상세 정보</h3>
+            <p>예약 방 이름: {selectedBooking.roomName}</p>
+            <p>예약 일: {selectedBooking.date}</p>
+            <p>소모임: {group?.name}</p>
+            <p>결제일: {selectedBooking.accountModel?.createAt}</p>
+            <p>결제 금액: {selectedBooking.accountModel?.amount}</p>
+            <div className="mt-5 flex justify-end">
+              <button
+                onClick={closeModal}
+                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

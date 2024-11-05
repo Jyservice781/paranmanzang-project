@@ -1,7 +1,7 @@
 import { BookingModel } from '@/app/model/room/bookings.model';
 import { AppDispatch } from '@/lib/store';
-import { addBooking, addRoomBooking, removeBooking, removeRoomBooking, saveBookings, saveLoading, saveSeparatedBookings, saveSeparatedRoomBookings, saveTotalPageDisabledBooking, saveTotalPageDisabledRoomBooking, saveTotalPageEnabledBooking, saveTotalPageEnabledRoomBooking, saveTotalPageGroupBooking, updateBooking, updateRoomBooking } from '@/lib/features/room/booking.slice';
 import { bookingAPI } from '@/app/api/generate/booking.api';
+import { addBooking, removeBooking, saveLoading, savePayCompletedBookings, saveSeparatedBookings, saveSeparatedRoomBookings, saveTotalPageDisabledBooking, saveTotalPageDisabledRoomBooking, saveTotalPageEnabledBooking, saveTotalPageEnabledRoomBooking, saveTotalPageGroupBooking, saveTotalPagePayCompletedBooking, updateBooking } from '@/lib/features/room/booking.slice';
 
 // 예약 등록
 const save = async (bookingModel: BookingModel, dispatch: AppDispatch): Promise<void> => {
@@ -10,7 +10,6 @@ const save = async (bookingModel: BookingModel, dispatch: AppDispatch): Promise<
     const response = await bookingAPI.insert(bookingModel);
     console.log("예약 등록: ", response)
     dispatch(addBooking(response.data))
-    dispatch(addRoomBooking(response.data))
   } catch (error: any) {
     if (error.response) {
       console.error('Server Error:', error.response.data);
@@ -31,7 +30,6 @@ const modify = async (id: number, dispatch: AppDispatch): Promise<void> => {
     dispatch(saveLoading(true))
     const response = await bookingAPI.modify(id)
     dispatch(updateBooking(response.data))
-    dispatch(updateRoomBooking(response.data))
   } catch (error: any) {
     if (error.response) {
       console.error('Server Error:', error.response.data);
@@ -48,14 +46,13 @@ const modify = async (id: number, dispatch: AppDispatch): Promise<void> => {
 
 
 // 예약 삭제 (취소), 예약 거절 (삭제)
-const drop = async (id: number, dispatch: AppDispatch): Promise<void> => {
+const drop = async (bookingModel: BookingModel, dispatch: AppDispatch): Promise<void> => {
   try {
     dispatch(saveLoading(true))
-    console.log("booking drop - service 부분임", id)
-    const response = await bookingAPI.drop(id)
+    console.log("booking drop - service 부분임", bookingModel.id)
+    const response = await bookingAPI.drop(Number(bookingModel.id))
     console.log("booking drop - result: ", response)
-    dispatch(removeBooking(id))
-    dispatch(removeRoomBooking(id))
+    dispatch(removeBooking(bookingModel))
   } catch (error: any) {
     if (error.response) {
       console.error('Server Error:', error.response.data);
@@ -70,13 +67,13 @@ const drop = async (id: number, dispatch: AppDispatch): Promise<void> => {
   }
 };
 
-// 소모임 예약 조회
-const findByGroupId = async (groupId: number, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
+// 소모임 예약 조회 (스케쥴, 결제 O)
+const findPayCompletedByGroupId = async (groupId: number, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
   try {
     dispatch(saveLoading(true))
-    const response = await bookingAPI.findByGroup(groupId, page, size)
-    dispatch(saveBookings(response.data.content))
-    dispatch(saveTotalPageGroupBooking(response.data.totalPages))
+    const response = await bookingAPI.findPayCompletedByGroup(groupId, page, size)
+    dispatch(saveSeparatedBookings(response.data.content))
+    dispatch(saveTotalPagePayCompletedBooking(response.data.totalPages))
   } catch (error: any) {
     if (error.response) {
       console.error('Server Error:', error.response.data);
@@ -90,11 +87,11 @@ const findByGroupId = async (groupId: number, page: number, size: number, dispat
     }
   }
 };
-// 소모임들 예약 조회
-const findEnabledByGroups = async (groupIds: number[], page: number, size: number, dispatch: AppDispatch): Promise<void> => {
+
+const findEnabledByGroup = async (groupId: number, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
   try {
     dispatch(saveLoading(true))
-    const response = await bookingAPI.findEnabledByGroups(groupIds, page, size)
+    const response = await bookingAPI.findEnabledByGroup(groupId, page, size)
     dispatch(saveSeparatedBookings(response.data.content))
     dispatch(saveTotalPageEnabledBooking(response.data.totalPages))
   } catch (error: any) {
@@ -110,10 +107,10 @@ const findEnabledByGroups = async (groupIds: number[], page: number, size: numbe
     }
   }
 };
-const findDisabledByGroups = async (groupIds: number[], page: number, size: number, dispatch: AppDispatch): Promise<void> => {
+const findDisabledByGroup = async (groupId: number, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
   try {
     dispatch(saveLoading(true))
-    const response = await bookingAPI.findDisabledByGroups(groupIds, page, size)
+    const response = await bookingAPI.findDisabledByGroup(groupId, page, size)
     dispatch(saveSeparatedBookings(response.data.content))
     dispatch(saveTotalPageDisabledBooking(response.data.totalPages))
   } catch (error: any) {
@@ -170,8 +167,28 @@ const findDisabledByRoom = async (nickname: string, page: number, size: number, 
   }
 };
 
+const findPayCompletedByNickname = async (nickname: string, page: number, size: number, dispatch: AppDispatch): Promise<void> => {
+  try {
+    dispatch(saveLoading(true))
+    const response = await bookingAPI.findPayCompletedByNickname(nickname, page, size)
+    dispatch(savePayCompletedBookings(response.data.content))
+    dispatch(saveTotalPagePayCompletedBooking(response.data.totalPages))
+  } catch (error: any) {
+    if (error.response) {
+      console.error('Server Error:', error.response.data);
+      throw new Error('서버에서 오류가 발생했습니다.');
+    } else if (error.request) {
+      console.error('No Response:', error.request);
+      throw new Error('서버 응답이 없습니다.');
+    } else {
+      console.error('Error:', error.message);
+      throw new Error('요청 중 오류 발생');
+    }
+  }
+};
+
 export const bookingService = {
   save, modify, drop,
-  findByGroupId, findEnabledByGroups, findDisabledByGroups, findEnabledByRoom, findDisabledByRoom
+  findPayCompletedByGroupId, findEnabledByGroup, findDisabledByGroup, findEnabledByRoom, findDisabledByRoom, findPayCompletedByNickname
 }
 

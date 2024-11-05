@@ -11,7 +11,7 @@ import { getAddresses, saveCurrentAddress } from "@/lib/features/room/address.sl
 import { GroupPostResponseModel } from "@/app/model/group/group.model";
 import PostEditor from "../crud/PostEditor";
 import Pagination from "@/app/components/common/Row/pagination/Pagination";
-import { getBookings, getTotalPageGroupBooking } from "@/lib/features/room/booking.slice";
+import { getPayCompletedBookingsByGroup, getTotalPageGroupBooking, getTotalPagePayCompletedBookingsByGroup } from "@/lib/features/room/booking.slice";
 
 type TabType = "공지 사항" | "자유게시판" | "스케쥴";
 
@@ -24,8 +24,8 @@ export default function GroupBoard() {
     const group = useSelector(getCurrentGroup);
     const totalPageNotice = useSelector(getTotalPageNoticeGroupPost);
     const totalPageGeneral = useSelector(getTotalPageGeneralGroupPost);
-    const totalPageBooking = useSelector(getTotalPageGroupBooking);
-    const bookings = useSelector(getBookings);
+    const totalPageBooking = useSelector(getTotalPagePayCompletedBookingsByGroup);
+    const bookings = useSelector(getPayCompletedBookingsByGroup);
     const enableRooms = useSelector(getRoomsMap);
     const addresses = useSelector(getAddresses);
 
@@ -40,13 +40,13 @@ export default function GroupBoard() {
     useEffect(() => {
         if (!group) return;
         let category;
-        if(activeTab === '공지 사항'){
+        if (activeTab === '공지 사항') {
             category = 'Notice'
         } else {
             category = 'General'
         }
         groupPostService.findByGroupId(group.id, page, size, category, dispatch);
-        bookingService.findByGroupId(group.id, page, size, dispatch);
+        bookingService.findPayCompletedByGroupId(group.id, page, size, dispatch);
     }, [dispatch, group, activeTab, page, size]);
 
     useEffect(() => {
@@ -95,13 +95,14 @@ export default function GroupBoard() {
 
 
     const renderTabContent = () => {
+        if (!group) return;
         switch (activeTab) {
             case "공지 사항":
                 return renderPostList(groupPostsNotice);
             case "자유게시판":
                 return renderPostList(groupPostsGeneral);
             case "스케쥴":
-                return renderScheduleList(bookings);
+                return renderScheduleList(bookings[group.id]);
             default:
                 return null;
         }

@@ -2,13 +2,14 @@
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
-import { FaCalendarAlt, FaWallet, FaHeart, FaExclamationCircle, FaUserFriends, FaUserEdit, FaArrowLeft, FaBuilding } from 'react-icons/fa';
+import { FaHeart, FaExclamationCircle, FaUserFriends, FaUserEdit, FaArrowLeft, FaBuilding } from 'react-icons/fa';
 import LoadingSpinner from '@/app/components/common/status/LoadingSpinner';
 import ErrorMessage from '@/app/components/common/status/ErrorMessage';
 import { getCurrentUser } from '@/lib/features/users/user.slice';
-import { RootState, useAppDispatch } from '@/lib/store';
+import { RootState } from '@/lib/store';
 import { getLeaderGroups } from '@/lib/features/group/group.slice';
 import styles from './UserProfile.module.css';
+import { MdCalendarToday } from 'react-icons/md';
 interface ActionButtonProps {
     onClick: () => void;
     icon: JSX.Element;
@@ -64,13 +65,8 @@ export default function UserProfile() {
                     <>
                         <ActionButton
                             onClick={() => router.push('/booking')}
-                            icon={<FaCalendarAlt />}
-                            label="예약내역보기"
-                        />
-                        <ActionButton
-                            onClick={() => router.push('/account')}
-                            icon={<FaWallet />}
-                            label="결제내역보기"
+                            icon={<MdCalendarToday />}
+                            label="소모임 스케쥴 관리"
                         />
                     </>
                 )}

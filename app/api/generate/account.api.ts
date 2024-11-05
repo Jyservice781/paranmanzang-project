@@ -2,11 +2,12 @@ import { AccountCancelModel, AccountModel, AccountResultModel } from "@/app/mode
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import api from "../axios";
 import requests from "../requests";
+import { BookingModel } from "@/app/model/room/bookings.model";
 
 export const accountAPI = {
     load() { return loadTossPayments("test_ck_mBZ1gQ4YVX9QGM06mRNRrl2KPoqN"); },
 
-    insert(model: AccountResultModel) { return api.post<boolean>(requests.fetchRooms + '/accounts', model); },
+    insert(model: AccountResultModel) { return api.post<BookingModel>(requests.fetchRooms + '/accounts', model); },
 
     findByOrderId(orderId: string) { return api.get<string>(requests.fetchRooms + '/accounts', { params: { orderId }, }); },
 

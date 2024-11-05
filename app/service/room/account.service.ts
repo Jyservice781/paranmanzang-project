@@ -3,6 +3,8 @@ import { AppDispatch } from '@/lib/store';
 import { ANONYMOUS, TossPaymentsPayment } from '@tosspayments/tosspayments-sdk';
 import { saveLoading, saveTotalPageGroupAccount, saveTotalPageRoomAccount } from '@/lib/features/room/account.slice';
 import { accountAPI } from '@/app/api/generate/account.api';
+import { BookingModel } from '@/app/model/room/bookings.model';
+import { addPayCompletedBooking } from '@/lib/features/room/booking.slice';
 
 const load = async (dispath: AppDispatch): Promise<TossPaymentsPayment> => {
   try {
@@ -23,10 +25,11 @@ const load = async (dispath: AppDispatch): Promise<TossPaymentsPayment> => {
   }
 }
 // 결제 정보 저장
-const insert = async (model: AccountResultModel, dispath: AppDispatch): Promise<boolean> => {
+const insert = async (model: AccountResultModel, dispath: AppDispatch): Promise<BookingModel> => {
   try {
     dispath(saveLoading(true))
     const response = await accountAPI.insert(model);
+    dispath(addPayCompletedBooking(response.data))
     return response.data;
   } catch (error: any) {
     if (error.response) {

@@ -8,46 +8,70 @@ const bookingSlice = createSlice({
     name: 'booking',
     initialState: initialBookingState,
     reducers: {
-        saveBookings: (state, action: PayloadAction<BookingModel[]>) => {
-            state.bookings = action.payload;
-        },
         saveSeparatedBookings: (state, action: PayloadAction<BookingModel[]>) => {
-            state.enabledBookings = action.payload.filter(booking => booking.enabled);
-            state.notEnabledBookings = action.payload.filter(booking => !booking.enabled);
+            if (action.payload.length > 0) {
+                const groupId = action.payload[0].groupId
+                state.enabledBookings[groupId] = action.payload.filter(booking => booking.enabled)
+                state.notEnabledBookings[groupId] = action.payload.filter(booking => !booking.enabled)
+            }
         },
         saveSeparatedRoomBookings: (state, action: PayloadAction<BookingModel[]>) => {
-            state.enabledRoomBookings = action.payload.filter(booking => booking.enabled);
-            state.notEnabledRoomBookings = action.payload.filter(booking => !booking.enabled);
+            if (action.payload.length > 0) {
+                const roomId = action.payload[0].roomId
+                state.enabledRoomBookings[roomId] = action.payload.filter(booking => booking.enabled)
+                state.notEnabledRoomBookings[roomId] = action.payload.filter(booking => !booking.enabled)
+            }
+        },
+        savePayCompletedBookings: (state, action: PayloadAction<BookingModel[]>) => {
+            if (action.payload.length > 0) {
+                const roomId = action.payload[0].roomId
+                state.payCompletedBookings[roomId] = action.payload
+            }
+        },
+        savePayCompletedBookingsByGroup: (state, action: PayloadAction<BookingModel[]>) => {
+            if (action.payload.length > 0) {
+                const groupId = action.payload[0].groupId
+                state.payCompletedBookingsByGroup[groupId] = action.payload
+            }
         },
         addBooking: (state, action: PayloadAction<BookingModel>) => {
-            state.notEnabledBookings.push(action.payload);
-            state.bookings.push(action.payload)
+            const { groupId, roomId } = action.payload;
+            if (!state.notEnabledBookings[groupId]) {
+                state.notEnabledBookings[groupId] = [];
+            }
+            state.notEnabledBookings[groupId].push(action.payload);
+
+            if (!state.notEnabledRoomBookings[roomId]) {
+                state.notEnabledRoomBookings[roomId] = [];
+            }
+            state.notEnabledRoomBookings[roomId].push(action.payload);
         },
-        addRoomBooking: (state, action: PayloadAction<BookingModel>) => {
-            state.notEnabledRoomBookings.push(action.payload);
+        addPayCompletedBooking: (state, action: PayloadAction<BookingModel>) => {
+            const { id, groupId, roomId } = action.payload;
+            const roomBooking = state.enabledRoomBookings[roomId].find(booking => booking.id === id);
+            const groupBooking = state.enabledBookings[groupId].find(booking => booking.id === id);
+            if (groupBooking || roomBooking) {
+                state.enabledBookings[groupId].filter(booking => booking !== groupBooking)
+                state.enabledRoomBookings[roomId].filter(booking => booking !== roomBooking)
+                state.payCompletedBookings[roomId].push(action.payload)
+                state.payCompletedBookingsByGroup[groupId].push(action.payload)
+            }
         },
         updateBooking: (state, action: PayloadAction<BookingModel>) => {
-            const booking = state.notEnabledBookings.find(booking => booking.id === action.payload.id);
-            const index = state.bookings.findIndex(booking => booking.id === action.payload.id);
-            if (booking) {
-                state.enabledBookings.push(booking)
-                state.notEnabledBookings = state.notEnabledBookings.filter(booking => booking.id !== action.payload.id)
-                state.bookings[index] = action.payload;
+            const { id, groupId, roomId } = action.payload;
+            const roomBooking = state.notEnabledRoomBookings[roomId].filter(booking => booking.id === id);
+            const groupBooking = state.notEnabledBookings[groupId].filter(booking => booking.id === id)
+            if (roomBooking || groupBooking) {
+                state.enabledBookings[groupId].push(action.payload)
+                state.enabledRoomBookings[roomId].push(action.payload)
+                state.notEnabledBookings[groupId] = state.notEnabledBookings[groupId].filter(booking => booking.id !== id)
+                state.notEnabledRoomBookings[roomId] = state.notEnabledRoomBookings[roomId].filter(booking => booking.id !== id)
             }
         },
-        updateRoomBooking: (state, action: PayloadAction<BookingModel>) => {
-            const booking = state.notEnabledRoomBookings.find(booking => booking.id === action.payload.id);
-            if (booking) {
-                state.enabledRoomBookings.push(booking)
-                state.notEnabledRoomBookings = state.notEnabledRoomBookings.filter(booking => booking.id !== action.payload.id)
-            }
-        },
-        removeBooking: (state, action: PayloadAction<number>) => {
-            state.notEnabledBookings = state.notEnabledBookings.filter(booking => booking.id !== action.payload);
-            state.bookings = state.bookings.filter(booking => booking.id !== action.payload);
-        },
-        removeRoomBooking: (state, action: PayloadAction<number>) => {
-            state.notEnabledRoomBookings = state.notEnabledRoomBookings.filter(booking => booking.id !== action.payload);
+        removeBooking: (state, action: PayloadAction<BookingModel>) => {
+            const { id, groupId, roomId } = action.payload;
+            state.notEnabledBookings[groupId] = state.notEnabledBookings[groupId].filter(booking => booking.id !== id)
+            state.notEnabledRoomBookings[roomId] = state.notEnabledRoomBookings[roomId].filter(booking => booking.id !== id)
         },
         saveCurrentBooking: (state, action: PayloadAction<BookingModel | null>) => {
             state.currentBooking = action.payload;
@@ -73,19 +97,12 @@ const bookingSlice = createSlice({
         saveTotalPageDisabledRoomBooking: (state, action: PayloadAction<number>) => {
             state.totalPageDisabledRoomBooking = action.payload;
         },
+        saveTotalPagePayCompletedBooking: (state, action: PayloadAction<number>) => {
+            state.totalPagePayCompletedBooking = action.payload;
+        },
     },
 });
 
-export const getSeparatedBookings = createSelector(
-    (state: RootState) => state.bookings.enabledBookings,
-    (state: RootState) => state.bookings.notEnabledBookings,
-    (enabledBookings, notEnabledBookings) => ({
-        enabledBookings,
-        notEnabledBookings
-    })
-)
-
-export const getBookings = (state: RootState) => state.bookings.bookings
 export const getCurrentBooking = (state: RootState) => state.bookings.currentBooking;
 export const getIsLoading = (state: RootState) => state.bookings.isLoading;
 export const getError = (state: RootState) => state.bookings.error;
@@ -93,21 +110,24 @@ export const getEnabledBooking = (state: RootState) => state.bookings.enabledBoo
 export const getNotEnabledBooking = (state: RootState) => state.bookings.notEnabledBookings
 export const getEnabledRoomBooking = (state: RootState) => state.bookings.enabledRoomBookings
 export const getNotEnabledRoomBooking = (state: RootState) => state.bookings.notEnabledRoomBookings
+export const getPayCompletedBookings = (state: RootState) => state.bookings.payCompletedBookings
+export const getPayCompletedBookingsByGroup = (state: RootState) => state.bookings.payCompletedBookingsByGroup
 export const getTotalPageEnabledBooking = (state: RootState) => state.bookings.totalPageEnabledBooking
 export const getTotalPageDisabledBooking = (state: RootState) => state.bookings.totalPageDisabledBooking
 export const getTotalPageGroupBooking = (state: RootState) => state.bookings.totalPageGroupBooking
 export const getTotalPageEnabledRoomBooking = (state: RootState) => state.bookings.totalPageEnabledRoomBooking
 export const getTotalPageDisabledRoomBooking = (state: RootState) => state.bookings.totalPageDisabledRoomBooking
+export const getTotalPagePayCompletedBooking = (state: RootState) => state.bookings.totalPagePayCompletedBooking
+export const getTotalPagePayCompletedBookingsByGroup = (state: RootState) => state.bookings.totalPagePayCompletedBookingsByGroup
 
 export const {
-    saveBookings,
     saveSeparatedRoomBookings,
+    savePayCompletedBookings,
+    savePayCompletedBookingsByGroup,
     addBooking,
-    addRoomBooking,
+    addPayCompletedBooking,
     updateBooking,
-    updateRoomBooking,
     removeBooking,
-    removeRoomBooking,
     saveSeparatedBookings,
     saveCurrentBooking,
     saveLoading,
@@ -117,6 +137,7 @@ export const {
     saveTotalPageGroupBooking,
     saveTotalPageEnabledRoomBooking,
     saveTotalPageDisabledRoomBooking,
+    saveTotalPagePayCompletedBooking
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;
