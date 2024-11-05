@@ -18,7 +18,6 @@ type TabType = "예약 확정" | "예약 대기";
 
 export default function BookingList() {
   const router = useRouter()
-  const [selectedBookings, setSelectedBookings] = useState<string[]>([])
   const dispatch = useAppDispatch();
 
   // Redux 상태를 최상위 레벨에서 가져오기
@@ -30,26 +29,23 @@ export default function BookingList() {
 
   // 로컬 상태 정의
   const [page, setPage] = useState(0);
-  const [size, setSize] = useState(10);
+  const [size] = useState(10);
   const [activeTab, setActiveTab] = useState<TabType>('예약 확정');
   const tabs: TabType[] = ["예약 확정", "예약 대기"];
   const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
-    // 그룹 ID를 통해 예약 데이터를 가져옴
-    bookingService.findEnabledByGroups(leaderGroups.map(group => group.id), page, size, dispatch);
-    bookingService.findDisabledByGroups(leaderGroups.map(group => group.id), page, size, dispatch);
-
-    // activeTab에 따라 totalPages 설정
     switch (activeTab) {
       case "예약 확정":
+        bookingService.findEnabledByGroups(leaderGroups.map(group => group.id), page, size, dispatch);
         setTotalPages(totalPageEnabled);
         break;
       case "예약 대기":
+        bookingService.findDisabledByGroups(leaderGroups.map(group => group.id), page, size, dispatch);
         setTotalPages(totalPageDisabled);
         break;
     }
-  }, [dispatch, leaderGroups, page, size, activeTab, totalPageEnabled, totalPageDisabled]);
+  }, [dispatch, leaderGroups, page, size, activeTab]);
 
 
   const renderTabContent = () => {
@@ -62,6 +58,9 @@ export default function BookingList() {
         return null;
     }
   };
+
+  console.log("booking 확정" + enabledBookings)
+  console.log("booking 대기" + notEnabledBookings)
 
   const renderBookingList = (bookings: BookingModel[]) => (
     <ul className="space-y-4">

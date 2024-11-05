@@ -7,7 +7,7 @@ import { FaUserGroup } from "react-icons/fa6"
 import { MdGroups, MdMessage } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { getUserGroups } from "@/lib/features/group/group.slice";
-import { getNickname } from "@/app/api/authUtils";
+import { getCurrentUser } from "@/lib/features/users/user.slice";
 
 const allTabs = [
   { name: "Groups", icon: <MdGroups />, label: "우리들의 모임" },
@@ -19,19 +19,20 @@ const allTabs = [
 
 export default function SideBar() {
   const [activeTab, setActiveTab] = useState("Groups")
-  const nickname = useSelector(getNickname)
+  const user = useSelector(getCurrentUser)
   const userGroups = useSelector(getUserGroups)
 
   const tabs = useMemo(() => {
     // 사용자가 그룹에 참여 중이면 모든 탭을 표시
-    if (nickname as string) {
+    console.log("sideBar Nickname", user?.nickname)
+    if (user?.nickname as string) {
       console.log(userGroups);
       return allTabs;
     } else {
       // 그룹에 참여하지 않았으면 Chats 탭을 제외
       return allTabs.filter(tab => tab.name !== "Chats" && tab.name !== "MyGroups");
     }
-  }, [nickname]);
+  }, [user]);
 
   return (
     <div>

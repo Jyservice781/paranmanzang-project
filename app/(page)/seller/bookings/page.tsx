@@ -17,29 +17,32 @@ export default function SellerBooking() {
     const notEnabledBookings = useSelector(getNotEnabledRoomBooking)
     const route = useRouter()
     const [page, setPage] = useState(0);
-    const [size, setSize] = useState(10);
+    const [size] = useState(10);
     const totalPageEnabledBooking = useSelector(getTotalPageEnabledRoomBooking)
     const totalPageDisabledBooking = useSelector(getTotalPageDisabledRoomBooking)
     const [selectedCategory, setSelectedCategory] = useState<'확정' | '승인 대기'>('확정');
 
-    console.log("booking 확정" + enabledBookings)
-    console.log("booking 대기" + notEnabledBookings)
-
+    
     const handleTabClick = (category: '확정' | '승인 대기') => {
         setSelectedCategory(category);
         setPage(0); // 페이지네이션 리셋 하는 부분 
     };
-
+    useEffect(() => {
+        if (nickname) {
+            if (selectedCategory === '확정') {
+                bookingService.findEnabledByRoom(nickname, page, size, dispatch);
+            } else {
+                bookingService.findDisabledByRoom(nickname, page, size, dispatch);
+            }
+        }
+    }, [nickname, page, selectedCategory, dispatch])
+    
     const showList: BookingModel[] = (
         selectedCategory === '확정' ? enabledBookings : notEnabledBookings
     );
-
-    useEffect(() => {
-        if (nickname) {
-            bookingService.findEnabledByRoom(nickname, page, size, dispatch)
-            bookingService.findDisabledByRoom(nickname, page, size, dispatch)
-        }
-    }, [nickname, page, size, dispatch, selectedCategory])
+    
+    console.log("booking 확정" + enabledBookings)
+    console.log("booking 대기" + notEnabledBookings)
 
     const onDelete = (id: string) => {
         bookingService.drop(Number(id), dispatch)
