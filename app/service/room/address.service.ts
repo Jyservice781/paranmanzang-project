@@ -1,4 +1,4 @@
-import { AddressModel, AddressResponseModel, AddressUpdateModel, QueryModel } from '@/app/model/room/address.model';
+import { AddressModel, AddressResponseModel, AddressUpdateModel, ApiResponse, QueryModel } from '@/app/model/room/address.model';
 import { AppDispatch } from '@/lib/store';
 import { addAddress, deleteAddress, saveAddresses, saveLoading, updateAddress } from '@/lib/features/room/address.slice';
 import { addressAPI } from '@/app/api/generate/address.api';
@@ -8,7 +8,13 @@ const search = async (queryModel: QueryModel, dispatch: AppDispatch): Promise<Ad
   try {
     dispatch(saveLoading(true))
     const response = await addressAPI.search(queryModel)
-    return response.data;
+    const data = response.data as unknown as ApiResponse;
+
+    if (data.items) {
+      return data.items; // items 배열을 반환
+    } else {
+      throw new Error("데이터 형식 오류: items 속성이 없습니다.");
+    }
   } catch (error: any) {
     if (error.response) {
       console.error('Server Error:', error.response.data);

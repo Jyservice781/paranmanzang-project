@@ -7,7 +7,7 @@ import { roomService } from "@/app/service/room/room.service";
 import { RoomModel } from "@/app/model/room/room.model";
 import { useSelector } from "react-redux";
 import { getCurrentUser } from "@/lib/features/users/user.slice";
-import { AddressModel, AddressResponseModel, QueryModel } from "@/app/model/room/address.model";
+import { AddressModel, AddressResponseModel, ApiResponse, QueryModel } from "@/app/model/room/address.model";
 import { addressService } from "@/app/service/room/address.service";
 import NaverMapAdd from "../common/NaverMapAdd";
 
