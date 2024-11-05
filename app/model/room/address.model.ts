@@ -8,6 +8,14 @@ export interface AddressModel {
     roomId: number;
 }
 
+export interface ApiResponse {
+    items: AddressResponseModel[];
+    lastBuildDate: string;
+    total: number;
+    start: number;
+    display: number;
+}
+
 export interface AddressResponseModel {
     title: string;
     category:string;
