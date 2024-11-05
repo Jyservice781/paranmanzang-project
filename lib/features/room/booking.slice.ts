@@ -35,7 +35,8 @@ const bookingSlice = createSlice({
             }
         },
         addBooking: (state, action: PayloadAction<BookingModel>) => {
-            const { groupId, roomId } = action.payload;
+            const groupId = action.payload.groupId;
+            const roomId = action.payload.roomId;
             if (!state.notEnabledBookings[groupId]) {
                 state.notEnabledBookings[groupId] = [];
             }
@@ -47,7 +48,9 @@ const bookingSlice = createSlice({
             state.notEnabledRoomBookings[roomId].push(action.payload);
         },
         addPayCompletedBooking: (state, action: PayloadAction<BookingModel>) => {
-            const { id, groupId, roomId } = action.payload;
+            const groupId = action.payload.groupId;
+            const roomId = action.payload.roomId;
+            const id = action.payload.id;
             const roomBooking = state.enabledRoomBookings[roomId].find(booking => booking.id === id);
             const groupBooking = state.enabledBookings[groupId].find(booking => booking.id === id);
             if (groupBooking || roomBooking) {
@@ -58,7 +61,10 @@ const bookingSlice = createSlice({
             }
         },
         updateBooking: (state, action: PayloadAction<BookingModel>) => {
-            const { id, groupId, roomId } = action.payload;
+            const groupId = action.payload.groupId;
+            const roomId = action.payload.roomId;
+            const id = action.payload.id;
+            console.log("updateBooking", id, groupId, roomId)
             const roomBooking = state.notEnabledRoomBookings[roomId].filter(booking => booking.id === id);
             const groupBooking = state.notEnabledBookings[groupId].filter(booking => booking.id === id)
             if (roomBooking || groupBooking) {
@@ -69,7 +75,9 @@ const bookingSlice = createSlice({
             }
         },
         removeBooking: (state, action: PayloadAction<BookingModel>) => {
-            const { id, groupId, roomId } = action.payload;
+            const groupId = action.payload.groupId;
+            const roomId = action.payload.roomId;
+            const id = action.payload.id;
             state.notEnabledBookings[groupId] = state.notEnabledBookings[groupId].filter(booking => booking.id !== id)
             state.notEnabledRoomBookings[roomId] = state.notEnabledRoomBookings[roomId].filter(booking => booking.id !== id)
         },

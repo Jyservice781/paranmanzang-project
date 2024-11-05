@@ -21,10 +21,8 @@ export default function DeclarationList() {
   }, [nickname, page]);
 
   const deleteDeclarationPost = (id: number) => {
-    if (window.confirm("신고를 취소하시겠습니까?")) {
       declarationService.drop(id, dispatch);
       alert("신고가 취소되었습니다.");
-    }
   };
 
 

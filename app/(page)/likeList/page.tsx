@@ -61,6 +61,7 @@ export default function LikeList() {
     useEffect(() => {
         switch (activeTab) {
             case "게시글":
+                setLikeData([]);
                 setLikeData(
                     likedPosts
                         .filter((post) => post.id !== undefined) // undefined 필터링
@@ -68,6 +69,7 @@ export default function LikeList() {
                 );
                 break;
             case "도서":
+                setLikeData([]);
                 setLikeData(
                     likedBooks
                         .filter((book) => book.id !== undefined) // undefined 필터링
@@ -75,6 +77,7 @@ export default function LikeList() {
                 );
                 break;
             case "장소":
+                setLikeData([]);
                 setLikeData(
                     likedRooms
                         .filter((room) => room.id !== undefined) // undefined 필터링

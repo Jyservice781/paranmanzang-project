@@ -9,6 +9,8 @@ import { getCurrentUser } from "@/lib/features/users/user.slice";
 import { useAppDispatch } from "@/lib/store";
 import { saveLoading } from "@/lib/features/room/account.slice";
 import { BookingModel } from "@/app/model/room/bookings.model";
+import { RoomModel } from "@/app/model/room/room.model";
+import { GroupResponseModel } from "@/app/model/group/group.model";
 
 interface TossPaymentResponse {
     orderId: string;
@@ -20,13 +22,15 @@ interface TossPaymentResponse {
 
 interface AccountButtonProps {
     booking: BookingModel | null
+    room: RoomModel | null
+    group: GroupResponseModel | null
 }
 
-export default function AccountButton({ booking }: AccountButtonProps){
+export default function AccountButton({ booking, room, group }: AccountButtonProps) {
     const dispatch = useAppDispatch();
     // 입력 받은 값
-    const orderName: string = "1회 모임";
-    const amountValue: number = 5000;
+    const orderName: string = group?.name as string;
+    const amountValue: number = (room?.price ?? 0) * (booking?.usingTime?.length ?? 0);
     const user = useSelector(getCurrentUser);
     const usePoint: number = 0;
     const [payment, setPayment] = useState<TossPaymentsPayment | null>(null);

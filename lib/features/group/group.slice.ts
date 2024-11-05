@@ -43,14 +43,14 @@ const groupSlice = createSlice({
       state.enableGroups.push(action.payload);
     },
     addGroupMember: (state, action: PayloadAction<JoiningModel>) => {
-      const { groupId } = action.payload;
+      const groupId = action.payload.groupId;
       if (!state.groupMembers[groupId]) {
         state.groupMembers[groupId] = [];
+        state.groupMembers[groupId].push(action.payload);
       }
-      state.groupMembers[groupId].push(action.payload);
     },
     addGroupEnableMember: (state, action: PayloadAction<JoiningModel>) => {
-      const { groupId } = action.payload;
+      const groupId = action.payload.groupId;
       if (!state.groupEnableMembers[groupId]) {
         state.groupEnableMembers[groupId] = [];
       }
@@ -100,8 +100,8 @@ const groupSlice = createSlice({
       }
     },
     updateGroupPost: (state, action: PayloadAction<GroupPostResponseModel>) => {
-
-      const { id, postCategory } = action.payload;
+      const id = action.payload.id;
+      const postCategory = action.payload.postCategory;
       const updatePostList = (posts: GroupPostResponseModel[]) => {
         const index = posts.findIndex(post => post.id === id);
         if (index !== -1) {

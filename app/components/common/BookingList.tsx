@@ -112,7 +112,7 @@ export default function BookingList() {
                     </button>
                   )}
                   {activeTab === '결제 대기' && (
-                      <AccountButton booking={booking}/>
+                      <AccountButton booking={booking} room={enableRooms.find(room => room.id === booking.roomId) || null} group={group || null}/>
                   )}
                   {activeTab === '결제 완료' && (
                     <button
