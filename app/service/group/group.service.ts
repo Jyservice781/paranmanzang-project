@@ -23,7 +23,6 @@ import {
 } from "@/lib/features/group/group.slice";
 import { AppDispatch } from "@/lib/store";
 import { chatRoomService } from '../chat/chatRoom.service';
-import { Result } from 'postcss';
 
 
 // 그룹 관련 서비스 로직
