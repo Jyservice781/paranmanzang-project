@@ -35,7 +35,7 @@ export const groupApi = {
         return api.get<JoiningModel[]>(requests.fetchGroups + `/groups/users/${groupId}`);
     },
     modifyChatRoomId(model: GroupResponseModel, groupId: number) {
-        return api.put<GroupResponseModel | ExceptionResponseModel>(requests.fetchGroups + `/groups/chat-room/${groupId}`, { model });
+        return api.put<GroupResponseModel | ExceptionResponseModel>(requests.fetchGroups + `/groups/chat-room/${groupId}`, model);
     },
     insertUser(joiningModel: JoiningModel) {
         return api.post<JoiningModel | ExceptionResponseModel>(requests.fetchGroups + '/groups/user', joiningModel);
