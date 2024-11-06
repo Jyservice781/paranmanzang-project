@@ -56,9 +56,9 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
     const isPendingGroup = group?.id && enableUsers[group.id]?.some((user) => user.nickname === nickname);
 
     useEffect(() => {
-        if (nickname !== undefined) {
+        if (user?.nickname as string && nickname) {
             groupService.findByNickname(nickname, dispatch)
-            if (group !== undefined) {
+            if (group) {
                 groupService.findUserById(group.id, dispatch)
             }
         }
