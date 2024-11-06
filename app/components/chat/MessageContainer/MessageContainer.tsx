@@ -34,7 +34,6 @@ const MessageContainer = ({ messages, currentUserNickname }: MessageContainerPro
         if (isCurrentUser) {
           return (
             <div key={message.id} className={styles.myMessageContainer}>
-              <span className={styles.messageTime}>{message.time}</span>
               <div className={styles.myMessage}>
                 <span>{message.message}</span>
               </div>
@@ -50,7 +49,6 @@ const MessageContainer = ({ messages, currentUserNickname }: MessageContainerPro
               <div className={styles.yourMessage}>
                 <span>{message.message}</span>
               </div>
-              <span className={styles.messageTime}>{message.time}</span>
             </div>
           </div>
         );
