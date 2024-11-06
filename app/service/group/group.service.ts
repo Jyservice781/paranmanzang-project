@@ -122,10 +122,10 @@ const findUserById = async (groupId: number, dispatch: AppDispatch): Promise<voi
 };
 
 // 소모임에 채팅방 추가
-const modifyChatRoomId = async (roomId: string, groupId: number, dispatch: AppDispatch): Promise<void> => {
+const modifyChatRoomId = async (groupModel: GroupResponseModel, groupId: number, dispatch: AppDispatch): Promise<void> => {
     await handleLoading(dispatch, async () => {
         try {
-            const response = await groupApi.modifyChatRoomId(roomId, groupId);
+            const response = await groupApi.modifyChatRoomId(groupModel, groupId);
             if ('id' in response.data && 'name' in response.data) {
                 dispatch(updateGroup(response.data));
             }

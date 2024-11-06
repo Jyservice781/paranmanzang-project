@@ -34,8 +34,8 @@ export const groupApi = {
     findUserById(groupId: number) {
         return api.get<JoiningModel[]>(requests.fetchGroups + `/groups/users/${groupId}`);
     },
-    modifyChatRoomId(roomId: string, groupId: number) {
-        return api.put<GroupResponseModel | ExceptionResponseModel>(requests.fetchGroups + `/groups/chat-room/${groupId}`, { data: { roomId: roomId } });
+    modifyChatRoomId(groupModel: GroupResponseModel, groupId: number) {
+        return api.put<GroupResponseModel | ExceptionResponseModel>(requests.fetchGroups + `/groups/chat-room/${groupId}`, { groupModel });
     },
     insertUser(joiningModel: JoiningModel) {
         return api.post<JoiningModel | ExceptionResponseModel>(requests.fetchGroups + '/groups/user', joiningModel);
