@@ -13,7 +13,7 @@ interface CustomAxiosError extends AxiosError {
 // axios 인스턴스 생성
 const instance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACK_URL,
-  timeout: 1000,
+  timeout: 6000,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
 });

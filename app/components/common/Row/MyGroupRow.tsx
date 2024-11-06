@@ -20,9 +20,7 @@ const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
     const loading = useSelector(getIsLoading);
     const error = useSelector(getError);
 
-
     const nickname = useSelector(getNickname)
-    console.log("My group", groups)
 
     useEffect(() => {
         if (nickname && active) {
