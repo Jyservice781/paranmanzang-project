@@ -251,7 +251,7 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                             </button>
                         )}
                         {isPendingGroup && thisPage === '/groups' &&
-                            <button type="button" onClick={delteJoinGroup} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
+                            <button type="button" onClick={deleteJoinGroup} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
                                 style={{ display: displayReservation }}
                             >
                                 참여신청 취소
