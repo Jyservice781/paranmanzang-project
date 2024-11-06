@@ -4,10 +4,7 @@ import { getIsLoading, getError, getUserGroups } from '@/lib/features/group/grou
 import GroupCard from './GroupCard';
 import LoadingSpinner from '../status/LoadingSpinner';
 import ErrorMessage from '../status/ErrorMessage';
-import { groupService } from '@/app/service/group/group.service';
-import { useAppDispatch } from '@/lib/store';
-import Pagination from './pagination/Pagination';
-import { getNickname } from '@/app/api/authUtils';
+
 
 interface MyGroupRowProps {
     active: boolean;
@@ -15,20 +12,9 @@ interface MyGroupRowProps {
 }
 
 const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
-    const dispatch = useAppDispatch();
     const groups = useSelector(getUserGroups);
     const loading = useSelector(getIsLoading);
     const error = useSelector(getError);
-
-
-    const nickname = useSelector(getNickname)
-    console.log("My group", groups)
-
-    useEffect(() => {
-        if (nickname && active) {
-            groupService.findByNickname(nickname, dispatch)
-        }
-    }, [active]);
 
     if (loading) return <LoadingSpinner />;
     if (error) return <ErrorMessage message={error} />;
