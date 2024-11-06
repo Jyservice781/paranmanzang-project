@@ -56,7 +56,7 @@ export default function MyProfile({ roomId }: MyProfileProps) {
             (e.target as HTMLImageElement).src = profileImageSrc;
         }}
       />
-      <span className="py-2 text-base font-semibold text-green-900">
+      <span className="py-2 text-sm font-semibold text-green-900">
         {nickname}
       </span>
 

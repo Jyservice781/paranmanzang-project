@@ -30,7 +30,7 @@ interface DetailButtonProps {
     displayComment: 'none' | 'block'
 }
 
-export default function DetailButton({ thisPage, displayReview, displayBoard, displayReservation, displayComment }: DetailButtonProps) {
+export default function DetailButton({ thisPage, displayReview, displayBoard, displayReservation }: DetailButtonProps) {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [alertMessage, setAlertMessage] = useState("")
     const [isAlertOpen, setIsAlertOpen] = useState(false)
@@ -133,11 +133,11 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                 nickname: nickname,
                 groupId: group.id
             }
-            groupService.insertUser(joiningModel, dispatch)
+            groupService.insertUser(joiningModel, dispatch);
         }
     }
 
-    const delteJoinGroup = () => {
+    const deleteJoinGroup = () => {
         if (group && nickname) {
             groupService.dropUser(nickname, group.id, dispatch)
         }
@@ -170,7 +170,7 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
 
     const isBookLiked = likebooks.some((likeBook) => likeBook.id === book?.id)
     const isRoomLiked = likeRooms.some((likeRoom) => likeRoom.id === room?.id)
-    const ispostLiked = likePosts.some((likePost) => likePost.id === post?.id)
+    const isPostLiked = likePosts.some((likePost) => likePost.id === post?.id)
 
     console.log(isBookLiked)
 
@@ -180,22 +180,22 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
             {userInfo === 'ROLE_ADMIN' && (
                 <div className="flex items-end justify-center">
                     {room?.enabled && (
-                        <button type="button" onClick={() => { roomConfirm("삭제") }} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2">삭제</button>
+                        <button type="button" onClick={() => { roomConfirm("삭제") }} className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500">삭제</button>
                     )}
                     {!room?.enabled && (
                         <>
-                            <button type="button" onClick={() => { roomConfirm("승인") }} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2">승인</button>
-                            <button type="button" onClick={() => { roomConfirm("거절") }} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2">거절</button>
+                            <button type="button" onClick={() => { roomConfirm("승인") }} className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500">승인</button>
+                            <button type="button" onClick={() => { roomConfirm("거절") }} className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500">거절</button>
                         </>
                     )}
-                    <button type="button" onClick={() => { route.back() }} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2">
+                    <button type="button" onClick={() => { route.back() }} className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500">
                         뒤로가기
                     </button>
                 </div>
             )}
             {userInfo !== "ROLE_ADMIN" && (
                 <>
-                    <div className="my-4 pb-8 flex items-end justify-center">
+                    <div className="my-4 flex items-end justify-center pb-8">
                         {thisPage !== '/groups' && (() => {
                             let isLiked;
                             switch (thisPage) {
@@ -208,7 +208,7 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                                     console.log(isLiked)
                                     break;
                                 case '/groups/board/detail':
-                                    isLiked = ispostLiked;
+                                    isLiked = isPostLiked;
                                     break;
                                 default:
                                     return null; // 해당되지 않는 페이지일 경우 렌더링하지 않음
@@ -216,12 +216,12 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                             // 좋아요 여부에 따른 버튼 렌더링
                             return (
                                 isLiked ? (
-                                    <button type="button" onClick={Message} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-gray-200">
+                                    <button type="button" onClick={Message} className="rounded-lg border border-gray-200 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500">
                                         이미 좋아요 목록에 있습니다
                                     </button>
                                 ) : (
                                     userInfo && (
-                                        <button type="button" onClick={LikeThis} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2">
+                                        <button type="button" onClick={LikeThis} className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500">
                                             🥰 좋아요 🥰
                                         </button>
                                     )
@@ -230,13 +230,13 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                         })()}
 
                         {/* 리뷰는 유저의 예약일이 접속일보다 과거면 버튼 띄우기 -> 해당 유저가 진짜 그 장소를 컨텍했는지에 따라 버튼 유무 결정할 것 */}
-                        <button type="button" onClick={handleReview} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
+                        <button type="button" onClick={handleReview} className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500"
                             style={{ display: displayReview }}
                         >
                             리뷰보기
                         </button>
                         {thisPage == '/rooms' && leaderGroups.length > 0 && (
-                            <button type="button" onClick={() => setIsModalOpen(true)} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
+                            <button type="button" onClick={() => setIsModalOpen(true)} className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500"
                                 style={{ display: displayReview }}
                             >
                                 예약하기
@@ -244,14 +244,14 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                         )}
                         <BookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} id={room?.id ?? 0} />
                         {userInfo && thisPage === '/groups' && group && !isUserInGroup && !isPendingGroup && (
-                            <button type="button" onClick={joinGroup} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
+                            <button type="button" onClick={joinGroup} className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500"
                                 style={{ display: displayReservation }}
                             >
                                 참여하기
                             </button>
                         )}
                         {isPendingGroup && thisPage === '/groups' &&
-                            <button type="button" onClick={delteJoinGroup} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
+                            <button type="button" onClick={deleteJoinGroup} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
                                 style={{ display: displayReservation }}
                             >
                                 참여신청 취소
@@ -263,7 +263,7 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                                     <button
                                         type="button"
                                         onClick={leaveGroup}
-                                        className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
+                                        className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500"
                                         style={{ display: displayBoard }}
                                     >
                                         탈퇴하기
@@ -273,7 +273,7 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                                     <button
                                         type="button"
                                         onClick={deleteGroup}
-                                        className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
+                                        className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500"
                                         style={{ display: displayBoard }}
                                     >
                                         모임 삭제 하기
@@ -282,14 +282,14 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                                 <button
                                     type="button"
                                     onClick={() => { route.push(`/groups/board/${group?.id}`) }}
-                                    className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
+                                    className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500"
                                     style={{ display: displayBoard }}
                                 >
                                     모임 공지가기
                                 </button>
                             </>
                         )}
-                        <button type="button" onClick={() => { route.back() }} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2">
+                        <button type="button" onClick={() => { route.back() }} className="mx-2 rounded-lg border border-green-400 bg-green-400 px-3 py-2 font-medium text-white transition duration-300 hover:bg-green-500">
                             뒤로가기
                         </button>
                     </div>
