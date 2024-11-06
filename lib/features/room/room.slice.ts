@@ -89,25 +89,25 @@ export const roomSlice = createSlice({
             }
         },
         removeRoom: (state, action: PayloadAction<number>) => {
-            state.rooms.filter(room => room.id !== action.payload)
+            state.rooms = state.rooms.filter(room => room.id !== action.payload)
         },
         removeRoomMap: (state, action: PayloadAction<number>) => {
-            state.roomsMap.filter(room => room.id !== action.payload)
+            state.roomsMap = state.roomsMap.filter(room => room.id !== action.payload)
         },
         removeEnabledRoomByNickname: (state, action: PayloadAction<number>) => {
-            state.enabledRoomByNickname.filter(room => room.id !== action.payload)
+            state.enabledRoomByNickname = state.enabledRoomByNickname.filter(room => room.id !== action.payload)
         },
         removeDisabledRoomByNickname: (state, action: PayloadAction<number>) => {
-            state.disabledRoomByNickname.filter(room => room.id !== action.payload)
+            state.disabledRoomByNickname = state.disabledRoomByNickname.filter(room => room.id !== action.payload)
         },
         removeDisabledRoom: (state, action: PayloadAction<number>) => {
-            state.disabledRooms.filter(room => room.id !== action.payload)
+            state.disabledRooms = state.disabledRooms.filter(room => room.id !== action.payload)
         },
         removeNotEnabledRoom: (state, action: PayloadAction<number>) => {
-            state.notEnabledRooms.filter(room => room.id !== action.payload)
+            state.notEnabledRooms = state.notEnabledRooms.filter(room => room.id !== action.payload)
         },
         removeLikedRoom: (state, action: PayloadAction<number>) => {
-            state.roomsLiked.filter(room => room.id !== action.payload)
+            state.roomsLiked = state.roomsLiked.filter(room => room.id !== action.payload)
         },
         saveTotalPageSellerEnabledRoom: (state, action: PayloadAction<number>) => {
             state.totalPageSellerEnabledRoom = action.payload;

@@ -54,8 +54,8 @@ const bookingSlice = createSlice({
             const roomBooking = state.enabledRoomBookings[roomId].find(booking => booking.id === id);
             const groupBooking = state.enabledBookings[groupId].find(booking => booking.id === id);
             if (groupBooking || roomBooking) {
-                state.enabledBookings[groupId].filter(booking => booking !== groupBooking)
-                state.enabledRoomBookings[roomId].filter(booking => booking !== roomBooking)
+                state.enabledBookings[groupId] = state.enabledBookings[groupId].filter(booking => booking !== groupBooking)
+                state.enabledRoomBookings[roomId] = state.enabledRoomBookings[roomId].filter(booking => booking !== roomBooking)
                 state.payCompletedBookings[roomId].push(action.payload)
                 state.payCompletedBookingsByGroup[groupId].push(action.payload)
             }
@@ -65,8 +65,8 @@ const bookingSlice = createSlice({
             const roomId = action.payload.roomId;
             const id = action.payload.id;
             console.log("updateBooking", id, groupId, roomId)
-            const roomBooking = state.notEnabledRoomBookings[roomId].filter(booking => booking.id === id);
-            const groupBooking = state.notEnabledBookings[groupId].filter(booking => booking.id === id)
+            const roomBooking = state.notEnabledRoomBookings[roomId].find(booking => booking.id === id);
+            const groupBooking = state.notEnabledBookings[groupId].find(booking => booking.id === id)
             if (roomBooking || groupBooking) {
                 state.enabledBookings[groupId].push(action.payload)
                 state.enabledRoomBookings[roomId].push(action.payload)

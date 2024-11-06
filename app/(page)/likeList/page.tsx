@@ -1,8 +1,6 @@
 "use client";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Alert from "@/app/components/common/Alert";
-import AccountButton from "@/app/components/common/AccountButton";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "@/lib/store";
 import { getLikedPosts, saveCurrentGroupPost } from "@/lib/features/group/group.slice";
@@ -87,7 +85,7 @@ export default function LikeList() {
             default:
                 setLikeData([]);
         }
-    }, [activeTab, dispatch]);
+    }, [activeTab, likedPosts, likedBooks, likedRooms]);
 
 
 
