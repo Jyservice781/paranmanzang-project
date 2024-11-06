@@ -36,8 +36,17 @@ export default function GroupsAdmin() {
     groupService.able(group, dispatch)
     chatRoomService.insert({ roomName: group.name, nickname: group.nickname, dispatch: dispatch })
       .then(result => {
-        console.log("chatRoom id", result)
-        groupService.modifyChatRoomId(result, Number(group.id), dispatch)
+        const groupModel: GroupResponseModel = {
+          id: group.id,
+          name: group.name,
+          categoryName: group.categoryName,
+          createAt: group.createAt,
+          enabled: true,
+          detail: group.detail,
+          nickname: group.nickname,
+          chatRoomId: result,
+        };
+        groupService.modifyChatRoomId(groupModel, Number(group.id), dispatch)
       })
   }
 
