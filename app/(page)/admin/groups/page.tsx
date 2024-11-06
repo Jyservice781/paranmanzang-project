@@ -1,6 +1,7 @@
 "use client"
 import Pagination from "@/app/components/common/Row/pagination/Pagination";
 import { GroupResponseModel } from "@/app/model/group/group.model";
+import { chatRoomService } from "@/app/service/chat/chatRoom.service";
 import { groupService } from "@/app/service/group/group.service";
 import { getEnableGroups, getGroups, getTotalPageAbleGroup, getTotalPageEnableGroup, saveCurrentGroup } from "@/lib/features/group/group.slice";
 import { useAppDispatch } from "@/lib/store";
@@ -32,7 +33,11 @@ export default function GroupsAdmin() {
   const enableGroups = useSelector(getEnableGroups)
 
   const ableGroup = (group: GroupResponseModel) => {
-    groupService.able(group, dispatch)
+    const response = groupService.able(group, dispatch)
+    chatRoomService.insert({ roomName: group.name, nickname: group.nickname, dispatch: dispatch })
+      .then(result => {
+        groupService.modifyChatRoomId(result, Number(response), dispatch)
+      })
   }
 
   const enableGroup = (group: GroupResponseModel) => {
