@@ -113,33 +113,33 @@ export default function SellerBooking() {
     return (
         <div className="mx-auto my-8 max-w-[80%] p-6 rounded-lg bg-green-100 shadow-md">
             <div className="p-6 flex space-y-2 sm:space-y-0 sm:space-x-8 my-4 items-center text-gray-700 bg-white rounded-lg ">
-                <p className="font-semibold">방 이름: <span>{room?.name || "정보 없음"}</span></p>
-                <p className="text-lg font-semibold">가격: <span>{room?.price ? `${room.price}원` : "정보 없음"}</span></p>
-                <p className="text-lg font-semibold">오픈 시간: <span className="font-normal">{room?.openTime || "정보 없음"}</span></p>
-                <p className="text-lg font-semibold">종료 시간: <span className="font-normal">{room?.closeTime || "정보 없음"}</span></p>
+                <p className="font-semibold">방 이름: {room?.name || "정보 없음"} <span className="mx-2"> | </span></p>
+                <p className="font-semibold">가격: {room?.price ? `${room.price}원` : "정보 없음"}<span className="mx-2"> | </span></p>
+                <p className="font-semibold">오픈 시간: {room?.openTime || "정보 없음"}<span className="mx-2"> | </span></p>
+                <p className="font-semibold">종료 시간: {room?.closeTime || "정보 없음"} <span className="mx-2"> | </span></p>
                 <button
                     type="button"
                     onClick={() => handleToDetailRoom}
-                    className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                    className="p-2 rounded-lg bg-red-400 text-white font-medium text-sm hover:bg-red-500"
                 >
                     공간 상세 보기
                 </button>
             </div>
             <div className="flex space-x-4 my-4">
                 <button
-                    className={`px-4 py-2 rounded-lg ${selectedCategory === '결제 완료' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+                    className={`p-2 rounded-lg ${selectedCategory === '결제 완료' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
                     onClick={() => handleTabClick('결제 완료')}
                 >
                     결제 완료
                 </button>
                 <button
-                    className={`px-4 py-2 rounded-lg ${selectedCategory === '결제 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+                    className={`p-2 rounded-lg ${selectedCategory === '결제 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
                     onClick={() => handleTabClick('결제 대기')}
                 >
                     결제 대기
                 </button>
                 <button
-                    className={`px-4 py-2 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+                    className={`p-2 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
                     onClick={() => handleTabClick('승인 대기')}
                 >
                     승인 대기
