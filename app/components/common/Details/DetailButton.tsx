@@ -58,8 +58,8 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
     useEffect(() => {
         if (user?.nickname as string && nickname) {
             groupService.findByNickname(nickname, dispatch)
-            if (group as GroupResponseModel && group) {
-                groupService.findUserById(group.id, dispatch)
+            if (group as GroupResponseModel && group?.id as number) {
+                groupService.findUserById(Number(group?.id), dispatch)
             }
         }
     }, [group, nickname])
