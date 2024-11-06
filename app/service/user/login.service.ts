@@ -91,7 +91,7 @@ const handleOAuthCallback = (dispatch: AppDispatch): void => {
 
     // 현재 user 의 정보를 redux 에 저장
     GetToken(authToken, nickname, dispatch)
-    saveCurrentUser; 
+    saveCurrentUser;
     // auth 로그인 이후 nickname, Authorization 없애기
     removeAuthorization()
     removeNickname()
@@ -109,16 +109,17 @@ const GetToken = async (token: string, nickname: string, dispatch: AppDispatch) 
   await userService.findUserDetail(nickname, dispatch);
 
   // 사용자 정보를 가져오기 위한 요청을 Promise.all로 처리
-    Promise.all([
-      groupService.findByNickname(nickname, dispatch),
-      likeBookService.findByNickname(nickname, dispatch),
-      roomService.findAllLikedByNickname(nickname, dispatch),
-      likePostService.findAllByUserNickname(nickname, dispatch)
-    ]);
+  await Promise.all([
+    groupService.findByNickname(nickname, dispatch),
+    likeBookService.findByNickname(nickname, dispatch),
+    roomService.findAllLikedByNickname(nickname, dispatch),
+    likePostService.findAllByUserNickname(nickname, dispatch)
+  ]);
 
   removeNickname(); // 함수 호출
   removeAuthorization(); // 함수 호출
 };
+
 export const loginService = {
   login,
   get,
