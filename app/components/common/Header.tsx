@@ -8,7 +8,6 @@ import { logout } from "@/app/service/user/logout.service";
 import BellService from "./BellService";
 import { useSelector } from "react-redux";
 import { getCurrentUser } from "@/lib/features/users/user.slice";
-import { useRouter } from "next/navigation";
 import TimerButton from "./status/RefreshTokenBtn";
 
 function LoginHeader() {

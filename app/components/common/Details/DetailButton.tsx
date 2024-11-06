@@ -56,9 +56,11 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
     const isPendingGroup = group?.id && enableUsers[group.id]?.some((user) => user.nickname === nickname);
 
     useEffect(() => {
-        if (nickname && group) {
+        if (nickname) {
             groupService.findByNickname(nickname, dispatch)
-            groupService.findUserById(group.id, dispatch)
+            if (group) {
+                groupService.findUserById(group.id, dispatch)
+            }
         }
     }, [group, nickname])
 
@@ -269,7 +271,7 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                                         탈퇴하기
                                     </button>
                                 }
-                                {group.nickname === nickname && 
+                                {group.nickname === nickname &&
                                     <button
                                         type="button"
                                         onClick={deleteGroup}
