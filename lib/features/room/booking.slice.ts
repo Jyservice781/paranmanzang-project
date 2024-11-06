@@ -51,16 +51,46 @@ const bookingSlice = createSlice({
             const groupId = action.payload.groupId;
             const roomId = action.payload.roomId;
             const id = action.payload.id;
-            console.log("addPayCompleteBooking", action.payload)
-            console.log("addPayCompleteBooking", action.payload)
-            state.enabledBookings[groupId] = state.enabledBookings[groupId].filter(booking => booking.id !== id)
-            state.enabledRoomBookings[roomId] = state.enabledRoomBookings[roomId].filter(booking => booking.id !== id)
-            console.log("State after removing from enabledBookings:", JSON.stringify(state.enabledBookings[groupId], null, 2));
-            console.log("State after removing from enabledRoomBookings:", JSON.stringify(state.enabledRoomBookings[roomId], null, 2));
-            state.payCompletedBookings[roomId].push(action.payload)
-            state.payCompletedBookingsByGroup[groupId].push(action.payload)
-            console.log("Updated state of enabledBookings after addition:", JSON.stringify(state.enabledBookings, null, 2));
-            console.log("Updated state of enabledRoomBookings after addition:", JSON.stringify(state.enabledRoomBookings, null, 2));
+            if (Array.isArray(state.enabledBookings[groupId])) {
+                state.enabledBookings[groupId] = state.enabledBookings[groupId].filter(
+                    booking => booking.id !== id
+                );
+                console.log("State after filtering from enabledBookings[groupId]:", JSON.stringify(state.enabledBookings[groupId], null, 2));
+            } else {
+                console.warn(`enabledBookings[${groupId}] is not an array or is undefined.`);
+                state.enabledBookings[groupId] = []; // 필요한 경우 빈 배열로 초기화
+            }
+
+            if (Array.isArray(state.enabledRoomBookings[roomId])) {
+                state.enabledRoomBookings[roomId] = state.enabledRoomBookings[roomId].filter(
+                    booking => booking.id !== id
+                );
+                console.log("State after filtering from enabledRoomBookings[roomId]:", JSON.stringify(state.enabledRoomBookings[roomId], null, 2));
+            } else {
+                console.warn(`enabledRoomBookings[${roomId}] is not an array or is undefined.`);
+                state.enabledRoomBookings[roomId] = []; // 필요한 경우 빈 배열로 초기화
+            }
+
+            // payCompletedBookings와 payCompletedBookingsByGroup의 해당 roomId와 groupId가 배열로 초기화되어 있는지 확인 후 추가 수행
+            if (!Array.isArray(state.payCompletedBookings[roomId])) {
+                console.warn(`payCompletedBookings[${roomId}] is not an array or is undefined. Initializing as an empty array.`);
+                state.payCompletedBookings[roomId] = []; // 빈 배열로 초기화
+            }
+            state.payCompletedBookings[roomId].push(action.payload);
+            console.log("State of payCompletedBookings after addition:", JSON.stringify(state.payCompletedBookings[roomId], null, 2));
+
+            if (!Array.isArray(state.payCompletedBookingsByGroup[groupId])) {
+                console.warn(`payCompletedBookingsByGroup[${groupId}] is not an array or is undefined. Initializing as an empty array.`);
+                state.payCompletedBookingsByGroup[groupId] = []; // 빈 배열로 초기화
+            }
+            state.payCompletedBookingsByGroup[groupId].push(action.payload);
+            console.log("State of payCompletedBookingsByGroup after addition:", JSON.stringify(state.payCompletedBookingsByGroup[groupId], null, 2));
+
+            // 전체 상태 로그
+            console.log("Updated state of enabledBookings:", JSON.stringify(state.enabledBookings, null, 2));
+            console.log("Updated state of enabledRoomBookings:", JSON.stringify(state.enabledRoomBookings, null, 2));
+            console.log("Updated state of payCompletedBookings:", JSON.stringify(state.payCompletedBookings, null, 2));
+            console.log("Updated state of payCompletedBookingsByGroup:", JSON.stringify(state.payCompletedBookingsByGroup, null, 2));
         },
         updateBooking: (state, action: PayloadAction<BookingModel>) => {
             const groupId = action.payload.groupId;
@@ -72,6 +102,14 @@ const bookingSlice = createSlice({
             console.log("Initial state of enabledRoomBookings:", JSON.stringify(state.enabledRoomBookings, null, 2));
             console.log("Initial state of notEnabledBookings:", JSON.stringify(state.notEnabledBookings, null, 2));
             console.log("Initial state of notEnabledRoomBookings:", JSON.stringify(state.notEnabledRoomBookings, null, 2));
+            if (!Array.isArray(state.enabledBookings[groupId])) {
+                console.log(`Initializing enabledBookings[${groupId}] as an empty array`);
+                state.enabledBookings[groupId] = [];
+            }
+            if (!Array.isArray(state.enabledRoomBookings[roomId])) {
+                console.log(`Initializing enabledRoomBookings[${roomId}] as an empty array`);
+                state.enabledRoomBookings[roomId] = [];
+            }
             state.enabledBookings[groupId].push(action.payload)
             state.enabledRoomBookings[roomId].push(action.payload)
             console.log("State after pushing to enabledBookings[groupId]:", JSON.stringify(state.enabledBookings[groupId], null, 2));
@@ -80,8 +118,25 @@ const bookingSlice = createSlice({
             // notEnabledBookings와 notEnabledRoomBookings에서 필터링 전 상태
             console.log("State before filtering out from notEnabledBookings[groupId]:", JSON.stringify(state.notEnabledBookings[groupId], null, 2));
             console.log("State before filtering out from notEnabledRoomBookings[roomId]:", JSON.stringify(state.notEnabledRoomBookings[roomId], null, 2));
-            state.notEnabledBookings[groupId] = state.notEnabledBookings[groupId].filter(booking => booking.id !== id)
-            state.notEnabledRoomBookings[roomId] = state.notEnabledRoomBookings[roomId].filter(booking => booking.id !== id)
+            if (Array.isArray(state.notEnabledBookings[groupId])) {
+                state.notEnabledBookings[groupId] = state.notEnabledBookings[groupId].filter(
+                    booking => booking.id !== id
+                );
+                console.log("Filtered notEnabledBookings[groupId]:", JSON.stringify(state.notEnabledBookings[groupId], null, 2));
+            } else {
+                console.warn(`notEnabledBookings[${groupId}] is not an array or is undefined.`);
+                state.notEnabledBookings[groupId] = []; // 초기화하는 경우
+            }
+
+            if (Array.isArray(state.notEnabledRoomBookings[roomId])) {
+                state.notEnabledRoomBookings[roomId] = state.notEnabledRoomBookings[roomId].filter(
+                    booking => booking.id !== id
+                );
+                console.log("Filtered notEnabledRoomBookings[roomId]:", JSON.stringify(state.notEnabledRoomBookings[roomId], null, 2));
+            } else {
+                console.warn(`notEnabledRoomBookings[${roomId}] is not an array or is undefined.`);
+                state.notEnabledRoomBookings[roomId] = []; // 초기화하는 경우
+            }
             console.log("State after filtering out from notEnabledBookings[groupId]:", JSON.stringify(state.notEnabledBookings[groupId], null, 2));
             console.log("State after filtering out from notEnabledRoomBookings[roomId]:", JSON.stringify(state.notEnabledRoomBookings[roomId], null, 2));
         },
