@@ -51,28 +51,39 @@ const bookingSlice = createSlice({
             const groupId = action.payload.groupId;
             const roomId = action.payload.roomId;
             const id = action.payload.id;
-            const roomBooking = state.enabledRoomBookings[roomId].find(booking => booking.id === id);
-            const groupBooking = state.enabledBookings[groupId].find(booking => booking.id === id);
-            if (groupBooking || roomBooking) {
-                state.enabledBookings[groupId] = state.enabledBookings[groupId].filter(booking => booking !== groupBooking)
-                state.enabledRoomBookings[roomId] = state.enabledRoomBookings[roomId].filter(booking => booking !== roomBooking)
-                state.payCompletedBookings[roomId].push(action.payload)
-                state.payCompletedBookingsByGroup[groupId].push(action.payload)
-            }
+            console.log("addPayCompleteBooking", action.payload)
+            console.log("addPayCompleteBooking", action.payload)
+            state.enabledBookings[groupId] = state.enabledBookings[groupId].filter(booking => booking.id !== id)
+            state.enabledRoomBookings[roomId] = state.enabledRoomBookings[roomId].filter(booking => booking.id !== id)
+            console.log("State after removing from enabledBookings:", JSON.stringify(state.enabledBookings[groupId], null, 2));
+            console.log("State after removing from enabledRoomBookings:", JSON.stringify(state.enabledRoomBookings[roomId], null, 2));
+            state.payCompletedBookings[roomId].push(action.payload)
+            state.payCompletedBookingsByGroup[groupId].push(action.payload)
+            console.log("Updated state of enabledBookings after addition:", JSON.stringify(state.enabledBookings, null, 2));
+            console.log("Updated state of enabledRoomBookings after addition:", JSON.stringify(state.enabledRoomBookings, null, 2));
         },
         updateBooking: (state, action: PayloadAction<BookingModel>) => {
             const groupId = action.payload.groupId;
             const roomId = action.payload.roomId;
             const id = action.payload.id;
             console.log("updateBooking", id, groupId, roomId)
-            const roomBooking = state.notEnabledRoomBookings[roomId].find(booking => booking.id === id);
-            const groupBooking = state.notEnabledBookings[groupId].find(booking => booking.id === id)
-            if (roomBooking || groupBooking) {
-                state.enabledBookings[groupId].push(action.payload)
-                state.enabledRoomBookings[roomId].push(action.payload)
-                state.notEnabledBookings[groupId] = state.notEnabledBookings[groupId].filter(booking => booking.id !== id)
-                state.notEnabledRoomBookings[roomId] = state.notEnabledRoomBookings[roomId].filter(booking => booking.id !== id)
-            }
+            console.log("updateBooking", action.payload)
+            console.log("Initial state of enabledBookings:", JSON.stringify(state.enabledBookings, null, 2));
+            console.log("Initial state of enabledRoomBookings:", JSON.stringify(state.enabledRoomBookings, null, 2));
+            console.log("Initial state of notEnabledBookings:", JSON.stringify(state.notEnabledBookings, null, 2));
+            console.log("Initial state of notEnabledRoomBookings:", JSON.stringify(state.notEnabledRoomBookings, null, 2));
+            state.enabledBookings[groupId].push(action.payload)
+            state.enabledRoomBookings[roomId].push(action.payload)
+            console.log("State after pushing to enabledBookings[groupId]:", JSON.stringify(state.enabledBookings[groupId], null, 2));
+            console.log("State after pushing to enabledRoomBookings[roomId]:", JSON.stringify(state.enabledRoomBookings[roomId], null, 2));
+
+            // notEnabledBookings와 notEnabledRoomBookings에서 필터링 전 상태
+            console.log("State before filtering out from notEnabledBookings[groupId]:", JSON.stringify(state.notEnabledBookings[groupId], null, 2));
+            console.log("State before filtering out from notEnabledRoomBookings[roomId]:", JSON.stringify(state.notEnabledRoomBookings[roomId], null, 2));
+            state.notEnabledBookings[groupId] = state.notEnabledBookings[groupId].filter(booking => booking.id !== id)
+            state.notEnabledRoomBookings[roomId] = state.notEnabledRoomBookings[roomId].filter(booking => booking.id !== id)
+            console.log("State after filtering out from notEnabledBookings[groupId]:", JSON.stringify(state.notEnabledBookings[groupId], null, 2));
+            console.log("State after filtering out from notEnabledRoomBookings[roomId]:", JSON.stringify(state.notEnabledRoomBookings[roomId], null, 2));
         },
         removeBooking: (state, action: PayloadAction<BookingModel>) => {
             const groupId = action.payload.groupId;

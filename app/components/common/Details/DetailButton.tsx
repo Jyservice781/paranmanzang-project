@@ -15,7 +15,7 @@ import { getCurrentUser, getNickname } from "@/lib/features/users/user.slice";
 import { LikeRoomModel } from "@/app/model/user/users.model";
 import { likeRoomService } from "@/app/service/users/likeRoom.service";
 import { likePostService } from "@/app/service/group/likePost.service";
-import { JoiningModel, LikePostModel } from "@/app/model/group/group.model";
+import { GroupResponseModel, JoiningModel, LikePostModel } from "@/app/model/group/group.model";
 import { groupService } from "@/app/service/group/group.service";
 import { chatUserService } from "@/app/service/chat/chatUser.service";
 import { chatRoomService } from "@/app/service/chat/chatRoom.service";
@@ -58,7 +58,7 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
     useEffect(() => {
         if (user?.nickname as string && nickname) {
             groupService.findByNickname(nickname, dispatch)
-            if (group) {
+            if (group as GroupResponseModel && group) {
                 groupService.findUserById(group.id, dispatch)
             }
         }
