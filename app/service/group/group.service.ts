@@ -82,15 +82,13 @@ const insert = async (groupModel: GroupModel, dispatch: AppDispatch): Promise<vo
 };
 
 // 소모임 승인 요청
-const able = async (group: GroupResponseModel, dispatch: AppDispatch): Promise<Number> => {
+const able = async (group: GroupResponseModel, dispatch: AppDispatch): Promise<void> => {
     try {
         const response = await groupApi.able(group.id);
         dispatch(addGroup(response.data))
         dispatch(deleteEnableGroup(response.data.id))
-        return Number(response.data.id)
     } catch (error: any) {
         handleApiError(error, dispatch, "소모임 승인 요청 중 오류 발생했습니다.");
-        return -1
     }
 };
 
