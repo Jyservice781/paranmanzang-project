@@ -25,10 +25,10 @@ const MyGroupRow = ({ active, onSelect }: MyGroupRowProps) => {
     console.log("My group", groups)
 
     useEffect(() => {
-        if (nickname) {
+        if (nickname && active) {
             groupService.findByNickname(nickname, dispatch)
         }
-    }, [dispatch, nickname, active]);
+    }, [active]);
 
     if (loading) return <LoadingSpinner />;
     if (error) return <ErrorMessage message={error} />;

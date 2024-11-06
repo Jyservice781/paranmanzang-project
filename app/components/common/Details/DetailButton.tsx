@@ -1,7 +1,7 @@
 // components/DetailButton.tsx
 "use client"
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BookingModal from "../BookingModal";
 import Alert from "../Alert";
 import { useSelector } from "react-redux";
@@ -54,6 +54,13 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
     const enableUsers = useSelector(getGroupEnableMembers)
     const isUserInGroup = group?.id && users[group.id]?.some((user: any) => user.nickname === nickname);
     const isPendingGroup = group?.id && enableUsers[group.id]?.some((user) => user.nickname === nickname);
+
+    useEffect(() => {
+        if (nickname && group) {
+            groupService.findByNickname(nickname, dispatch)
+            groupService.findUserById(group.id, dispatch)
+        }
+    }, [group, nickname])
 
     const handleReview = () => {
         route.push(`${thisPage}/review`)
@@ -243,7 +250,7 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                                 참여하기
                             </button>
                         )}
-                        {isPendingGroup &&
+                        {isPendingGroup && thisPage === '/groups' &&
                             <button type="button" onClick={delteJoinGroup} className="rounded-lg bg-green-400 px-3 py-2 text-white font-medium hover:bg-green-500 transition duration-300 border border-green-400 mx-2"
                                 style={{ display: displayReservation }}
                             >
@@ -262,7 +269,7 @@ export default function DetailButton({ thisPage, displayReview, displayBoard, di
                                         탈퇴하기
                                     </button>
                                 }
-                                {group.nickname === nickname &&
+                                {group.nickname === nickname && 
                                     <button
                                         type="button"
                                         onClick={deleteGroup}

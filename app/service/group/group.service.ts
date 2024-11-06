@@ -83,18 +83,16 @@ const insert = async (groupModel: GroupModel, dispatch: AppDispatch): Promise<vo
 };
 
 // 소모임 승인 요청
-const able = async (group: GroupResponseModel, dispatch: AppDispatch): Promise<void> => {
-    await handleLoading(dispatch, async () => {
-        try {
-            const response = await groupApi.able(group.id);
-            const chatRoomId = await chatRoomService.insert({ roomName: group.name, nickname: group.nickname, dispatch: dispatch })
-            modifyChatRoomId(chatRoomId, group.id, dispatch)
-            dispatch(addGroup(response.data))
-            dispatch(deleteEnableGroup(response.data.id))
-        } catch (error: any) {
-            handleApiError(error, dispatch, "소모임 승인 요청 중 오류 발생했습니다.");
-        }
-    });
+const able = async (group: GroupResponseModel, dispatch: AppDispatch): Promise<Number> => {
+    try {
+        const response = await groupApi.able(group.id);
+        dispatch(addGroup(response.data))
+        dispatch(deleteEnableGroup(response.data.id))
+        return Number(response.data.id)
+    } catch (error: any) {
+        handleApiError(error, dispatch, "소모임 승인 요청 중 오류 발생했습니다.");
+        return -1
+    }
 };
 
 // 소모임 승인 취소
