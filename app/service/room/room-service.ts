@@ -1,12 +1,12 @@
 
-import { RoomModel, RoomUpdateModel } from '@/app/model/room/room.model'
+import { RoomModel, RoomUpdateModel } from '@/app/models/room/room.model'
 import { AppDispatch } from '@/lib/store';
 import { saveLoading, addRoom, updateRoom, saveRooms, removeRoom, saveError, saveLikedRooms, saveEnabledRoomByNickname, saveDisableRoomByNickname, saveDisableRooms, updateEnableRoomByNickname, addEnabledRoomByNickname, addDisabledRoomByNickname, addDisabledRoom, removeDisabledRoom, removeEnabledRoomByNickname, removeDisabledRoomByNickname, addRoomMap, updateRoomMap, saveRoomsMap, removeRoomMap, saveTotalPageEnabledRoom, saveTotalPageDisabledRoom, getTotalPageSellerEnabledRoom, saveTotalPageSellerEnabledRoom, saveTotalPageSellerDisabledRoom } from '@/lib/features/room/room.slice';
 import { roomAPI } from '@/app/api/generate/room.api';
-import { FileModel, FileType } from '@/app/model/file/file.model';
-import { fileService } from '../file/file.service';
-import { AddressModel } from '@/app/model/room/address.model';
-import { addressService } from './address.service';
+import { FileModel, FileType } from '@/app/models/file/file.model';
+import { fileService } from '../file/file-service';
+import { AddressModel } from '@/app/models/room/address.model';
+import { addressService } from './address-service';
 
 // 공간 등록
 const save = async (roomModel: RoomModel, file: any, lalngModel: AddressModel, dispatch: AppDispatch): Promise<void> => {

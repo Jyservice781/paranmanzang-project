@@ -1,14 +1,14 @@
-import { UserModel } from "@/app/model/user/user.model";
+import { UserModel } from "@/app/models/user/user.model";
 import api from "@/app/api/axios";
 import requests from "@/app/api/requests";
 import { setAccessToken, removeNickname, removeAuthorization, getAuthorization, getNickname } from "@/app/api/authUtils";
 import { AppDispatch } from "@/lib/store";
 import { saveCurrentUser, saveNickname } from "@/lib/features/users/user.slice";
-import { userService } from "./user.service";
-import { groupService } from "../group/group.service";
-import { likeBookService } from "../group/likeBook.service";
-import { likePostService } from "../group/likePost.service";
-import { roomService } from "../room/room.service";
+import { userService } from "./user-service";
+import { groupService } from "../group/group-service";
+import { likeBookService } from "../group/likeBook-service";
+import { likePostService } from "../group/likePost-service";
+import { roomService } from "../room/room-service";
 
 
 const login = async (username: string, password: string, dispatch: AppDispatch): Promise<any> => {
