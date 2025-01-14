@@ -1,4 +1,4 @@
-import { BookingModel } from "@/app/model/room/bookings.model";
+import { BookingModel } from "@/models/room/bookings.model";
 import api from "../axios";
 import requests from "../requests";
 import qs from "qs";

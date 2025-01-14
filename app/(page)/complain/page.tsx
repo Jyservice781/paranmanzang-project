@@ -1,5 +1,5 @@
 "use client"
-import ComplainList from "@/app/components/common/Complain/ComplainList";
+import ComplainList from "@/components/common/Complain/ComplainList";
 import { useRouter } from "next/navigation";
 
 export default function List() {

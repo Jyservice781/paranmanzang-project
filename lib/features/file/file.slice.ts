@@ -1,6 +1,6 @@
 // fileSlice.ts
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initialFileState, FileModel, FileDeleteModel, FileType } from '../../../app/model/file/file.model';
+import { initialFileState, FileModel, FileDeleteModel, FileType } from '@/models/file/file.model';
 import { RootState } from '../../store';  // RootState는 store에서 정의된 타입이어야 함
 
 const fileSlice = createSlice({

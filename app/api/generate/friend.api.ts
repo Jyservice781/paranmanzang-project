@@ -1,7 +1,7 @@
 
 import requests from "@/app/api/requests";
-import { } from "@/app/model/user/user.model";
-import { FriendModel } from "@/app/model/user/users.model";
+import { } from "@/models/user/user.model";
+import { FriendModel } from "@/models/user/users.model";
 import api from "@/app/api/axios";
 
 export const friendAPI = {

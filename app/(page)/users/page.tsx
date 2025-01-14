@@ -4,16 +4,16 @@ import { useSelector } from "react-redux";
 import { getUserList, getNickname } from "@/lib/features/users/user.slice";
 import Image from "next/image";
 import { useAppDispatch } from "@/lib/store";
-import { userService } from "@/app/service/user/user.service";
+import { userService } from "@/services/user/user-service";
 import { useEffect, useState, useMemo } from "react";
-import Pagination from "@/app/components/common/Row/pagination/Pagination";
+import Pagination from "@/components/common/Row/pagination/Pagination";
 import { useRouter } from "next/navigation";
 
 export default function UserList() {
   const dispatch = useAppDispatch()
   const allUsers = useSelector(getUserList)
   const currentUserNickname = useSelector(getNickname)
-  const [userRoles, setUserRoles] = useState<{ [key: string]: string | undefined}>({})
+  const [userRoles, setUserRoles] = useState<{ [key: string]: string | undefined }>({})
   const router = useRouter()
 
   const [page, setPage] = useState(0)
@@ -103,18 +103,18 @@ export default function UserList() {
 
 
   return (
-    <div className="h-auto max-w-[80%] mx-auto my-[40px]">
+    <div className="mx-auto my-[40px] h-auto max-w-[80%]">
       <div id="btn" className="m-2 max-w-full">
-        <button onClick={() => {router.push("/admin")}}className="rounded-lg bg-green-400 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-500">
+        <button onClick={() => { router.push("/admin") }} className="rounded-lg bg-green-400 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-500">
           뒤로가기
         </button>
       </div>
 
-      <ul className="h-1/2 px-10 py-10 my-6 bg-green-100 rounded-lg">
+      <ul className="my-6 h-1/2 rounded-lg bg-green-100 p-10">
         {paginatedUsers.map(user => (
           <li key={user.id}>
-            <div className="inline-flex justify-around items-center w-full bg-green-50 border-2 border-green-400 p-4 m-2">
-              <div className="size-8 bg-green-500 rounded-full">
+            <div className="m-2 inline-flex w-full items-center justify-around border-2 border-green-400 bg-green-50 p-4">
+              <div className="size-8 rounded-full bg-green-500">
                 <Image
                   className="size-100 rounded-full shadow-lg"
                   width={502}
@@ -143,7 +143,7 @@ export default function UserList() {
                       <select
                         value={userRoles[user.nickname as string] || user.role}
                         onChange={(e) => user.nickname && handleRoleChange(user.nickname, e.target.value)}
-                        className="rounded-lg bg-green-50 px-3 py-1 text-center border-2 border-green-400 text-sm font-medium text-gray-900"
+                        className="rounded-lg border-2 border-green-400 bg-green-50 px-3 py-1 text-center text-sm font-medium text-gray-900"
                       >
                         <option value="ROLE_USER">일반회원</option>
                         <option value="ROLE_SELLER">판매자</option>

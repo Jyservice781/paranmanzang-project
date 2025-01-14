@@ -4,7 +4,7 @@ import {
   GroupResponseModel,
   initialGroupState,
   JoiningModel,
-} from '@/app/model/group/group.model';
+} from '@/models/group/group.model';
 import { RootState } from '@/lib/store';
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 

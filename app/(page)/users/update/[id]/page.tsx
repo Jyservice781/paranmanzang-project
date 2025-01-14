@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "@/lib/store";
 import { useState } from "react";
-import { userService } from "@/app/service/user/user.service";
+import { userService } from "@/services/user/user-service";
 import { useRouter } from "next/navigation";
 
 interface PageProps {

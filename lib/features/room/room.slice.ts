@@ -1,5 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initialRoomState, RoomModel } from '../../../app/model/room/room.model';
+import { initialRoomState, RoomModel } from '@/models/room/room.model';
 import { RootState } from '../../store';
 
 export const roomSlice = createSlice({

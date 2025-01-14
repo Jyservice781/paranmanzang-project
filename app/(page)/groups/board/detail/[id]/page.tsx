@@ -1,4 +1,4 @@
-import GroupPostDetails from "@/app/components/common/Details/GroupPostDetails";
+import GroupPostDetails from "@/components/common/Details/GroupPostDetails";
 
 export default function groupPostDetails() {
   return (

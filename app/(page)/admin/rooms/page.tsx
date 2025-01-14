@@ -1,7 +1,7 @@
 "use client";
-import Pagination from "@/app/components/common/Row/pagination/Pagination";
-import { RoomModel } from "@/app/model/room/room.model";
-import { roomService } from "@/app/service/room/room.service";
+import Pagination from "@/components/common/Row/pagination/Pagination";
+import { RoomModel } from "@/models/room/room.model";
+import { roomService } from "@/services/room/room-service";
 import { getDisabledRooms, getRooms, getTotalPageDisabledRoom, getTotalPageEnabledRoom, saveCurrentRoom } from "@/lib/features/room/room.slice";
 import { useAppDispatch } from "@/lib/store";
 import { useRouter } from "next/navigation";
@@ -79,15 +79,15 @@ export default function RoomAdmin() {
       <button onClick={() => route.back()} className="mx-2 rounded-lg bg-green-400 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-500">뒤로가기</button>
 
       <ul className="mx-auto my-8 rounded-lg bg-green-100 p-6 shadow-md">
-        <li className="flex space-x-4 my-4">
+        <li className="my-4 flex space-x-4">
           <button
-            className={`px-4 py-2 rounded-lg ${selectedCategory === '관리' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+            className={`rounded-lg px-4 py-2 ${selectedCategory === '관리' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
             onClick={() => handleTabClick('관리')}
           >
             관리
           </button>
           <button
-            className={`px-4 py-2 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+            className={`rounded-lg px-4 py-2 ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
             onClick={() => handleTabClick('승인 대기')}
           >
             승인 대기
@@ -97,9 +97,9 @@ export default function RoomAdmin() {
         {showList.length > 0 ? (
           showList.map((room, index) => (
             <li key={index} className="mx-auto my-3 flex items-center justify-around bg-white p-3">
-              <div className="flex justify-around w-80 items-center">
+              <div className="flex w-80 items-center justify-around">
                 <h2 className="text-lg">{room.name}</h2>
-                <p className="text-sm w-[9rem]">날짜: {room.createdAt ? formatDate(room.createdAt) : "날짜 정보 없음"}</p>
+                <p className="w-36 text-sm">날짜: {room.createdAt ? formatDate(room.createdAt) : "날짜 정보 없음"}</p>
               </div>
               {selectedCategory === '관리' && (
                 <button

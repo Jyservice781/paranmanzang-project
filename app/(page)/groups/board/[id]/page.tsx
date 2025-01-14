@@ -1,10 +1,10 @@
 "use client"
-import GroupBoard from "@/app/components/common/GroupBoard";
+import GroupBoard from "@/components/common/GroupBoard";
 
 export default function GroupBoardId() {
     return (
         <div>
-            <GroupBoard/>
+            <GroupBoard />
         </div>
     )
 }

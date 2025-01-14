@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initialAccountState, AccountModel } from '../../../app/model/room/account.model'
+import { initialAccountState, AccountModel } from '@/models/room/account.model'
 import { RootState } from '@/lib/store';
 
 const accountSlice = createSlice({

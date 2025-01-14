@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch } from '@/lib/store';
 import { useRouter } from 'next/navigation';
-import LoadingSpinner from '@/app/components/common/status/LoadingSpinner';
+import LoadingSpinner from '@/components/common/status/LoadingSpinner';
 
 const OauthCallback = () => {
     const router = useRouter();

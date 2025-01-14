@@ -1,7 +1,7 @@
 "use client"
 import { getNickname } from '@/app/api/authUtils'
-import { GroupResponseModel } from '@/app/model/group/group.model'
-import { groupService } from '@/app/service/group/group.service'
+import { GroupResponseModel } from '@/models/group/group.model'
+import { groupService } from '@/services/group/group-service'
 import { getLeaderGroups, saveCurrentGroup } from '@/lib/features/group/group.slice'
 import { useAppDispatch } from '@/lib/store'
 import { useRouter } from 'next/navigation'

@@ -1,6 +1,6 @@
 // reviewSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ReviewModel, ReviewUpdateModel, initialReviewState } from '../../../app/model/room/review.model';
+import { ReviewModel, ReviewUpdateModel, initialReviewState } from '@/models/room/review.model';
 import { RootState } from '../../store';
 
 // createSlice를 사용하여 slice 생성

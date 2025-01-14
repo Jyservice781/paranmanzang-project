@@ -1,4 +1,4 @@
-import { LikeRoomModel } from "@/app/model/user/users.model";
+import { LikeRoomModel } from "@/models/user/users.model";
 import requests from "@/app/api/requests";
 import api from "@/app/api/axios";
 

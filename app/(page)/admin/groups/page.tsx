@@ -1,8 +1,8 @@
 "use client"
-import Pagination from "@/app/components/common/Row/pagination/Pagination";
-import { GroupResponseModel } from "@/app/model/group/group.model";
-import { chatRoomService } from "@/app/service/chat/chatRoom.service";
-import { groupService } from "@/app/service/group/group.service";
+import Pagination from "@/components/common/Row/pagination/Pagination";
+import { GroupResponseModel } from "@/models/group/group.model";
+import { chatRoomService } from "@/services/chat/chatRoom-service";
+import { groupService } from "@/services/group/group-service";
 import { getEnableGroups, getGroups, getTotalPageAbleGroup, getTotalPageEnableGroup, saveCurrentGroup } from "@/lib/features/group/group.slice";
 import { useAppDispatch } from "@/lib/store";
 import { useRouter } from "next/navigation";
@@ -61,12 +61,12 @@ export default function GroupsAdmin() {
           <ul>
             {groups.length > 0 ? (
               groups.map((group, index) => (
-                <li key={index} className="p-4 px-8 bg-white rounded-lg shadow-sm mb-4 flex justify-between items-center">
+                <li key={index} className="mb-4 flex items-center justify-between rounded-lg bg-white p-4 px-8 shadow-sm">
                   <p className="font-bold text-gray-800" onClick={() => onClickToDetail(group)}>
                     {group.name}
                   </p>
                   <button
-                    className="px-4 py-2 bg-red-400 text-white rounded-lg hover:bg-red-500"
+                    className="rounded-lg bg-red-400 px-4 py-2 text-white hover:bg-red-500"
                     onClick={() =>
                       enableGroup(group)
                     }
@@ -85,12 +85,12 @@ export default function GroupsAdmin() {
           <ul>
             {enableGroups.length > 0 ? (
               enableGroups.map((group, index) => (
-                <li key={index} className="p-4 px-8 bg-white rounded-lg shadow-sm mb-4 flex justify-between items-center">
+                <li key={index} className="mb-4 flex items-center justify-between rounded-lg bg-white p-4 px-8 shadow-sm">
                   <p className="font-bold text-gray-800" onClick={() => onClickToDetail(group)}>
                     {group.name}
                   </p>
                   <button
-                    className="px-4 py-2 bg-red-400 text-white rounded-lg hover:bg-red-500"
+                    className="rounded-lg bg-red-400 px-4 py-2 text-white hover:bg-red-500"
                     onClick={() =>
                       ableGroup(group)
                     }
@@ -110,15 +110,15 @@ export default function GroupsAdmin() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto my-10 p-6 bg-white rounded-lg">
-      <div className="flex justify-between items-center">
-        <div className="py-4 rounded-lg">
+    <div className="mx-auto my-10 max-w-4xl rounded-lg bg-white p-6">
+      <div className="flex items-center justify-between">
+        <div className="rounded-lg py-4">
           <h1 className="text-lg font-semibold">소모임 승인 요청</h1>
         </div>
         <button
           type="button"
           onClick={() => { router.back() }}
-          className="rounded-lg bg-green-400 px-4 py-2 my-4 text-sm font-medium hover:bg-green-500 transition duration-300 border border-green-400 text-white"
+          className="my-4 rounded-lg border border-green-400 bg-green-400 px-4 py-2 text-sm font-medium text-white transition duration-300 hover:bg-green-500"
         >
           뒤로가기
         </button>
@@ -127,16 +127,16 @@ export default function GroupsAdmin() {
 
       <div className="my-6">
         {/* 탭 버튼 */}
-        <div className="flex justify-center bg-green-50 py-8 rounded-t-lg shadow-b-lg">
+        <div className="shadow-b-lg flex justify-center rounded-t-lg bg-green-50 py-8">
           <button
-            className={`px-4 py-2 mx-2 rounded-lg ${activeTab === "승인 완료" ? "bg-green-400 text-white" : "bg-gray-200"
+            className={`mx-2 rounded-lg px-4 py-2 ${activeTab === "승인 완료" ? "bg-green-400 text-white" : "bg-gray-200"
               }`}
             onClick={() => setActiveTab("승인 완료")}
           >
             승인 완료
           </button>
           <button
-            className={`px-4 py-2 mx-2 rounded-lg ${activeTab === "승인 대기" ? "bg-green-400 text-white" : "bg-gray-200"
+            className={`mx-2 rounded-lg px-4 py-2 ${activeTab === "승인 대기" ? "bg-green-400 text-white" : "bg-gray-200"
               }`}
             onClick={() => setActiveTab("승인 대기")}
           >
@@ -145,7 +145,7 @@ export default function GroupsAdmin() {
         </div>
 
         {/* 탭 내용 렌더링 */}
-        <div className="bg-green-50 p-8 rounded-b-lg">{renderTabContent()}</div>
+        <div className="rounded-b-lg bg-green-50 p-8">{renderTabContent()}</div>
       </div>
       <Pagination
         currentPage={page}

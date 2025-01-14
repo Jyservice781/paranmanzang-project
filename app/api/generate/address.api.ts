@@ -1,4 +1,4 @@
-import { AddressModel, AddressResponseModel, AddressUpdateModel, QueryModel } from "@/app/model/room/address.model";
+import { AddressModel, AddressResponseModel, AddressUpdateModel, QueryModel } from "@/models/room/address.model";
 import requests from "../requests";
 import api from "../axios";
 

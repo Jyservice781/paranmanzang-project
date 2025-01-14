@@ -1,8 +1,8 @@
-import RoomReview from "@/app/components/RoomComponent/RoomReview";
+import RoomReview from "@/components/RoomComponent/RoomReview";
 
 export default function ReviewRoom() {
 
   return (
-   <RoomReview />
+    <RoomReview />
   )
 }

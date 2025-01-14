@@ -1,7 +1,7 @@
 // src/services/userService.ts
 import api from '../axios';
 import requests from "@/app/api/requests";
-import { DeclarationPostModel } from "@/app/model/user/users.model";
+import { DeclarationPostModel } from "@/models/user/users.model";
 //insert, drop, modify, find**
 
 export const declarationPostAPI = {

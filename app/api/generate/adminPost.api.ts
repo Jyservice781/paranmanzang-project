@@ -1,6 +1,6 @@
 import api from '../axios';
 import requests from "@/app/api/requests";
-import { AdminPostModel } from "@/app/model/user/users.model";
+import { AdminPostModel } from "@/models/user/users.model";
 
 export const adminPostAPI = {
     findAdminPost: (page: number, size: number) => {

@@ -1,6 +1,6 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/lib/store';
-import { BookResponseModel, initialBookState } from '@/app/model/group/book.model';
+import { BookResponseModel, initialBookState } from '@/models/group/book.model';
 
 export const bookSlice = createSlice({
   name: 'book',

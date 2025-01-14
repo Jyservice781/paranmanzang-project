@@ -1,4 +1,4 @@
-import { RoomModel, RoomUpdateModel, TimeModel } from "@/app/model/room/room.model";
+import { RoomModel, RoomUpdateModel, TimeModel } from "@/models/room/room.model";
 import requests from "@/app/api/requests";
 import api from "@/app/api/axios";
 

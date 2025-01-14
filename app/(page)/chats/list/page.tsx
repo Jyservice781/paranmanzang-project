@@ -1,7 +1,7 @@
 "use client";
-import CardRow from "@/app/components/chat/CardRow";
-import { ChatRoomModel } from "@/app/model/chat/chat.model";
-import { chatRoomService } from "@/app/service/chat/chatRoom.service";
+import CardRow from "@/components/chat/CardRow";
+import { ChatRoomModel } from "@/models/chat/chat.model";
+import { chatRoomService } from "@/services/chat/chatRoom-service";
 import { useAppDispatch } from "@/lib/store";
 import { useEffect, useState } from "react";
 import { getNickname } from "@/lib/features/users/user.slice";

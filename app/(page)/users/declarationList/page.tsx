@@ -1,5 +1,5 @@
 "use client";
-import { declarationService } from "@/app/service/users/declarationPost.service";
+import { declarationService } from "@/services/users/declarationPost-service";
 import { getDeclarationPostsByNickname } from "@/lib/features/users/declarationPost.slice";
 import { getNickname } from "@/lib/features/users/user.slice";
 import { useAppDispatch } from "@/lib/store";

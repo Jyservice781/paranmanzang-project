@@ -1,6 +1,6 @@
 import api from "@/app/api/axios";
 import requests from "@/app/api/requests";
-import { ChatUserModel } from "@/app/model/chat/chat.model";
+import { ChatUserModel } from "@/models/chat/chat.model";
 
 const chatUserAPI = {
     insert(roomId: string, nickname: string) {

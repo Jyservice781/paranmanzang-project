@@ -1,5 +1,5 @@
-import UpReview from "@/app/components/RoomComponent/UploadReview"
-export default function UploadReview () {
+import UpReview from "@/components/RoomComponent/UploadReview"
+export default function UploadReview() {
     return (
         <UpReview />
     )

@@ -1,4 +1,4 @@
-import { ExceptionResponseModel } from "@/app/model/error.model";
+import { ExceptionResponseModel } from "@/models/error.model";
 import requests from "@/app/api/requests";
 import api from "@/app/api/axios";
 
@@ -6,7 +6,7 @@ import {
     GroupModel,
     GroupResponseModel,
     JoiningModel,
-} from "@/app/model/group/group.model";
+} from "@/models/group/group.model";
 
 export const groupApi = {
     findList(page: number, size: number) {

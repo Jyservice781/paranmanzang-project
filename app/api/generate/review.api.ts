@@ -1,4 +1,4 @@
-import { ReviewModel, ReviewUpdateModel } from "@/app/model/room/review.model";
+import { ReviewModel, ReviewUpdateModel } from "@/models/room/review.model";
 import requests from "@/app/api/requests";
 import api from "@/app/api/axios";
 

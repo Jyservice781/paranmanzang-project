@@ -1,7 +1,7 @@
 "use client";
-import Alert from "@/app/components/common/Alert";
-import { FriendModel } from "@/app/model/user/users.model";
-import { friendService } from "@/app/service/users/friend.service";
+import Alert from "@/components/common/Alert";
+import { FriendModel } from "@/models/user/users.model";
+import { friendService } from "@/services/users/friend-service";
 import { getAlreadyFriends, getRequestFriends, getResponseFriends } from "@/lib/features/users/friend.slice";
 import { getNickname } from "@/lib/features/users/user.slice";
 import { useAppDispatch } from "@/lib/store";
@@ -59,12 +59,12 @@ export default function DeclarationList() {
           <ul>
             {friends.length > 0 ? (
               friends.map((friend, index) => (
-                <li key={index} className="p-4 bg-white rounded-lg shadow-sm mb-4 flex justify-between items-center">
+                <li key={index} className="mb-4 flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
                   <p className="font-bold text-gray-800">
                     {friend.requestUser === nickname ? friend.responseUser : friend.requestUser}
                   </p>
                   <button
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                    className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
                     onClick={() =>
                       deleteFriend(
                         friend.requestUser === nickname ? friend.responseUser : friend.requestUser,
@@ -87,10 +87,10 @@ export default function DeclarationList() {
           <ul>
             {requestFriends.length > 0 ? (
               requestFriends.map((friend, index) => (
-                <li key={index} className="p-4 bg-white rounded-lg shadow-sm mb-4 flex justify-between items-center">
+                <li key={index} className="mb-4 flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
                   <p className="font-bold text-gray-800">{friend.responseUser}</p>
                   <button
-                    className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                    className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
                     onClick={() => deleteFriend(friend.responseUser, Number(friend.id), activeTab)}
                   >
                     요청 취소
@@ -107,17 +107,17 @@ export default function DeclarationList() {
           <ul>
             {responseFriends.length > 0 ? (
               responseFriends.map((friend, index) => (
-                <li key={index} className="p-4 bg-white rounded-lg shadow-sm mb-4 flex justify-between items-center">
+                <li key={index} className="mb-4 flex items-center justify-between rounded-lg bg-white p-4 shadow-sm">
                   <p className="font-bold text-gray-800">{friend.requestUser}</p>
                   <div className="flex space-x-4">
                     <button
-                      className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                      className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
                       onClick={() => deleteFriend(friend.requestUser, Number(friend.id), activeTab)}
                     >
                       요청 거절
                     </button>
                     <button
-                      className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                      className="rounded-lg bg-green-500 px-4 py-2 text-white hover:bg-green-600"
                       onClick={() => insertFriend(friend)}
                     >
                       요청 수락
@@ -137,30 +137,30 @@ export default function DeclarationList() {
 
 
   return (
-    <div className="max-w-4xl mx-auto my-10 p-6 bg-white rounded-lg shadow-lg">
-      <div className="bg-green-50 py-8 rounded-lg text-center">
+    <div className="mx-auto my-10 max-w-4xl rounded-lg bg-white p-6 shadow-lg">
+      <div className="rounded-lg bg-green-50 py-8 text-center">
         <h1 className="text-4xl font-bold">친구 관리</h1>
       </div>
 
       <div className="my-6 space-y-6">
         {/* 탭 버튼 */}
-        <div className="flex justify-center mb-8">
+        <div className="mb-8 flex justify-center">
           <button
-            className={`px-4 py-2 mx-2 rounded-lg ${activeTab === "친구 목록" ? "bg-green-500 text-white" : "bg-gray-200"
+            className={`mx-2 rounded-lg px-4 py-2 ${activeTab === "친구 목록" ? "bg-green-500 text-white" : "bg-gray-200"
               }`}
             onClick={() => setActiveTab("친구 목록")}
           >
             친구 목록
           </button>
           <button
-            className={`px-4 py-2 mx-2 rounded-lg ${activeTab === "보낸 요청" ? "bg-green-500 text-white" : "bg-gray-200"
+            className={`mx-2 rounded-lg px-4 py-2 ${activeTab === "보낸 요청" ? "bg-green-500 text-white" : "bg-gray-200"
               }`}
             onClick={() => setActiveTab("보낸 요청")}
           >
             보낸 요청
           </button>
           <button
-            className={`px-4 py-2 mx-2 rounded-lg ${activeTab === "받은 요청" ? "bg-green-500 text-white" : "bg-gray-200"
+            className={`mx-2 rounded-lg px-4 py-2 ${activeTab === "받은 요청" ? "bg-green-500 text-white" : "bg-gray-200"
               }`}
             onClick={() => setActiveTab("받은 요청")}
           >
@@ -169,13 +169,13 @@ export default function DeclarationList() {
         </div>
 
         {/* 탭 내용 렌더링 */}
-        <div className="bg-green-50 p-8 rounded-lg">{renderTabContent()}</div>
+        <div className="rounded-lg bg-green-50 p-8">{renderTabContent()}</div>
       </div>
-      <div className="flex justify-center mt-6">
+      <div className="mt-6 flex justify-center">
         <button
           type="button"
           onClick={() => { router.back() }}
-          className="rounded-full bg-white-400 px-6 py-3 text-black text-sm font-medium hover:bg-gray-200 transition duration-300 border border-gray-200"
+          className="bg-white-400 rounded-full border border-gray-200 px-6 py-3 text-sm font-medium text-black transition duration-300 hover:bg-gray-200"
         >
           뒤로가기
         </button>

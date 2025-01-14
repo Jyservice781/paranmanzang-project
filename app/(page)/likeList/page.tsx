@@ -8,12 +8,12 @@ import { getLikedRooms, saveCurrentRoom } from "@/lib/features/room/room.slice";
 import { getLikedBooks, saveCurrentBook } from "@/lib/features/group/book.slice";
 import { getAddresses, saveCurrentAddress } from "@/lib/features/room/address.slice";
 import { getNickname } from "@/lib/features/users/user.slice";
-import { likePostService } from "@/app/service/group/likePost.service";
-import { likeBookService } from "@/app/service/group/likeBook.service";
-import { likeRoomService } from "@/app/service/users/likeRoom.service";
-import { LikePostModel } from "@/app/model/group/group.model";
-import { LikeBookModel } from "@/app/model/group/book.model";
-import { LikeRoomModel } from "@/app/model/user/users.model";
+import { likePostService } from "@/services/group/likePost-service";
+import { likeBookService } from "@/services/group/likeBook-service";
+import { likeRoomService } from "@/services/users/likeRoom-service";
+import { LikePostModel } from "@/models/group/group.model";
+import { LikeBookModel } from "@//models/group/book.model";
+import { LikeRoomModel } from "@//models/user/users.model";
 
 
 interface LikeItemProps {

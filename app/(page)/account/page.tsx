@@ -1,6 +1,6 @@
 "use client"
-import { AccountModel } from "@/app/model/room/account.model";
-import { accountService } from "@/app/service/room/account.service";
+import { AccountModel } from "@/models/room/account.model";
+import { accountService } from "@/services/room/account-service";
 import { getLeaderGroups } from "@/lib/features/group/group.slice";
 import { getNickname } from "@/lib/features/users/user.slice";
 import { useAppDispatch } from "@/lib/store";

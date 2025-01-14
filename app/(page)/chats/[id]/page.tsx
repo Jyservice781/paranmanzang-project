@@ -4,18 +4,18 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import dynamic from 'next/dynamic';
 
-import { ChatMessageModel, ChatRoomModel, ChatUserModel } from "@/app/model/chat/chat.model";
+import { ChatMessageModel, ChatRoomModel, ChatUserModel } from "@/models/chat/chat.model";
 import { getCurrentChatRoom, getError, getIsLoading, saveError, saveLoading } from "@/lib/features/chat/chat.slice";
-import { chatRoomService } from "@/app/service/chat/chatRoom.service";
-import { chatUserService } from "@/app/service/chat/chatUser.service";
-import { chatMessageService } from "@/app/service/chat/chatMessage.service";
+import { chatRoomService } from "@/services/chat/chatRoom-service";
+import { chatUserService } from "@/services/chat/chatUser-service";
+import { chatMessageService } from "@/services/chat/chatMessage-service";
 import { useAppDispatch } from "@/lib/store";
 import { getNickname } from "@/lib/features/users/user.slice";
 
-const ChatPage = dynamic(() => import("@/app/components/chat/ChatPages/ChatPage"), { ssr: false });
-const MyChatList = dynamic(() => import("@/app/components/chat/MyChatList"), { ssr: false });
-const PeopleList = dynamic(() => import("@/app/components/chat/PeopleList"), { ssr: false });
-const MyProfile = dynamic(() => import("@/app/components/chat/MyProfile"), { ssr: false });
+const ChatPage = dynamic(() => import("@/components/chat/ChatPages/ChatPage"), { ssr: false });
+const MyChatList = dynamic(() => import("@/components/chat/MyChatList"), { ssr: false });
+const PeopleList = dynamic(() => import("@/components/chat/PeopleList"), { ssr: false });
+const MyProfile = dynamic(() => import("@/components/chat/MyProfile"), { ssr: false });
 
 export default function ChatRoom() {
     const router = useRouter();
@@ -184,11 +184,11 @@ export default function ChatRoom() {
                     </button>
                 </div>
                 <div className="flex h-screen justify-center rounded-lg bg-gray-100">
-                    <section className="relative flex flex-col w-1/5 bg-green-700">
+                    <section className="relative flex w-1/5 flex-col bg-green-700">
                         {memoizedMyChatList}
                         <div className="flex-1 overflow-hidden">
                             <ul
-                                className="w-full h-full overflow-y-auto"
+                                className="size-full overflow-y-auto"
                                 ref={listRef}
                                 style={{ maxHeight: "100%" }} // 최대 높이 설정
                             >

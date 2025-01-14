@@ -1,4 +1,4 @@
-import UserProfile from "@/app/components/user/UserProfile";
+import UserProfile from "@/components/user/UserProfile";
 
 interface PageProps {
   params: { id: string };
@@ -9,7 +9,7 @@ export default function GetMyPage({ params }: PageProps) {
 
   return (
     <div>
-      <UserProfile/>
+      <UserProfile />
     </div>
   );
 }

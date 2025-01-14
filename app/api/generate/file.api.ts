@@ -1,4 +1,4 @@
-import { FileDeleteModel, FileModel, FileType } from "@/app/model/file/file.model";
+import { FileDeleteModel, FileModel, FileType } from "@/models/file/file.model";
 import api from "../axios";
 import qs from "qs"
 import requests from "../requests";

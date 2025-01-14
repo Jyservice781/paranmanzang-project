@@ -1,6 +1,6 @@
 import requests from "@/app/api/requests";
 import api from "@/app/api/axios";
-import { GroupPostResponseModel, LikePostModel } from "@/app/model/group/group.model";
+import { GroupPostResponseModel, LikePostModel } from "@/models/group/group.model";
 
 export const likePostAPI = {
     insert: (likePostModel: LikePostModel) => {

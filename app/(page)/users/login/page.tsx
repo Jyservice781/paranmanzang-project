@@ -4,7 +4,7 @@ import { useState, useEffect, ReactEventHandler, useRef } from 'react';
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from '@/lib/store';
-import { loginService } from '@/app/service/user/login.service';
+import { loginService } from '@/services/user/login-service';
 import { useSelector } from 'react-redux';
 import { getCurrentUser } from '@/lib/features/users/user.slice';
 

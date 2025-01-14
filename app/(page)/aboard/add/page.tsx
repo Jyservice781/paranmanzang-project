@@ -1,12 +1,12 @@
 "use client"
 import Link from "next/link";
-import Alert from "@/app/components/common/Alert";
+import Alert from "@/components/common/Alert";
 import { useState } from "react";
 
 export default function Add() {
   const [message, setMessage] = useState("");
   const [isActive, setIsActive] = useState(false);
-  const onCreate = (e:any) => {
+  const onCreate = (e: any) => {
     e.preventDefault();
     setIsActive(true);
     setMessage("등록이 완료되었습니다.");

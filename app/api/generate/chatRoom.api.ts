@@ -1,6 +1,6 @@
 import api from "@/app/api/axios";
 import requests from "@/app/api/requests";
-import { ChatRoomModel } from "@/app/model/chat/chat.model";
+import { ChatRoomModel } from "@/models/chat/chat.model";
 
 const chatRoomAPI = {
     findList(nickname: string) {

@@ -1,7 +1,7 @@
 "use client"
-import Pagination from "@/app/components/common/Row/pagination/Pagination"
-import { BookingModel } from "@/app/model/room/bookings.model"
-import { bookingService } from "@/app/service/room/booking.service"
+import Pagination from "@/components/common/Row/pagination/Pagination"
+import { BookingModel } from "@/models/room/bookings.model"
+import { bookingService } from "@/services/room/booking-service"
 import { getEnabledRoomBooking, getNotEnabledRoomBooking, getPayCompletedBookings, getTotalPageDisabledRoomBooking, getTotalPageEnabledRoomBooking, getTotalPagePayCompletedBooking } from "@/lib/features/room/booking.slice"
 import { getCurrentRoom, saveCurrentRoom } from "@/lib/features/room/room.slice"
 import { useAppDispatch } from "@/lib/store"
@@ -111,8 +111,8 @@ export default function SellerBooking() {
 
 
     return (
-        <div className="mx-auto my-8 max-w-[80%] p-6 rounded-lg bg-green-100 shadow-md">
-            <div className="p-6 flex space-y-2 sm:space-y-0 sm:space-x-8 my-4 items-center text-gray-700 bg-white rounded-lg ">
+        <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
+            <div className="my-4 flex items-center space-y-2 rounded-lg bg-white p-6 text-gray-700 sm:space-x-8 sm:space-y-0 ">
                 <p className="font-semibold">방 이름: {room?.name || "정보 없음"} <span className="mx-2"> | </span></p>
                 <p className="font-semibold">가격: {room?.price ? `${room.price}원` : "정보 없음"}<span className="mx-2"> | </span></p>
                 <p className="font-semibold">오픈 시간: {room?.openTime || "정보 없음"}<span className="mx-2"> | </span></p>
@@ -120,26 +120,26 @@ export default function SellerBooking() {
                 <button
                     type="button"
                     onClick={() => handleToDetailRoom}
-                    className="p-2 rounded-lg bg-red-400 text-white font-medium text-sm hover:bg-red-500"
+                    className="rounded-lg bg-red-400 p-2 text-sm font-medium text-white hover:bg-red-500"
                 >
                     공간 상세 보기
                 </button>
             </div>
-            <div className="flex space-x-4 my-4">
+            <div className="my-4 flex space-x-4">
                 <button
-                    className={`p-2 rounded-lg ${selectedCategory === '결제 완료' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+                    className={`rounded-lg p-2 ${selectedCategory === '결제 완료' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
                     onClick={() => handleTabClick('결제 완료')}
                 >
                     결제 완료
                 </button>
                 <button
-                    className={`p-2 rounded-lg ${selectedCategory === '결제 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+                    className={`rounded-lg p-2 ${selectedCategory === '결제 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
                     onClick={() => handleTabClick('결제 대기')}
                 >
                     결제 대기
                 </button>
                 <button
-                    className={`p-2 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+                    className={`rounded-lg p-2 ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
                     onClick={() => handleTabClick('승인 대기')}
                 >
                     승인 대기
@@ -174,7 +174,7 @@ export default function SellerBooking() {
                                     <button
                                         type="button"
                                         onClick={() => openModal(booking)}
-                                        className="px-4 py-2 rounded-lg bg-red-600 text-white font-medium text-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
+                                        className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1"
                                     >
                                         결제 상세 보기
                                     </button>
@@ -184,7 +184,7 @@ export default function SellerBooking() {
                     ))}
                 </ul>
             ) : (
-                <p className="list-none my-3 text-center text-gray-500">정보가 존재하지 않습니다.</p>
+                <p className="my-3 list-none text-center text-gray-500">정보가 존재하지 않습니다.</p>
             )}
 
             <Pagination
@@ -195,9 +195,9 @@ export default function SellerBooking() {
 
             <button type="button" onClick={() => route.back()} className="rounded-lg bg-green-400 px-4 py-2 text-center text-sm font-medium text-white hover:bg-green-500">뒤로가기</button>
             {isModalOpen && selectedBooking && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-                        <h3 className="text-lg font-semibold mb-4 text-gray-800">결제 상세 정보</h3>
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+                        <h3 className="mb-4 text-lg font-semibold text-gray-800">결제 상세 정보</h3>
                         <p>예약 방 이름: {selectedBooking.roomName}</p>
                         <p>예약 일: {selectedBooking.date}</p>
                         <p>소모임: {selectedBooking.account?.orderName}</p>
@@ -206,7 +206,7 @@ export default function SellerBooking() {
                         <div className="mt-5 flex justify-end">
                             <button
                                 onClick={closeModal}
-                                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 focus:outline-none"
+                                className="rounded-lg bg-gray-600 px-4 py-2 text-white hover:bg-gray-700 focus:outline-none"
                             >
                                 닫기
                             </button>

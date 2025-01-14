@@ -1,12 +1,12 @@
 "use client"
-import { RoomModel } from "@/app/model/room/room.model"
-import { roomService } from "@/app/service/room/room.service"
+import { RoomModel } from "@/models/room/room.model"
+import { roomService } from "@/services/room/room-service"
 import { getNickname } from "@/lib/features/users/user.slice"
 import { useAppDispatch } from "@/lib/store"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import Pagination from "@/app/components/common/Row/pagination/Pagination"
+import Pagination from "@/components/common/Row/pagination/Pagination"
 import { getDisabledRoomByNickname, getEnabledRoomByNickname, getTotalPageSellerDisabledRoom, getTotalPageSellerEnabledRoom, saveCurrentRoom } from "@/lib/features/room/room.slice"
 
 export default function SellerRoom() {
@@ -85,16 +85,16 @@ export default function SellerRoom() {
 
   return (
     <div className="mx-auto my-8 max-w-[80%] rounded-lg bg-green-100 p-6 shadow-md">
-      <div className="flex mb-4 justify-between">
+      <div className="mb-4 flex justify-between">
         <div>
           <button
-            className={`px-4 py-2 rounded-lg ${selectedCategory === '관리' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+            className={`rounded-lg px-4 py-2 ${selectedCategory === '관리' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
             onClick={() => handleTabClick('관리')}
           >
             관리
           </button>
           <button
-            className={`px-4 py-2 mx-4 rounded-lg ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
+            className={`mx-4 rounded-lg px-4 py-2 ${selectedCategory === '승인 대기' ? 'bg-green-400 text-white' : 'bg-gray-200 text-black'}`}
             onClick={() => handleTabClick('승인 대기')}
           >
             승인 대기
@@ -102,7 +102,7 @@ export default function SellerRoom() {
         </div>
         <div>
           <button
-            className={`px-4 py-2 rounded-full bg-green-400 text-white hover:bg-green-500 text-black'}`}
+            className={`text-black'} rounded-full bg-green-400 px-4 py-2 text-white hover:bg-green-500`}
             onClick={() => { route.push('/rooms/add') }}
           >
             공간등록
@@ -114,19 +114,19 @@ export default function SellerRoom() {
         showList.map((room) => (
           <li key={room.id}
             className="mx-auto my-3 flex items-center justify-around bg-white p-3">
-            <div className="flex justify-around items-center w-1/2">
-              <h2 className="text-lg w-1/2">{room.name}</h2>
+            <div className="flex w-1/2 items-center justify-around">
+              <h2 className="w-1/2 text-lg">{room.name}</h2>
               <p className="min-w-40">{room.createdAt ? formatDate(room.createdAt) : "날짜 정보 없음"}</p>
             </div>
             {selectedCategory === '관리' && (
               <div>
-                <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg text-white bg-red-400 p-3">삭제</button>
-                <button type="button" onClick={() => onUpdate(room)} className="mx-2 rounded-lg bg-green-400 text-white p-3">수정</button>
-                <button type="button" onClick={() => handleDetail(room)} className="mx-2 rounded-lg bg-green-400 text-white p-3">예약 정보</button>
+                <button type="button" onClick={() => onDelete(`${room.id}`)} className="mx-2 rounded-lg bg-red-400 p-3 text-white">삭제</button>
+                <button type="button" onClick={() => onUpdate(room)} className="mx-2 rounded-lg bg-green-400 p-3 text-white">수정</button>
+                <button type="button" onClick={() => handleDetail(room)} className="mx-2 rounded-lg bg-green-400 p-3 text-white">예약 정보</button>
                 <button
                   type="button"
                   onClick={() => handleToDetailRoom(room)}
-                  className="mx-2 rounded-lg bg-green-400 text-white p-3"
+                  className="mx-2 rounded-lg bg-green-400 p-3 text-white"
                 >
                   공간 상세 보기
                 </button>
@@ -150,7 +150,7 @@ export default function SellerRoom() {
         onPageChange={setPage}
       />
 
-      <button type="button" onClick={() => route.back()} className="mt-4 px-4 py-2 rounded-lg bg-green-400 text-white">뒤로가기</button>
+      <button type="button" onClick={() => route.back()} className="mt-4 rounded-lg bg-green-400 px-4 py-2 text-white">뒤로가기</button>
     </div>
   )
 }

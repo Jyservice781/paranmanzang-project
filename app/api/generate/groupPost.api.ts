@@ -5,7 +5,7 @@ import qs from 'qs';
 import {
     GroupPostModel,
     GroupPostResponseModel,
-} from "@/app/model/group/group.model";
+} from "@/models/group/group.model";
 
 
 export const groupPostAPI = {

@@ -1,5 +1,5 @@
 "use client";
-import RoomDetails from "@/app/components/common/Details/RoomDetails";
+import RoomDetails from "@/components/common/Details/RoomDetails";
 import { useParams } from "next/navigation";
 
 export default function Rooms() {
@@ -7,7 +7,7 @@ export default function Rooms() {
 
   return (
     <div>
-      <RoomDetails/>
+      <RoomDetails />
     </div>
   );
 }

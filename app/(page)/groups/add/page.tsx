@@ -1,4 +1,4 @@
-import GroupAdd from "@/app/components/crud/GroupAdd"
+import GroupAdd from "@/components/crud/GroupAdd"
 export default function groupAdd() {
   return (
     <>

@@ -1,8 +1,8 @@
-import { AccountCancelModel, AccountModel, AccountResultModel } from "@/app/model/room/account.model";
+import { AccountCancelModel, AccountModel, AccountResultModel } from "@/models/room/account.model";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import api from "../axios";
 import requests from "../requests";
-import { BookingModel } from "@/app/model/room/bookings.model";
+import { BookingModel } from "@/models/room/bookings.model";
 
 export const accountAPI = {
     load() { return loadTossPayments("test_ck_mBZ1gQ4YVX9QGM06mRNRrl2KPoqN"); },

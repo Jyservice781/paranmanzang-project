@@ -1,7 +1,7 @@
 import api from "@/app/api/axios";
 import requests from "@/app/api/requests";
-import { RegisterModel, UserModel } from "@/app/model/user/user.model";
-import { ExceptionResponseModel } from "@/app/model/error.model";
+import { RegisterModel, UserModel } from "@/models/user/user.model";
+import { ExceptionResponseModel } from "@/models/error.model";
 //insert, drop, modify, find**
 export const userAPI = {
 

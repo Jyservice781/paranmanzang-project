@@ -1,6 +1,6 @@
 import requests from "@/app/api/requests";
 import api from "@/app/api/axios";
-import { BookResponseModel } from "@/app/model/group/book.model";
+import { BookResponseModel } from "@/models/group/book.model";
 
 
 

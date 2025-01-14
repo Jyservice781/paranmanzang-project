@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "./components/common/Header";
-import Footer from "./components/common/Footer";
+import Header from "../components/common/Header";
+import Footer from "../components/common/Footer";
 import StoreProvider from "./StoreProvider";
 import QueryProvider from "./QueryProvider";
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({   
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -22,11 +22,11 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <StoreProvider>
-        <QueryProvider >
-          <Header />
-          <main className="mb-6 pb-6">{children}</main>
-          <Footer />          
-        </QueryProvider>
+          <QueryProvider >
+            <Header />
+            <main className="mb-6 pb-6">{children}</main>
+            <Footer />
+          </QueryProvider>
         </StoreProvider>
       </body>
     </html>

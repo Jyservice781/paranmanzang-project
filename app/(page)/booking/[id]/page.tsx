@@ -1,10 +1,10 @@
 "use client"
-import BookingList from "@/app/components/common/BookingList"
+import BookingList from "@/components/common/BookingList"
 
 export default function BookingListPage() {
   return (
     <div className="my-8">
-      <BookingList/>
+      <BookingList />
     </div>
   )
 }

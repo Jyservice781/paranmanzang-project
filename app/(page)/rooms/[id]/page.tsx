@@ -1,5 +1,5 @@
 "use client";
-import RoomDetails from "@/app/components/common/Details/RoomDetails";
+import RoomDetails from "@/components/common/Details/RoomDetails";
 import { useParams } from "next/navigation";
 
 interface RoomIdProps {
@@ -7,10 +7,10 @@ interface RoomIdProps {
     id: string
   }
 }
-export default function RoomOne({params} : RoomIdProps) {
+export default function RoomOne({ params }: RoomIdProps) {
   return (
     <div>
-      <RoomDetails/>
+      <RoomDetails />
     </div>
   );
 }

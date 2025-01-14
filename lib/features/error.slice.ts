@@ -1,6 +1,6 @@
 // errorSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initialErrorState, ExceptionResponseModel } from '../../app/model/error.model';
+import { initialErrorState, ExceptionResponseModel } from '@/models/error.model';
 import { RootState } from '../store';
 
 const errorSlice = createSlice({

@@ -3,7 +3,7 @@
 import { useState, FormEvent, ChangeEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Alert from "@/app/components/common/Alert";
+import Alert from "@/components/common/Alert";
 
 interface UpdateFormData {
   title: string;
@@ -93,7 +93,7 @@ export default function Update() {
           뒤로가기
         </Link>
       </form>
-      <Alert 
+      <Alert
         isOpen={isOpen}
         message={message}
         onClose={() => setIsOpen(false)}

@@ -1,7 +1,7 @@
 import api from '../axios';
 import requests from "@/app/api/requests";
-import { ExceptionResponseModel } from "@/app/model/error.model";
-import { CommentRequestModel, CommentResponseModel } from "@/app/model/comment/comment.model";
+import { ExceptionResponseModel } from "@/models/error.model";
+import { CommentRequestModel, CommentResponseModel } from "@/models/comment/comment.model";
 
 export const commentAPI = {
     insert(model: CommentRequestModel, nickname: string) {

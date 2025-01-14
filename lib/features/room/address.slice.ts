@@ -1,7 +1,7 @@
 // addressSlice.ts
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { initialAddressState, AddressModel} from '../../../app/model/room/address.model';
+import { initialAddressState, AddressModel} from '@/models/room/address.model';
 import { RootState } from '@/lib/store';
 
 const addressSlice = createSlice({

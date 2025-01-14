@@ -1,4 +1,4 @@
-import SideBar from "@/app/components/common/Row/SideBar";
+import SideBar from "@/components/common/Row/SideBar";
 
 export default function List() {
   return (
